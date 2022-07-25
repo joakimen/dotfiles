@@ -40,6 +40,8 @@ alias tn="tmux-new-session"
 alias g=git
 alias c="git add . && git commit"
 alias cdd="cd $HOME/dev"
+alias cm=chezmoi
+
 
 # docker
 alias docker=podman
