@@ -38,7 +38,6 @@ alias tn="tmux-new-session"
 
 # git
 alias g=git
-alias dotfile="git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME"
 alias c="git add . && git commit"
 alias cdd="cd $HOME/dev"
 
