@@ -1,0 +1,14 @@
+blocks:
+  - permission
+  - user
+  - size
+  - date
+  - name
+
+display: almost-all
+
+sorting:
+  dir-grouping: first
+
+# ignore-globs:
+#   - .git

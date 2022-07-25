@@ -1,0 +1,6 @@
+set ignore-case          = smart-case
+set tab-size             = 4
+set line-graphics        = utf-8
+set truncation-delimiter = utf-8
+set commit-order = default
+set main-options = -n 500

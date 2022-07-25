@@ -1,0 +1,70 @@
+[user]
+	name = Joakim L. Engeset
+	email = joakim.engeset@gmail.com
+[core]
+	autocrlf = input
+	editor = nvim
+[diff]
+	tool = vimdiff
+	colorMoved = zebra
+[difftool]
+	prompt = false
+	trustExitCode = true
+[difftool "vimdiff"]
+	cmd = nvim -d $LOCAL $BASE
+[merge]
+	tool = vimmerge
+[mergetool]
+	prompt = false
+[mergetool "vimmerge"]
+	cmd = nvim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+[alias]
+	a = add
+	b = branch
+	c = commit
+	ca = commit --amend
+	cm = commit -m
+	co = checkout
+	cv = commit --verbose
+	cp = cherry-pick
+	d = difftool
+	ds = difftool --staged
+	df = diff
+	l = log --graph --decorate --oneline
+	ll = log --name-status --graph
+	ls = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	ld = ls-files -d
+	lm = ls-files -m
+	m = merge
+	pl = pull
+	ps = push
+	f = fetch
+	s = status --short
+	untracked = ls-files --others --exclude-standard
+	se = secret
+	z = stash
+	zl = stash list
+	zp = stash pop
+	zd = stash drop
+	root = rev-parse --show-toplevel
+	curbranch = rev-parse --abbrev-ref @
+[web]
+	browser = open
+[credential]
+	helper = store
+[diff "sopsdiffer"]
+	textconv = sops -d
+[push]
+	default = current
+[pull]
+	default = current
+	rebase = false
+[github]
+	host = github.oslo.kommune.no
+[github "github.oslo.kommune.no/api/v3"]
+	user = joakim-lindeng-engeset
+[fetch]
+	prune = true
+[init]
+	templatedir = ~/.git-templates
+	defaultBranch = main

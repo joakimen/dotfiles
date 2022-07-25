@@ -1,0 +1,20 @@
+# toggle fullscreen
+alt - f : chunkc tiling::window --toggle fullscreen
+
+# change focus between tiling / floating windows
+shift + alt - space : chunkc tiling::window --toggle float
+
+# change layout of desktop
+alt - e : chunkc tiling::desktop --layout bsp
+alt - s : chunkc tiling::desktop --layout monocle
+
+# window navigation
+alt - h : chunkc tiling::window --focus west
+alt - j : chunkc tiling::window --focus south
+alt - k : chunkc tiling::window --focus north
+alt - l : chunkc tiling::window --focus east
+alt - p : chunkc tiling::window --focus prev
+alt - n : chunkc tiling::window --focus next
+
+# rotate layout
+alt - r : chunkc tiling::desktop --rotate 90

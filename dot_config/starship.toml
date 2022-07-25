@@ -1,0 +1,24 @@
+[kubernetes]
+format = '\[[$context:$namespace](dimmed blue)\] '
+disabled = false
+[kubernetes.context_aliases]
+"admin@.*" = "🔥$0🔥"
+
+[package]
+disabled = true
+[java]
+disabled = true
+[git_status]
+disabled = true
+[python]
+disabled = true
+[docker_context]
+disabled = true
+[nodejs]
+disabled = true
+[vagrant]
+disabled = true
+[lua]
+disabled = true
+[golang]
+disabled = true

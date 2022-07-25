@@ -1,0 +1,75 @@
+# quick edit
+alias e=$EDITOR
+alias em="open -a Emacs"
+alias vc="e ~/.config/nvim/init.lua"
+alias kc="e ~/.config/kitty/kitty.conf"
+alias ekc="e ~/.kube/config"
+alias ac="e ~/.config/shell/aliasrc"
+alias tc="e ~/.tmux.conf"
+alias bc="e ~/.bashrc"
+alias zc="e ~/.zshrc"
+alias gc="e ~/.gitconfig"
+alias oc="e ~/.okrc"
+alias srcz="source ~/.zshrc"
+alias er="$EDITOR README.md"
+
+## k8s
+alias k=kubectl
+alias kt=kubetail
+alias kx=kubectx
+alias kn=kubens
+alias kz=kustomize
+
+## system
+alias pid='ps aux | rg'
+alias info='info --vi-keys'
+alias cdm="cd $(mktemp -d)"
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+alias ......="cd ../../../../.."
+
+# tmux
+alias t="tmux new -A -s 0"
+alias tmux="tmux -2 -u"
+alias tks="tmux kill-server"
+alias tn="tmux-new-session"
+
+# git
+alias g=git
+alias dotfile="git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME"
+alias c="git add . && git commit"
+alias cdd="cd $HOME/dev"
+
+# docker
+alias docker=podman
+alias d=podman
+alias din="docker-inspect"
+alias dpsa="docker ps -a"
+alias dr="docker-run"
+alias dcu="docker-compose up"
+alias dco="docker-compose down"
+alias dps="docker-image-push"
+alias dil="docker-image-list"
+alias dcs="docker-container-start"
+alias dct="docker-container-stop"
+
+# ansible
+alias ap="ansible-playbook"
+alias av="ansible-vault"
+
+# gpg
+alias keys="gpg-show-key"
+
+if which lsd &>/dev/null; then
+  alias l='lsd -l'
+  alias ls="lsd"
+  alias tree='lsd --tree'
+else
+  echo "lsd missing"
+  alias l='ls -hlGALF'
+  alias ls='ls -GAF'
+fi
+
+
