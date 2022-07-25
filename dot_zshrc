@@ -144,11 +144,6 @@ clone() {
   cd $repoPath
 }
 
-update-dotfiles() {
-  dotfile commit -am 'Update dotfiles'
-  dotfile push
-}
-
 project-cd() {
   dir=$(project-list | fzf)
   [[ $dir ]] && cd "$OK_DIR/$dir"
