@@ -1,6 +1,7 @@
 require('plugins')
 require('config.telescope')
 require('telescope').load_extension('fzf')
+--require('config.lualine')
 
 -- opts
 local o = vim.opt
@@ -84,6 +85,7 @@ nmap('cm', ':call nerdcommenter#Comment(0, "toggle")<CR>')
 vmap('cm', ':call nerdcommenter#Comment(0, "toggle")<CR>')
 
 -- misc
+nmap('<c-s>', ':w<CR>')
 nmap('<leader>j', ':setf json|%!jq<cr>')
 nmap('<leader>w', ':lua cleanup_whitespace()<CR>')
 nmap('<leader>l', ':nohlsearch<cr>')

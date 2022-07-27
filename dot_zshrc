@@ -97,7 +97,7 @@ zcopy() fzf-file copy-content $1 # copy file contents
 
 # fuzzy cd
 zd() { dir=$(select-dir) && cd "$dir" }
-kl() fzf-kill-process
+kl() kill-process
 fb() switch-branch
 co() switch-remote-branch
 erg() rg-edit "$1"
@@ -146,7 +146,7 @@ clone() {
 
 project-cd() {
   dir=$(project-list | fzf)
-  [[ $dir ]] && cd "$OK_DIR/$dir"
+  [[ $dir ]] && cd "$HOME/$dir"
   zle reset-prompt
 }
 zle -N project-cd
