@@ -21,12 +21,12 @@ return require('packer').startup(function()
   --- general purpose
   use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' }}
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-  use { 'lukas-reineke/indent-blankline.nvim', ft = {'yaml', 'json', 'toml'} }
   use 'Mofiqul/dracula.nvim'
   use 'christoomey/vim-tmux-navigator'
-  use 'machakann/vim-sandwich'
-  use { 'andymass/vim-matchup', event = 'User ActuallyEditing' }
-  use 'tommcdo/vim-lion'
+  --use 'machakann/vim-sandwich'
+  --use { 'lukas-reineke/indent-blankline.nvim', ft = {'yaml', 'json', 'toml'} }
+  --use { 'andymass/vim-matchup', event = 'User ActuallyEditing' }
+  --use 'tommcdo/vim-lion'
   use 'scrooloose/nerdcommenter'
 
   -- git stuff

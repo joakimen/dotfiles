@@ -101,8 +101,8 @@ nmap('ci{', '%ci{')
 nmap('ci}', '%ci}')
 
 -- git
-nmap('gs', ':Git<cr>')
 nmap('gb', ':Git blame<cr>')
+nmap('gs', ':Neogit<cr>')
 
 viml [[colorscheme dracula]]
 
