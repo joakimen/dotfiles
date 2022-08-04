@@ -29,6 +29,7 @@ alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
 alias ......="cd ../../../../.."
+alias fd="fd --hidden"
 
 # tmux
 alias t="tmux new -A -s 0"

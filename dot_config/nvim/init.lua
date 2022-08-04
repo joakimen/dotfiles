@@ -74,7 +74,7 @@ nmap('<leader>v', ':e $MYVIMRC<CR>')
 imap('fd', '<Esc>')
 
 -- telescope
-nmap('<C-f>', ':Telescope find_files<CR>')
+nmap('<C-f>', ':Telescope find_files hidden=true<CR>')
 nmap('<C-g>', ':Telescope live_grep<CR>')
 nmap('<C-b>', ':Telescope buffers<CR>')
 nmap('<C-s>', ':Telescope current_buffer_fuzzy_find<CR>')
