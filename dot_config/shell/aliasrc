@@ -42,6 +42,7 @@ alias g=git
 alias c="git add . && git commit"
 alias cdd="cd $HOME/dev"
 alias cm=chezmoi
+alias gw="gh repo view -w"
 
 
 # docker
