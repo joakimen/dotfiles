@@ -1,7 +1,5 @@
 require('plugins')
-require('config.telescope')
 require('telescope').load_extension('fzf')
---require('config.lualine')
 
 -- opts
 local o = vim.opt
