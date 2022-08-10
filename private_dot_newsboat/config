@@ -1,1 +1,10 @@
 browser open
+
+bind-key j down
+bind-key k up
+bind-key l open
+bind-key h quit
+
+color info               black cyan
+color listfocus          black cyan
+color listfocus_unread   black cyan
