@@ -66,5 +66,4 @@
 [fetch]
 	prune = true
 [init]
-	templatedir = ~/.git-templates
 	defaultBranch = main
