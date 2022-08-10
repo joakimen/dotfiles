@@ -125,18 +125,25 @@ kitty-switch-theme() {
 zsh-time-startup() entr time-startup <<< ~/.zshrc
 
 clone() {
-  repoPath=$HOME/dev/github.com/$1/$2
+  if [[ $# -eq 2 ]]; then
+    repo=$1/$2
+  else
+    repo=$(gh repo list | choose 0 | fzf)
+  fi
+  repoPath=$HOME/dev/github.com/$repo
   [[ -d "$repoPath" ]] && {
           echo "$0: $repoPath: Directory exists, exiting"
           cd "$repoPath"
           return
   }
-  gh repo clone https://www.github.com/$1/$2 $repoPath
+  gh repo clone $repo $repoPath
   cd $repoPath
 }
 
 project-cd() {
-  dir=$(project-list | fzf)
+  projects=$(project-list)
+  [[ -z $projects ]] && return
+  dir=$(fzf <<< $projects)
   [[ $dir ]] && cd "$HOME/$dir"
   zle reset-prompt
 }
