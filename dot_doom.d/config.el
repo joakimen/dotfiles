@@ -1,4 +1,3 @@
-
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
 (setq user-full-name "Joakim Lindeng Engeset"
@@ -10,7 +9,7 @@
 (setq default-directory "~/")
 (setq display-line-numbers-type t)
 (setq compilation-scroll-output t)
-(setq which-key-idle-delay 0.2)
+(setq which-key-idle-delay 0)
 (setq confirm-kill-emacs nil)
 (setq mac-option-modifier nil)
 (setq sh-shell-file "/usr/local/bin/bash")
@@ -19,7 +18,7 @@
 (global-auto-revert-mode t)
 (add-hook 'dired-mode-hook 'auto-revert-mode)
 
-(setq doom-font (font-spec :family "Fira Code" :size 16)
+(setq doom-font (font-spec :family "Fira Code" :size 14)
       doom-theme 'doom-material)
 
 (custom-set-variables
@@ -47,7 +46,8 @@
 (define-key evil-normal-state-map (kbd "C-l") 'jle/indent-buffer)
 (define-key evil-normal-state-map (kbd "s--") 'evilnc-comment-or-uncomment-lines)
 (define-key evil-normal-state-map (kbd "C-f") '+ivy/projectile-find-file)
-(define-key evil-normal-state-map (kbd "C-b") 'counsel-switch-buffer)
+(define-key evil-normal-state-map (kbd "C-b") '+vertico/switch-workspace-buffer)
+(define-key evil-normal-state-map (kbd "C-p") 'projectile-switch-project)
 
 (global-set-key (kbd "s-!") 'shell-command)
 (global-set-key (kbd "s--") 'evilnc-comment-or-uncomment-lines)
@@ -64,13 +64,14 @@
     :lighter " shfmt"))
 (add-hook 'sh-mode-hook 'shfmt-on-save-mode)
 
-(setq projectile-project-search-path '("~/dev/oslo-kommune/projects"))
+(setq projectile-project-search-path '(("~/dev" . 3)))
 
-(after! forge
-  :config
-  (push '("github.oslo.kommune.no" "github.oslo.kommune.no/api/v3"
-          "github.oslo.kommune.no" forge-github-repository)
-        forge-alist))
+(setq auth-sources '("~/.authinfo"))
+;; (after! forge
+;;   :config
+;;   (push '("github.com" "github.com/api/v3"
+;;           "github.com" forge-github-repository)
+;;         forge-alist))
 
 (after! counsel
   ;; open magit status buffer as default action when switching projects

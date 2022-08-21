@@ -1,6 +1,8 @@
 [user]
 	name = Joakim L. Engeset
 	email = joakim.engeset@gmail.com
+[github]
+  user = joakimen
 [core]
 	autocrlf = input
 	editor = nvim
