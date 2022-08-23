@@ -8,3 +8,5 @@
 (package! yaml-mode)
 (package! zenburn-theme)
 (package! reformatter)
+(package! todoist)
+(package! fish-mode)

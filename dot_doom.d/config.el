@@ -43,7 +43,6 @@
 (define-key evil-normal-state-map (kbd "C-e") 'er/expand-region)
 (define-key evil-visual-state-map (kbd "C-e") 'er/expand-region)
 (define-key evil-insert-state-map (kbd "C-e") 'er/expand-region)
-(define-key evil-normal-state-map (kbd "C-l") 'jle/indent-buffer)
 (define-key evil-normal-state-map (kbd "s--") 'evilnc-comment-or-uncomment-lines)
 (define-key evil-normal-state-map (kbd "C-f") '+ivy/projectile-find-file)
 (define-key evil-normal-state-map (kbd "C-b") '+vertico/switch-workspace-buffer)
