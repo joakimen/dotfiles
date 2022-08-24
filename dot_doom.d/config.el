@@ -51,7 +51,6 @@
 (define-key evil-normal-state-map (kbd "C-e") 'er/expand-region)
 (define-key evil-visual-state-map (kbd "C-e") 'er/expand-region)
 (define-key evil-insert-state-map (kbd "C-e") 'er/expand-region)
-(define-key evil-normal-state-map (kbd "s--") 'evilnc-comment-or-uncomment-lines)
 (define-key evil-normal-state-map (kbd "C-f") 'affe-find)
 (define-key evil-normal-state-map (kbd "C-b") '+vertico/switch-workspace-buffer)
 (define-key evil-normal-state-map (kbd "C-p") 'projectile-switch-project)
@@ -85,7 +84,7 @@
         :desc "" "x" #'jle/mark-current-file-as-executable)
        (:prefix ("d" . "dotfiles")
         :desc "Diff" "d" #'dotfile/diff
-        :desc "Re-add" "R" #'dotfile/re-add
+        :desc "Re-add" "r" #'dotfile/re-add
         :desc "Managed" "m" #'dotfile/managed)))
 
 
