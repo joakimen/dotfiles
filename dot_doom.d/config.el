@@ -64,13 +64,29 @@
 (global-set-key (kbd "C-k") 'evil-window-up)
 (global-set-key (kbd "C-j") 'evil-window-down)
 
+(defun dotfile/diff ()
+  (interactive)
+  (async-shell-command "chezmoi diff"))
+
+(defun dotfile/re-add ()
+  (interactive)
+  (async-shell-command "chezmoi re-add"))
+
+(defun dotfile/managed ()
+  (interactive)
+  (async-shell-command "chezmoi managed"))
+
 (map! :leader
       (:prefix-map ("j" . "jle")
        (:prefix ("f" . "file")
         :desc "New shell script" "n" #'jle/new-shellscript
         :desc "Indent buffer" "i" #'jle/indent-buffer
         :desc "Mark as executable" "x" #'jle/mark-current-file-as-executable
-        :desc "" "x" #'jle/mark-current-file-as-executable)))
+        :desc "" "x" #'jle/mark-current-file-as-executable)
+       (:prefix ("d" . "dotfiles")
+        :desc "Diff" "d" #'dotfile/diff
+        :desc "Re-add" "R" #'dotfile/re-add
+        :desc "Managed" "m" #'dotfile/managed)))
 
 
 (after! reformatter
