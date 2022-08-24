@@ -27,7 +27,8 @@
  '(initial-frame-alist (quote ((fullscreen . maximized)))))
 
 (defun jle/indent-buffer ()
-  "removes trailing whitespace, indents buffer and replaces tabs with spaces" (interactive)
+  "removes trailing whitespace, indents buffer and replaces tabs with spaces"
+  (interactive)
   (save-excursion
     (delete-trailing-whitespace)
     (indent-region (point-min) (point-max) nil)
@@ -68,7 +69,9 @@
        (:prefix ("f" . "file")
         :desc "New shell script" "n" #'jle/new-shellscript
         :desc "Indent buffer" "i" #'jle/indent-buffer
-        :desc "Mark as executable" "x" #'jle/mark-current-file-as-executable)))
+        :desc "Mark as executable" "x" #'jle/mark-current-file-as-executable
+        :desc "" "x" #'jle/mark-current-file-as-executable)))
+
 
 (after! reformatter
   :config

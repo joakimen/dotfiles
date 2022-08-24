@@ -35,7 +35,7 @@ alias fd "fd --hidden"
 alias t "tmux new -A -s 0"
 alias tmux "tmux -2 -u"
 alias tks "tmux kill-server"
-alias tn "tmux-new-session"
+alias tn tmux-new-session
 
 # git
 alias g git
@@ -47,29 +47,30 @@ alias gw "gh repo view -w"
 # docker
 alias docker podman
 alias d podman
-alias din "docker-inspect"
+alias din docker-inspect
 alias dpsa "docker ps -a"
-alias dr "docker-run"
+alias dr docker-run
 alias dcu "docker-compose up"
 alias dco "docker-compose down"
-alias dps "docker-image-push"
-alias dil "docker-image-list"
-alias dcs "docker-container-start"
-alias dct "docker-container-stop"
+alias dps docker-image-push
+alias dil docker-image-list
+alias dcs docker-container-start
+alias dct docker-container-stop
 
 # ansible
-alias ap "ansible-playbook"
-alias av "ansible-vault"
+alias ap ansible-playbook
+alias av ansible-vault
 
 # gpg
-alias keys "gpg-show-key"
+alias keys show-gpg-pubkey
 
 if which lsd &>/dev/null
-  alias l 'lsd -l'
-  alias ls "lsd"
-  alias tree 'lsd --tree'
+    alias l 'lsd -l --date=relative'
+    alias l 'lsd -l'
+    alias ls lsd
+    alias tree 'lsd --tree'
 else
-  echo "lsd missing"
-  alias l 'ls -hlGALF'
-  alias ls 'ls -GAF'
+    echo "lsd missing"
+    alias l 'ls -hlGALF'
+    alias ls 'ls -GAF'
 end
