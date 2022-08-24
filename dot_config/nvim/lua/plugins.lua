@@ -34,6 +34,8 @@ return require('packer').startup(function()
   use { 'tpope/vim-fugitive', cmd = {'Git'} }
   use { 'TimUntersberger/neogit', requires = { 'nvim-lua/plenary.nvim' }, cmd = {'Neogit'} }
 
+  use 'nickeb96/fish.vim'
+
   --use {
     --'nvim-lualine/lualine.nvim',
     --requires = {'kyazdani42/nvim-web-devicons', opt = true},

@@ -12,6 +12,7 @@ alias zc "e ~/.zshrc"
 alias gc "e ~/.gitconfig"
 alias oc "e ~/.okrc"
 alias srcz "source ~/.zshrc"
+
 alias er "$EDITOR README.md"
 
 ## k8s
@@ -31,6 +32,7 @@ alias .... "cd ../../.."
 alias ..... "cd ../../../.."
 alias ...... "cd ../../../../.."
 alias fd "fd --hidden"
+alias kl kill-process
 
 # tmux
 alias t "tmux new -A -s 0"
@@ -75,3 +77,5 @@ else
     alias l 'ls -hlGALF'
     alias ls 'ls -GAF'
 end
+
+source ~/.asdf/asdf.fish

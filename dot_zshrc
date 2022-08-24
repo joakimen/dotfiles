@@ -117,11 +117,6 @@ fzf-switch-branch() {
 zle -N fzf-switch-branch
 bindkey '^B' fzf-switch-branch
 
-# requires kitty remote control to be enabled
-kitty-switch-theme() {
-  fd . ~/.config/kitty/kitty-themes/themes \
-    | fzf --preview 'head -n 40 {} && kitty @ set-colors -a -c {}'
-}
 zsh-time-startup() entr time-startup <<< ~/.zshrc
 
 clone() {
@@ -157,10 +152,6 @@ fzf-cd() {
 }
 zle -N fzf-cd
 bindkey '^G' fzf-cd
-
-pipi() {
-  pip install "$1" && pip freeze | rg "$1" >> requirements.txt
-}
 
 export o="-o yaml | nvim -c 'setf yaml'"
 
