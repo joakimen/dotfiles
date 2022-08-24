@@ -10,3 +10,4 @@
 (package! reformatter)
 (package! todoist)
 (package! fish-mode)
+(package! affe)
