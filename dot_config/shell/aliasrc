@@ -32,6 +32,7 @@ alias ....="cd ../../.."
 alias .....="cd ../../../.."
 alias ......="cd ../../../../.."
 alias fd="fd --hidden"
+alias kl="kill-process"
 
 # tmux
 alias t="tmux new -A -s 0"
@@ -45,6 +46,8 @@ alias c="git add . && git commit"
 alias cdd="cd $HOME/dev"
 alias cm=chezmoi
 alias gw="gh repo view -w"
+alias fb=switch-branch
+alias co=switch-remote-branch
 
 # docker
 alias docker=podman

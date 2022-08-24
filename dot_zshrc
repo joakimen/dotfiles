@@ -88,10 +88,6 @@ zcopy() fzf-file copy-content $1 # copy file contents
 
 # fuzzy cd
 zd() { dir=$(select-dir) && cd "$dir" }
-kl() kill-process
-fb() switch-branch
-co() switch-remote-branch
-erg() rg-edit "$1"
 
 # Use fd instead of the default find for listing path candidates.
 _fzf_compgen_path() {
