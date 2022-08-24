@@ -47,7 +47,7 @@
 (defun jle/new-shellscript ()
   "create a new shellscript in $HOME/bin"
   (interactive)
-  (find-file(format "~/bin/%s.sh" (read-from-minibuffer "Script name: "))))
+  (find-file(format "~/bin/%s" (read-from-minibuffer "Script name: "))))
 
 (setq evil-vsplit-window-right t
       evil-split-window-below t)
