@@ -87,7 +87,6 @@
         :desc "Re-add" "r" #'dotfile/re-add
         :desc "Managed" "m" #'dotfile/managed)))
 
-
 (after! reformatter
   :config
   (reformatter-define shfmt
