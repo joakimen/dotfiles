@@ -12,14 +12,19 @@
 (setq which-key-idle-delay 0)
 (setq confirm-kill-emacs nil)
 (setq mac-option-modifier nil)
+(setq mac-command-modifier 'meta)
 (setq sh-shell-file "/usr/local/bin/bash")
 (setq vterm-shell "/usr/local/bin/fish")
 
 ;; automatically update buffer from filesystem
 (global-auto-revert-mode t)
+
+;; hooks
 (add-hook 'dired-mode-hook 'auto-revert-mode)
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
+(add-hook 'sh-mode-hook 'shfmt-on-save-mode)
 
+;; ui
 (setq doom-font (font-spec :family "Fira Code" :size 14)
       doom-theme 'doom-material)
 
@@ -63,17 +68,21 @@
 (global-set-key (kbd "C-k") 'evil-window-up)
 (global-set-key (kbd "C-j") 'evil-window-down)
 
-(defun dotfile/diff ()
+(defun chezmoi/diff ()
   (interactive)
   (async-shell-command "chezmoi diff"))
 
-(defun dotfile/re-add ()
+(defun chezmoi/re-add ()
   (interactive)
   (async-shell-command "chezmoi re-add"))
 
-(defun dotfile/managed ()
+(defun chezmoi/managed ()
   (interactive)
   (async-shell-command "chezmoi managed"))
+
+(defun jle/eval-defun ()
+  (interactive)
+  (eval-region (mark-defun)))
 
 (map! :leader
       (:prefix-map ("j" . "jle")
@@ -82,10 +91,10 @@
         :desc "Indent buffer" "i" #'jle/indent-buffer
         :desc "Mark as executable" "x" #'jle/mark-current-file-as-executable
         :desc "" "x" #'jle/mark-current-file-as-executable)
-       (:prefix ("d" . "dotfiles")
-        :desc "Diff" "d" #'dotfile/diff
-        :desc "Re-add" "r" #'dotfile/re-add
-        :desc "Managed" "m" #'dotfile/managed)))
+       (:prefix ("d" . "chezmois")
+        :desc "Diff" "d" #'chezmoi/diff
+        :desc "Re-add" "r" #'chezmoi/re-add
+        :desc "Managed" "m" #'chezmoi/managed)))
 
 (after! reformatter
   :config
@@ -93,7 +102,6 @@
     :program "shfmt"
     :args '("-i" "2" "-ci")
     :lighter " shfmt"))
-(add-hook 'sh-mode-hook 'shfmt-on-save-mode)
 
 (setq projectile-project-search-path '(("~/dev" . 3)))
 (setq auth-sources '("~/.authinfo"))
