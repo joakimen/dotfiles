@@ -78,17 +78,6 @@ function kubectl() {
     command kubectl "$@"
 }
 
-# fzf-file wrappers
-fe()    fzf-file edit $1 # edit file
-ztig()  fzf-file tig $1 # view git history for file
-zrm()   fzf-file rm $1 # delete file
-zcat()  fzf-file cat $1 # echo file contents
-zpath() fzf-file copy-path $1 # copy absolute path of file
-zcopy() fzf-file copy-content $1 # copy file contents
-
-# fuzzy cd
-zd() { dir=$(select-dir) && cd "$dir" }
-
 # Use fd instead of the default find for listing path candidates.
 _fzf_compgen_path() {
   fd --hidden --follow --exclude ".git" . "$1"
