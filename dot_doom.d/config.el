@@ -66,6 +66,7 @@
 (global-set-key (kbd "C-l") 'evil-window-right)
 (global-set-key (kbd "C-k") 'evil-window-up)
 (global-set-key (kbd "C-j") 'evil-window-down)
+(global-set-key (kbd "M-w") '+workspace/close-window-or-workspace)
 
 (defun chezmoi/diff ()
   (interactive)
@@ -78,10 +79,6 @@
 (defun chezmoi/managed ()
   (interactive)
   (async-shell-command "chezmoi managed"))
-
-(defun jle/eval-defun ()
-  (interactive)
-  (eval-region (mark-defun)))
 
 (map! :leader
       (:prefix-map ("j" . "jle")
