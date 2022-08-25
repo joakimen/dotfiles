@@ -15,6 +15,8 @@
 (setq mac-command-modifier 'meta)
 (setq sh-shell-file "/usr/local/bin/bash")
 (setq vterm-shell "/usr/local/bin/fish")
+(setq projectile-project-search-path '(("~/dev" . 3)))
+(setq auth-sources '("~/.authinfo"))
 
 ;; automatically update buffer from filesystem
 (global-auto-revert-mode t)
@@ -94,6 +96,3 @@
     :program "shfmt"
     :args '("-i" "2" "-ci")
     :lighter " shfmt"))
-
-(setq projectile-project-search-path '(("~/dev" . 3)))
-(setq auth-sources '("~/.authinfo"))
