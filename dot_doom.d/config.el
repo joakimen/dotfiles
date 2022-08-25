@@ -67,30 +67,28 @@
 (global-set-key (kbd "C-k") 'evil-window-up)
 (global-set-key (kbd "C-j") 'evil-window-down)
 (global-set-key (kbd "M-w") '+workspace/close-window-or-workspace)
+(global-set-key (kbd "C-M-<backspace>") 'delete-other-windows)
 
-(defun chezmoi/diff ()
-  (interactive)
-  (async-shell-command "chezmoi diff"))
-
-(defun chezmoi/re-add ()
-  (interactive)
-  (async-shell-command "chezmoi re-add"))
-
-(defun chezmoi/managed ()
-  (interactive)
-  (async-shell-command "chezmoi managed"))
+(defalias 'sh 'shell-command)
+(defalias 'ash 'async-shell-command)
 
 (map! :leader
       (:prefix-map ("j" . "jle")
        (:prefix ("f" . "file")
         :desc "New shell script" "n" #'jle/new-shellscript
         :desc "Indent buffer" "i" #'jle/indent-buffer
-        :desc "Mark as executable" "x" #'jle/mark-current-file-as-executable
-        :desc "" "x" #'jle/mark-current-file-as-executable)
-       (:prefix ("d" . "chezmois")
-        :desc "Diff" "d" #'chezmoi/diff
-        :desc "Re-add" "r" #'chezmoi/re-add
-        :desc "Managed" "m" #'chezmoi/managed)))
+        :desc "Mark as executable" "x" #'jle/mark-current-file-as-executable)
+       (:prefix ("a" . "asdf")
+        :desc "Update asdf plugins" "u" (cmd! (ash "asdf plugin update --all"))
+        :desc "Update asdf itself" "U" (cmd! (ash "asdf update"))
+        :desc "List global tools" "T" (cmd! (ash "cat ~/.tool-versions"))
+        :desc "inline test" "t" (cmd! (ash "pwd"))
+        )
+       (:prefix ("d" . "chezmoi")
+        :desc "Diff" "d" (cmd! (and (ash "chezmoi diff")(other-window 1)))
+        :desc "Re-add" "r" (cmd! (ash "chezmoi re-add"))
+        :desc "Status" "s" (cmd! (ash "chezmoi status"))
+        :desc "Managed" "m" (cmd! (ash "chezmoi managed")))))
 
 (after! reformatter
   :config
