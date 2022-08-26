@@ -66,9 +66,13 @@ export BUILDAH_FORMAT=docker
 path=(~/go/bin ~/bin /usr/local/sbin ~/.emacs.d/bin ~/.local/bin/ $path)
 
 # scripts
-source ~/.fzf.zsh
-source ~/.tokens
-source $XDG_CONFIG_HOME/shell/aliasrc
+. ~/.fzf.zsh
+. ~/.tokens
+
+# aliases
+aliasfile=$XDG_CONFIG_HOME/shell/aliasrc
+. "$aliasfile"
+alias ac="e $aliasfile"
 
 # lazy load slow kubectl completion
 function kubectl() {

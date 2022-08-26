@@ -5,11 +5,14 @@
 
 # scripts
 [[ -f /etc/bashrc ]] && . /etc/bashrc
-[[ -f ~/.tokens ]] && . ~/.tokens
 [[ -f /etc/bash_completion ]] && . /etc/bash_completion
-[[ -f ~/.fzf.bash ]] && . ~/.fzf.bash
+ ~/.fzf.bash
+. ~/.tokens
 
-. $XDG_CONFIG_HOME/shell/aliasrc
+# aliases
+aliasfile=$XDG_CONFIG_HOME/shell/aliasrc
+. "$aliasfile"
+alias ac="e $aliasfile"
 
 # options
 shopt -s histappend   # Append to the history file
