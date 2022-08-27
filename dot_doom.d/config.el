@@ -1,28 +1,37 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
-(setq user-full-name "Joakim Lindeng Engeset"
-      user-mail-address "joakim.engeset@gmail.com")
+(setq
+ user-full-name "Joakim Lindeng Engeset"
+ user-mail-address "joakim.engeset@gmail.com"
 
-(setq evil-escape-key-sequence "fd"
-      evil-escape-delay 0.3)
+ evil-escape-key-sequence "fd"
+ evil-escape-delay 0.3
 
-(setq dev-dir "~/dev")
+ dev-dir "~/dev"
 
-(setq default-directory "~/")
-(setq display-line-numbers-type t)
-(setq compilation-scroll-output t)
-(setq which-key-idle-delay 0)
-(setq confirm-kill-emacs nil)
-(setq mac-option-modifier nil)
-(setq mac-command-modifier 'meta)
-(setq sh-shell-file "/usr/local/bin/bash")
-(setq vterm-shell "/usr/local/bin/fish")
-(setq projectile-project-search-path '((dev-dir . 3)))
-(setq magit-repository-directories
-      `(((concat dev-dir "/github.com") . 2)
-        (user-emacs-directory . 0)))
-(setq auth-sources '("~/.authinfo"))
-(setq +zen-text-scale 0)
+ default-directory "~/"
+ display-line-numbers-type t
+ compilation-scroll-output t
+ which-key-idle-delay 0
+ confirm-kill-emacs nil
+
+
+
+ mac-option-modifier nil
+ mac-command-modifier 'meta
+ sh-shell-file "/usr/local/bin/bash"
+ vterm-shell "/usr/local/bin/fish"
+ projectile-project-search-path '((dev-dir . 3))
+ magit-repository-directories `((dev-dir . 3) (user-emacs-directory . 0))
+ auth-sources '("~/.authinfo")
+ +zen-text-scale 0
+
+ doom-font (font-spec :family "Fira Code" :size 14)
+ doom-theme 'doom-one
+
+ evil-vsplit-window-right t
+ evil-split-window-below t
+ )
 
 ;; automatically update buffer from filesystem
 (global-auto-revert-mode t)
@@ -30,9 +39,6 @@
 ;; hooks
 (add-hook 'dired-mode-hook 'auto-revert-mode)
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
-;; ui
-(setq doom-font (font-spec :family "Fira Code" :size 14)
-      doom-theme 'doom-one)
 
 (custom-set-variables
  '(initial-frame-alist (quote ((fullscreen . maximized)))))
@@ -55,8 +61,6 @@
   (interactive)
   (find-file(format "~/bin/%s" (read-from-minibuffer "Script name: "))))
 
-(setq evil-vsplit-window-right t
-      evil-split-window-below t)
 
 (defun eval-surrounding-parens ()
   "evaluate surrounding parentheses"
