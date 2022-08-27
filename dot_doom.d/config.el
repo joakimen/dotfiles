@@ -71,9 +71,6 @@
 (global-set-key (kbd "M-w") '+workspace/close-window-or-workspace)
 (global-set-key (kbd "C-M-<backspace>") 'delete-other-windows)
 
-(defalias 'sh 'shell-command)
-(defalias 'ash 'async-shell-command)
-
 (map! :leader
       (:prefix-map ("j" . "jle")
        (:prefix ("f" . "file")
@@ -81,18 +78,15 @@
         :desc "Indent buffer" "i" #'jle/indent-buffer
         :desc "Mark as executable" "x" #'jle/mark-current-file-as-executable)
        (:prefix ("a" . "asdf")
-        :desc "Update asdf plugins" "u" (cmd! (ash "asdf plugin update --all"))
-        :desc "Update asdf itself" "U" (cmd! (ash "asdf update"))
-        :desc "List global tools" "T" (cmd! (ash "cat ~/.tool-versions")))
+        :desc "Update asdf plugins" "u" (cmd! (async-shell-command "asdf plugin update --all"))
+        :desc "Update asdf itself" "U" (cmd! (async-shell-command "asdf update"))
+        :desc "List global tools" "T" (cmd! (async-shell-command "cat ~/.tool-versions")))
+       (:prefix ("b" . "homebrew")
+        :desc "Update" "u" (cmd! (async-shell-command "brew update"))
+        :desc "Upgrade" "U" (cmd! (and (async-shell-command "brew update")(async-shell-command "brew upgrade")))
+        :desc "List installed" "l" (cmd! (async-shell-command "brew list")))
        (:prefix ("d" . "chezmoi")
-        :desc "Diff" "d" (cmd! (and (ash "chezmoi diff")(other-window 1)))
-        :desc "Re-add" "r" (cmd! (ash "chezmoi re-add"))
-        :desc "Status" "s" (cmd! (ash "chezmoi status"))
-        :desc "Managed" "m" (cmd! (ash "chezmoi managed")))))
-
-(after! reformatter
-  :config
-  (reformatter-define shfmt
-    :program "shfmt"
-    :args '("-i" "2" "-ci")
-    :lighter " shfmt"))
+        :desc "Diff" "d" (cmd! (and (async-shell-command "chezmoi diff")(other-window 1)))
+        :desc "Re-add" "r" (cmd! (async-shell-command "chezmoi re-add"))
+        :desc "Status" "s" (cmd! (async-shell-command "chezmoi status"))
+        :desc "Managed" "m" (cmd! (async-shell-command "chezmoi managed")))))
