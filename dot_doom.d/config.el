@@ -6,6 +6,8 @@
 (setq evil-escape-key-sequence "fd"
       evil-escape-delay 0.3)
 
+(setq dev-dir "~/dev")
+
 (setq default-directory "~/")
 (setq display-line-numbers-type t)
 (setq compilation-scroll-output t)
@@ -15,8 +17,12 @@
 (setq mac-command-modifier 'meta)
 (setq sh-shell-file "/usr/local/bin/bash")
 (setq vterm-shell "/usr/local/bin/fish")
-(setq projectile-project-search-path '(("~/dev" . 3)))
+(setq projectile-project-search-path '((dev-dir . 3)))
+(setq magit-repository-directories
+      `(((concat dev-dir "/github.com") . 2)
+        (user-emacs-directory . 0)))
 (setq auth-sources '("~/.authinfo"))
+(setq +zen-text-scale 0)
 
 ;; automatically update buffer from filesystem
 (global-auto-revert-mode t)
@@ -24,11 +30,9 @@
 ;; hooks
 (add-hook 'dired-mode-hook 'auto-revert-mode)
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
-(add-hook 'sh-mode-hook 'shfmt-on-save-mode)
-
 ;; ui
 (setq doom-font (font-spec :family "Fira Code" :size 14)
-      doom-theme 'doom-material)
+      doom-theme 'doom-one)
 
 (custom-set-variables
  '(initial-frame-alist (quote ((fullscreen . maximized)))))
@@ -58,8 +62,8 @@
   "evaluate surrounding parentheses"
   (interactive)
   (save-excursion
-  (up-list 1 t t)
-  (eval-last-sexp nil)))
+    (up-list 1 t t)
+    (eval-last-sexp nil)))
 
 ;; keybindings
 (define-key evil-normal-state-map (kbd "C-e") 'er/expand-region)
@@ -81,6 +85,8 @@
       (:prefix-map ("j" . "jle")
        (:prefix ("e" . "eval")
         :desc "Eval current parens" "e" #'eval-surrounding-parens)
+       (:prefix ("o" . "open")
+        :desc "Open dev dir" "d" (cmd! (dired dev-dir)))
        (:prefix ("f" . "file")
         :desc "New shell script" "n" #'jle/new-shellscript
         :desc "Indent buffer" "i" #'jle/indent-buffer
@@ -99,4 +105,3 @@
         :desc "Status" "s" (cmd! (async-shell-command "chezmoi status"))
         :desc "Upgrade chezmoi" "U" (cmd! (async-shell-command "chezmoi upgrade"))
         :desc "Managed" "m" (cmd! (async-shell-command "chezmoi managed")))))
-
