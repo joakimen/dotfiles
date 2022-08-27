@@ -54,11 +54,17 @@
 (setq evil-vsplit-window-right t
       evil-split-window-below t)
 
+(defun eval-surrounding-parens ()
+  "evaluate surrounding parentheses"
+  (interactive)
+  (save-excursion
+  (up-list 1 t t)
+  (eval-last-sexp nil)))
+
 ;; keybindings
 (define-key evil-normal-state-map (kbd "C-e") 'er/expand-region)
 (define-key evil-visual-state-map (kbd "C-e") 'er/expand-region)
 (define-key evil-insert-state-map (kbd "C-e") 'er/expand-region)
-(define-key evil-normal-state-map (kbd "C-f") 'affe-find)
 (define-key evil-normal-state-map (kbd "C-b") '+vertico/switch-workspace-buffer)
 (define-key evil-normal-state-map (kbd "C-p") 'projectile-switch-project)
 
@@ -73,6 +79,8 @@
 
 (map! :leader
       (:prefix-map ("j" . "jle")
+       (:prefix ("e" . "eval")
+        :desc "Eval current parens" "e" #'eval-surrounding-parens)
        (:prefix ("f" . "file")
         :desc "New shell script" "n" #'jle/new-shellscript
         :desc "Indent buffer" "i" #'jle/indent-buffer
@@ -83,10 +91,12 @@
         :desc "List global tools" "T" (cmd! (async-shell-command "cat ~/.tool-versions")))
        (:prefix ("b" . "homebrew")
         :desc "Update" "u" (cmd! (async-shell-command "brew update"))
-        :desc "Upgrade" "U" (cmd! (and (async-shell-command "brew update")(async-shell-command "brew upgrade")))
-        :desc "List installed" "l" (cmd! (async-shell-command "brew list")))
+        :desc "Upgrade" "U" (cmd! (async-shell-command "brew update && brew upgrade"))
+        :desc "List installed" "l" (cmd! (and (async-shell-command "brew list")(other-window 1))))
        (:prefix ("d" . "chezmoi")
         :desc "Diff" "d" (cmd! (and (async-shell-command "chezmoi diff")(other-window 1)))
         :desc "Re-add" "r" (cmd! (async-shell-command "chezmoi re-add"))
         :desc "Status" "s" (cmd! (async-shell-command "chezmoi status"))
+        :desc "Upgrade chezmoi" "U" (cmd! (async-shell-command "chezmoi upgrade"))
         :desc "Managed" "m" (cmd! (async-shell-command "chezmoi managed")))))
+
