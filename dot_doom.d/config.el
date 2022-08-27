@@ -15,14 +15,13 @@
  which-key-idle-delay 0
  confirm-kill-emacs nil
 
-
-
+ fill-column 120
  mac-option-modifier nil
  mac-command-modifier 'meta
  sh-shell-file "/usr/local/bin/bash"
  vterm-shell "/usr/local/bin/fish"
- projectile-project-search-path '((dev-dir . 3))
- magit-repository-directories `((dev-dir . 3) (user-emacs-directory . 0))
+ projectile-project-search-path `((,dev-dir . 3))
+ magit-repository-directories `((,dev-dir . 3) (user-emacs-directory . 0))
  auth-sources '("~/.authinfo")
  +zen-text-scale 0
 
@@ -84,6 +83,8 @@
 (global-set-key (kbd "C-j") 'evil-window-down)
 (global-set-key (kbd "M-w") '+workspace/close-window-or-workspace)
 (global-set-key (kbd "C-M-<backspace>") 'delete-other-windows)
+
+
 
 (map! :leader
       (:prefix-map ("j" . "jle")
