@@ -84,14 +84,14 @@
 (global-set-key (kbd "M-w") '+workspace/close-window-or-workspace)
 (global-set-key (kbd "C-M-<backspace>") 'delete-other-windows)
 
-
-
 (map! :leader
       (:prefix-map ("j" . "jle")
        (:prefix ("e" . "eval")
         :desc "Eval current parens" "e" #'eval-surrounding-parens)
        (:prefix ("o" . "open")
-        :desc "Open dev dir" "d" (cmd! (dired dev-dir)))
+        :desc "Open code dir" "c" (cmd! (dired dev-dir))
+        :desc "Open ~/bin dir" "b" (cmd! (dired "~/bin"))
+        :desc "Open dotfiles dir" "d" (cmd! (dired "~/.local/share/chezmoi")))
        (:prefix ("f" . "file")
         :desc "New shell script" "n" #'jle/new-shellscript
         :desc "Indent buffer" "i" #'jle/indent-buffer
