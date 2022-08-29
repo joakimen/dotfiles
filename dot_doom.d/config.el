@@ -30,7 +30,13 @@
 
  evil-vsplit-window-right t
  evil-split-window-below t
+
+ rmh-elfeed-org-files (list "~/.config/elfeed/elfeed.org")
  )
+
+;; by default uses wrong flags for macos-version of locate
+(if IS-MAC
+ (setq consult-locate-args "locate -i"))
 
 ;; automatically update buffer from filesystem
 (global-auto-revert-mode t)
@@ -96,10 +102,14 @@
         :desc "New shell script" "n" #'jle/new-shellscript
         :desc "Indent buffer" "i" #'jle/indent-buffer
         :desc "Mark as executable" "x" #'jle/mark-current-file-as-executable)
+       (:prefix ("r" . "rss")
+        :desc "Update feed list" "u" #'elfeed-update
+        :desc "Open elfeed" "r" #'elfeed)
        (:prefix ("a" . "asdf")
         :desc "Update asdf plugins" "u" (cmd! (async-shell-command "asdf plugin update --all"))
         :desc "Update asdf itself" "U" (cmd! (async-shell-command "asdf update"))
-        :desc "List global tools" "T" (cmd! (async-shell-command "cat ~/.tool-versions")))
+        :desc "List global tools" "T" (cmd! (async-shell-command "cat ~/.tool-versions"))
+        :desc "Edit global tools" "E" (cmd! (find-file "~/.tool-versions")))
        (:prefix ("b" . "homebrew")
         :desc "Update" "u" (cmd! (async-shell-command "brew update"))
         :desc "Upgrade" "U" (cmd! (async-shell-command "brew update && brew upgrade"))
