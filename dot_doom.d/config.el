@@ -111,6 +111,7 @@
         :desc "List global tools" "T" (cmd! (async-shell-command "cat ~/.tool-versions"))
         :desc "Edit global tools" "E" (cmd! (find-file "~/.tool-versions")))
        (:prefix ("b" . "homebrew")
+        :desc "Edit global .Brewfile" "E" (cmd! (find-file "~/.Brewfile"))
         :desc "Update" "u" (cmd! (async-shell-command "brew update"))
         :desc "Upgrade" "U" (cmd! (async-shell-command "brew update && brew upgrade"))
         :desc "List installed" "l" (cmd! (and (async-shell-command "brew list")(other-window 1))))
