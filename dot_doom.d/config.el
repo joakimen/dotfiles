@@ -61,11 +61,10 @@
   (interactive)
   (shell-command (concat "chmod u+x " (buffer-file-name))))
 
-(defun jle/new-shellscript ()
-  "create a new shellscript in $HOME/bin"
-  (interactive)
-  (find-file(format "~/bin/%s" (read-from-minibuffer "Script name: "))))
-
+(defun jle/new-script (filename)
+  "create a new script in $HOME/bin"
+  (interactive (list(read-file-name "Script name: " "~/bin/")))
+  (find-file filename))
 
 (defun eval-surrounding-parens ()
   "evaluate surrounding parentheses"
@@ -121,3 +120,4 @@
         :desc "Status" "s" (cmd! (async-shell-command "chezmoi status"))
         :desc "Upgrade chezmoi" "U" (cmd! (async-shell-command "chezmoi upgrade"))
         :desc "Managed" "m" (cmd! (async-shell-command "chezmoi managed")))))
+
