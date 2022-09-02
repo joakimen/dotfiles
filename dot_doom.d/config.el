@@ -25,8 +25,6 @@
  auth-sources '("~/.authinfo")
  +zen-text-scale 0
 
- doom-font (font-spec :family "Fira Code" :size 14)
- doom-theme 'doom-one
 
  evil-vsplit-window-right t
  evil-split-window-below t
@@ -34,9 +32,19 @@
  rmh-elfeed-org-files (list "~/.config/elfeed/elfeed.org")
  )
 
+;; (system-name)
+(defun get-font-size ()
+  (pcase (system-name)
+    ("Nikkos-MBP.localdomain" 16)
+    (x 14)))
+
+(setq
+ doom-font (font-spec :family "Fira Code" :size (get-font-size))
+ doom-theme 'doom-one)
+
 ;; by default uses wrong flags for macos-version of locate
 (if IS-MAC
- (setq consult-locate-args "locate -i"))
+    (setq consult-locate-args "locate -i"))
 
 ;; automatically update buffer from filesystem
 (global-auto-revert-mode t)
@@ -112,6 +120,7 @@
        (:prefix ("b" . "homebrew")
         :desc "Edit global .Brewfile" "E" (cmd! (find-file "~/.Brewfile"))
         :desc "Update" "u" (cmd! (async-shell-command "brew update"))
+        :desc "Install global" "I" (cmd! (async-shell-command "brew bundle --global"))
         :desc "Upgrade" "U" (cmd! (async-shell-command "brew update && brew upgrade"))
         :desc "List installed" "l" (cmd! (and (async-shell-command "brew list")(other-window 1))))
        (:prefix ("d" . "chezmoi")
@@ -120,4 +129,3 @@
         :desc "Status" "s" (cmd! (async-shell-command "chezmoi status"))
         :desc "Upgrade chezmoi" "U" (cmd! (async-shell-command "chezmoi upgrade"))
         :desc "Managed" "m" (cmd! (async-shell-command "chezmoi managed")))))
-
