@@ -81,11 +81,39 @@
     (up-list 1 t t)
     (eval-last-sexp nil)))
 
+(defun jle/async-cmd-and-switch (command)
+  "run COMMAND and switch to new window in normal-mode"
+  (async-shell-command command)
+  (other-window 1)
+  (with-current-buffer "*Async Shell Command*"
+    (evil-normal-state)))
+
+(defun jle/line ()
+  "return current line"
+  (buffer-substring-no-properties
+   (line-beginning-position)
+   (line-end-position)))
+
+(defun jle/run-cmd-on-line (command)
+  "run COMMAND with current line as args"
+  (interactive "sCommand: ")
+  (async-shell-command (concat command " " (shell-quote-argument (jle/line)))))
+
+(defun jle/run-cmd-on-each-line-in-file (command file)
+  "run COMMAND on each line in FILE"
+  (interactive "sCommand: \nf")
+  (with-temp-buffer
+    (insert-file-contents file)
+    (goto-char (point-min))
+    (while (not (eobp))
+      (jle/run-cmd-on-line command)
+      (forward-line))))
+
 ;; keybindings
 (define-key evil-normal-state-map (kbd "C-e") 'er/expand-region)
 (define-key evil-visual-state-map (kbd "C-e") 'er/expand-region)
 (define-key evil-insert-state-map (kbd "C-e") 'er/expand-region)
-(define-key evil-normal-state-map (kbd "C-b") '+vertico/switch-workspace-buffer)
+(define-key evil-normal-state-map (kbd "C-b") 'consult-buffer)
 (define-key evil-normal-state-map (kbd "C-p") 'projectile-switch-project)
 
 (global-set-key (kbd "M--") 'evilnc-comment-or-uncomment-lines)
@@ -115,6 +143,7 @@
        (:prefix ("a" . "asdf")
         :desc "Update asdf plugins" "u" (cmd! (async-shell-command "asdf plugin update --all"))
         :desc "Update asdf itself" "U" (cmd! (async-shell-command "asdf update"))
+        :desc "Install desired plugins" "P" (cmd! (async-shell-command "install-asdf-plugins"))
         :desc "List global tools" "T" (cmd! (async-shell-command "cat ~/.tool-versions"))
         :desc "Edit global tools" "E" (cmd! (find-file "~/.tool-versions")))
        (:prefix ("b" . "homebrew")
@@ -122,9 +151,9 @@
         :desc "Update" "u" (cmd! (async-shell-command "brew update"))
         :desc "Install global" "I" (cmd! (async-shell-command "brew bundle --global"))
         :desc "Upgrade" "U" (cmd! (async-shell-command "brew update && brew upgrade"))
-        :desc "List installed" "l" (cmd! (and (async-shell-command "brew list")(other-window 1))))
+        :desc "List installed" "l" (cmd! (jle/async-cmd-and-switch "brew list")))
        (:prefix ("d" . "chezmoi")
-        :desc "Diff" "d" (cmd! (and (async-shell-command "chezmoi diff")(other-window 1)))
+        :desc "Diff" "d" (cmd! (jle/async-cmd-and-switch "chezmoi diff"))
         :desc "Re-add" "r" (cmd! (async-shell-command "chezmoi re-add"))
         :desc "Status" "s" (cmd! (async-shell-command "chezmoi status"))
         :desc "Upgrade chezmoi" "U" (cmd! (async-shell-command "chezmoi upgrade"))
