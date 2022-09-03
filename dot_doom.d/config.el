@@ -109,6 +109,19 @@
       (jle/run-cmd-on-line command)
       (forward-line))))
 
+(defun shell-cmd-tmpwindow (command)
+  "Run COMMAND and pass output to a read-only buffer we can close with q"
+  (interactive "sCommand: ")
+  (let ((cmd command)
+        (temp-buf-name "*short-lived*"))
+    (get-buffer-create temp-buf-name)
+    (shell-command cmd temp-buf-name)
+    (switch-to-buffer-other-window temp-buf-name)
+    (evil-insert-state)
+    (special-mode)
+  (with-current-buffer temp-buf-name
+    (evil-insert-state))))
+
 ;; keybindings
 (define-key evil-normal-state-map (kbd "C-e") 'er/expand-region)
 (define-key evil-visual-state-map (kbd "C-e") 'er/expand-region)
@@ -153,8 +166,9 @@
         :desc "Upgrade" "U" (cmd! (async-shell-command "brew update && brew upgrade"))
         :desc "List installed" "l" (cmd! (jle/async-cmd-and-switch "brew list")))
        (:prefix ("d" . "chezmoi")
+        :desc "Add" "a" (cmd! (async-shell-command (format "chezmoi add %s" (read-file-name "chezmoi add: " "~/"))))
         :desc "Diff" "d" (cmd! (jle/async-cmd-and-switch "chezmoi diff"))
         :desc "Re-add" "r" (cmd! (async-shell-command "chezmoi re-add"))
         :desc "Status" "s" (cmd! (async-shell-command "chezmoi status"))
         :desc "Upgrade chezmoi" "U" (cmd! (async-shell-command "chezmoi upgrade"))
-        :desc "Managed" "m" (cmd! (async-shell-command "chezmoi managed")))))
+        :desc "Managed" "m" (cmd! (jle/async-cmd-and-switch "chezmoi managed")))))
