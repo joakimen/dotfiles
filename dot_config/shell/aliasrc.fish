@@ -51,8 +51,8 @@ alias fb switch-branch
 alias co switch-remote-branch
 
 # docker
-alias docker podman
-alias d podman
+#alias docker podman
+#alias d podman
 alias din docker-inspect
 alias dpsa "docker ps -a"
 alias dr docker-run
@@ -62,6 +62,9 @@ alias dps docker-image-push
 alias dil docker-image-list
 alias dcs docker-container-start
 alias dct docker-container-stop
+
+# maven
+alias mci "mvn clean install"
 
 # ansible
 alias ap ansible-playbook

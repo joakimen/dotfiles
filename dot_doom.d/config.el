@@ -24,9 +24,8 @@
  magit-repository-directories `((,dev-dir . 3) (user-emacs-directory . 0))
  auth-sources '("~/.authinfo")
  +zen-text-scale 0
-
-
  company-idle-delay 0
+
  evil-vsplit-window-right t
  evil-split-window-below t
 
@@ -36,7 +35,7 @@
 ;; (system-name)
 (defun get-font-size ()
   (pcase (system-name)
-    ("Nikkos-MBP.localdomain" 16)
+    ("Nikkos-MBP.localdomain" 17)
     (x 14)))
 
 (setq

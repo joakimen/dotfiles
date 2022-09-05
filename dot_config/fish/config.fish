@@ -13,7 +13,7 @@ set -xg LC_ALL "en_US.utf-8"
 set -xg LPASS_AGENT_TIMEOUT 0
 set -xg BAT_THEME base16
 set -xg XDG_CONFIG_HOME "$HOME/.config"
-set -x DOCKER_HOST 'unix:///Users/joakle/.local/share/containers/podman/machine/podman-machine-default/podman.sock'
+#set -x DOCKER_HOST 'unix:///Users/joakle/.local/share/containers/podman/machine/podman-machine-default/podman.sock'
 set -xg BUILDAH_FORMAT docker
 set -g fish_greeting
 
