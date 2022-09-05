@@ -26,6 +26,7 @@
  +zen-text-scale 0
 
 
+ company-idle-delay 0
  evil-vsplit-window-right t
  evil-split-window-below t
 
@@ -82,9 +83,11 @@
     (eval-last-sexp nil)))
 
 (defun jle/async-cmd-and-switch (command)
-  "run COMMAND and switch to new window in normal-mode"
+  "run COMMAND and switch to new window in special-mode"
   (async-shell-command command)
   (other-window 1)
+  (use-local-map (copy-keymap evil-normal-state-local-map))
+  (local-set-key "q" 'quit-window) ; make it work in evil-normal-state
   (with-current-buffer "*Async Shell Command*"
     (evil-normal-state)))
 
