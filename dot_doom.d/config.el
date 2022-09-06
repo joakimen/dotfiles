@@ -131,6 +131,7 @@
 (define-key evil-normal-state-map (kbd "C-b") 'consult-buffer)
 (define-key evil-normal-state-map (kbd "C-p") 'projectile-switch-project)
 
+(global-set-key (kbd "M-!") 'async-shell-command)
 (global-set-key (kbd "M--") 'evilnc-comment-or-uncomment-lines)
 (global-set-key (kbd "C-s") '+default/search-buffer)
 (global-set-key (kbd "C-h") 'evil-window-left)
