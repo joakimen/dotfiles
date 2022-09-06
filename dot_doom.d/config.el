@@ -172,5 +172,6 @@
         :desc "Diff" "d" (cmd! (jle/async-cmd-and-switch "chezmoi diff"))
         :desc "Re-add" "r" (cmd! (async-shell-command "chezmoi re-add"))
         :desc "Status" "s" (cmd! (async-shell-command "chezmoi status"))
+        :desc "Update chezmoi" "u" (cmd! (async-shell-command "chezmoi update"))
         :desc "Upgrade chezmoi" "U" (cmd! (async-shell-command "chezmoi upgrade"))
         :desc "Managed" "m" (cmd! (jle/async-cmd-and-switch "chezmoi managed")))))
