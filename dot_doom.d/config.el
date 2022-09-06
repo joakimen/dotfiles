@@ -32,7 +32,6 @@
  rmh-elfeed-org-files (list "~/.config/elfeed/elfeed.org")
  )
 
-;; (system-name)
 (defun get-font-size ()
   (pcase (system-name)
     ("Nikkos-MBP.localdomain" 17)
@@ -119,10 +118,9 @@
     (get-buffer-create temp-buf-name)
     (shell-command cmd temp-buf-name)
     (switch-to-buffer-other-window temp-buf-name)
-    (evil-insert-state)
     (special-mode)
-  (with-current-buffer temp-buf-name
-    (evil-insert-state))))
+    (with-current-buffer temp-buf-name
+      (evil-insert-state))))
 
 ;; keybindings
 (define-key evil-normal-state-map (kbd "C-e") 'er/expand-region)
@@ -155,6 +153,7 @@
         :desc "Mark as executable" "x" #'jle/mark-current-file-as-executable)
        (:prefix ("r" . "rss")
         :desc "Update feed list" "u" #'elfeed-update
+        :desc "Edit configuration file" "C" (cmd! (find-file "~/.config/elfeed/elfeed.org"))
         :desc "Open elfeed" "r" #'elfeed)
        (:prefix ("a" . "asdf")
         :desc "Update asdf plugins" "u" (cmd! (async-shell-command "asdf plugin update --all"))
