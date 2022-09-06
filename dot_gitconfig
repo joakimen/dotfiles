@@ -1,6 +1,7 @@
 [user]
 	name = Joakim L. Engeset
 	email = joakim.engeset@gmail.com
+	signingKey = joakim.engeset@gmail.com
 [github]
   user = joakimen
 [core]
@@ -69,3 +70,7 @@
 	prune = true
 [init]
 	defaultBranch = main
+[tag]
+	gpgSign = true
+[commit]
+	gpgSign = true

@@ -8,6 +8,7 @@ tap "johanhaleby/kubetail"
 # brews
 brew "aws-vault"
 brew "awscli"
+brew "awslogs"
 brew "bat"
 brew "chezmoi"
 brew "choose-rust"
