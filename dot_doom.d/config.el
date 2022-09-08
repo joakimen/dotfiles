@@ -22,6 +22,7 @@
  sh-shell-file "/usr/local/bin/bash"
  vterm-shell "/usr/local/bin/fish"
  projectile-project-search-path `((,dev-dir . 3))
+ projectile-switch-project-action #'magit-status
  magit-repository-directories `((,dev-dir . 3) (user-emacs-directory . 0))
  auth-sources '("~/.authinfo")
  +zen-text-scale 0
@@ -151,6 +152,7 @@
 
 (map! :leader
       (:prefix-map ("j" . "jle")
+        :desc "Open IntelliJ" "i" (cmd! (async-shell-command (format "idea %s" (file-name-directory buffer-file-name))))
        (:prefix ("e" . "eval")
         :desc "Eval current parens" "e" #'eval-surrounding-parens)
        (:prefix ("o" . "open")
