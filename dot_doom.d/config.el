@@ -60,6 +60,7 @@
 ;; hooks
 (add-hook 'dired-mode-hook 'auto-revert-mode)
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
+(add-hook! 'elfeed-search-mode-hook #'elfeed-update)
 
 (custom-set-variables
  '(initial-frame-alist (quote ((fullscreen . maximized)))))
@@ -163,7 +164,7 @@
        (:prefix ("r" . "rss")
         :desc "Update feed list" "u" #'elfeed-update
         :desc "Edit configuration file" "C" (cmd! (find-file "~/.config/elfeed/elfeed.org"))
-        :desc "Open elfeed" "r" (cmd! (elfeed-update) (elfeed)))
+        :desc "Open elfeed" "r" #'elfeed)
        (:prefix ("a" . "asdf")
         :desc "Update asdf plugins" "u" (cmd! (async-shell-command "asdf plugin update --all"))
         :desc "Update asdf itself" "U" (cmd! (async-shell-command "asdf update"))
