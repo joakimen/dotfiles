@@ -2,7 +2,7 @@
 # Author: Joakim Engeset <joakim.engeset@gmail.com>
 
 set -xg EDITOR nvim
-set -xg RIPGREP_CONFIG_PATH ~/.rgrc
+set -xg RIPGREP_CONFIG_PATH ~/.config/rg/config
 set -xg GO111MODULE on
 set -xg FZF_DEFAULT_COMMAND 'fd --type f --hidden'
 set -xg FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"

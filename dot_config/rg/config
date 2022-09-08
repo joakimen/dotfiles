@@ -3,6 +3,7 @@
 --glob=!.calva/*
 --glob=!venv/*
 --glob=!.pytest_cache/*
+--glob=!node_modules/*
 --no-heading
 --no-ignore
 --hidden
