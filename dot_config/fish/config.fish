@@ -15,6 +15,7 @@ set -xg BAT_THEME base16
 set -xg XDG_CONFIG_HOME "$HOME/.config"
 #set -x DOCKER_HOST 'unix:///Users/joakle/.local/share/containers/podman/machine/podman-machine-default/podman.sock'
 set -xg BUILDAH_FORMAT docker
+set -xg AWS_VAULT_PROMPT osascript
 set -g fish_greeting
 
 [ -s ~/.tokens ] && . ~/.tokens
