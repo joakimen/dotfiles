@@ -8,6 +8,7 @@
  evil-escape-delay 0.3
 
  dev-dir "~/dev"
+ obsidian-dir "~/notes/main"
 
  default-directory "~/"
  display-line-numbers-type t
@@ -30,7 +31,15 @@
  evil-split-window-below t
 
  rmh-elfeed-org-files (list "~/.config/elfeed/elfeed.org")
+
  )
+
+(after! elfeed
+  (setq elfeed-search-filter "@2-week-ago +unread"))
+
+(defun find-note ()
+  (interactive)
+  (+vertico/consult-fd obsidian-dir))
 
 (defun get-font-size ()
   (pcase (system-name)
@@ -154,7 +163,7 @@
        (:prefix ("r" . "rss")
         :desc "Update feed list" "u" #'elfeed-update
         :desc "Edit configuration file" "C" (cmd! (find-file "~/.config/elfeed/elfeed.org"))
-        :desc "Open elfeed" "r" #'elfeed)
+        :desc "Open elfeed" "r" (cmd! (elfeed-update) (elfeed)))
        (:prefix ("a" . "asdf")
         :desc "Update asdf plugins" "u" (cmd! (async-shell-command "asdf plugin update --all"))
         :desc "Update asdf itself" "U" (cmd! (async-shell-command "asdf update"))
