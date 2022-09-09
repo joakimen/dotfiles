@@ -139,11 +139,12 @@
 (define-key evil-normal-state-map (kbd "C-b") 'consult-buffer)
 (define-key evil-normal-state-map (kbd "C-p") 'projectile-switch-project)
 
-(defun elfeed-kill-buffer ()
-  "Kill the current buffer."
-  (interactive)
-  (switch-to-buffer "*elfeed-search*")
-  (kill-buffer "*elfeed-entry*"))
+(after! elfeed
+  (defun elfeed-kill-buffer ()
+    "Kill the current buffer."
+    (interactive)
+    (switch-to-buffer "*elfeed-search*")
+    (kill-buffer "*elfeed-entry*")))
 
 (global-set-key (kbd "M-!") 'async-shell-command)
 (global-set-key (kbd "M--") 'evilnc-comment-or-uncomment-lines)
@@ -171,7 +172,7 @@
        (:prefix ("r" . "rss")
         :desc "Update feed list" "u" #'elfeed-update
         :desc "Edit configuration file" "C" (cmd! (find-file "~/.config/elfeed/elfeed.org"))
-        :desc "Open elfeed" "r" (cmd! (elfeed-search-update--force) (elfeed)))
+        :desc "Open elfeed" "r" (cmd! (elfeed)))
        (:prefix ("a" . "asdf")
         :desc "Update asdf plugins" "u" (cmd! (async-shell-command "asdf plugin update --all"))
         :desc "Update asdf itself" "U" (cmd! (async-shell-command "asdf update"))
