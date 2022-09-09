@@ -139,13 +139,6 @@
 (define-key evil-normal-state-map (kbd "C-b") 'consult-buffer)
 (define-key evil-normal-state-map (kbd "C-p") 'projectile-switch-project)
 
-(after! elfeed
-  (defun elfeed-kill-buffer ()
-    "Kill the current buffer."
-    (interactive)
-    (switch-to-buffer "*elfeed-search*")
-    (kill-buffer "*elfeed-entry*")))
-
 (global-set-key (kbd "M-!") 'async-shell-command)
 (global-set-key (kbd "M--") 'evilnc-comment-or-uncomment-lines)
 (global-set-key (kbd "C-s") '+default/search-buffer)
