@@ -1,0 +1,6 @@
+* Blogs                                                              :elfeed:
+** Tech :tech:
+*** https://news.ycombinator.com/rss
+** News :news:
+*** https://feeds.a.dj.com/rss/RSSWorldNews.xml
+*** https://www.nrk.no/toppsaker.rss
