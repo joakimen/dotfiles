@@ -41,11 +41,11 @@
 (after! elfeed
   (setq elfeed-search-filter "@2-week-ago +unread"))
 
-(defun find-note ()
+(defun open-note ()
   (interactive)
-  (+vertico/consult-fd obsidian-dir))
+  (affe-find obsidian-dir))
 
-(defun get-font-size ()
+(defun get-font-size (
   (pcase (system-name)
     ("Nikkos-MBP.localdomain" 17)
     (x 14)))
@@ -141,6 +141,7 @@
 (define-key evil-insert-state-map (kbd "C-e") 'er/expand-region)
 (define-key evil-normal-state-map (kbd "C-b") 'consult-buffer)
 (define-key evil-normal-state-map (kbd "C-p") 'projectile-switch-project)
+(define-key evil-normal-state-map (kbd "C-n") 'open-note)
 
 (global-set-key (kbd "M-!") 'async-shell-command)
 (global-set-key (kbd "M--") 'evilnc-comment-or-uncomment-lines)
@@ -168,6 +169,8 @@
        (:prefix ("r" . "rss")
         :desc "Update feed list" "u" #'elfeed-update
         :desc "Open elfeed" "r" (cmd! (elfeed)))
+       (:prefix ("n" . "notes")
+        :desc "Open note" "n" #'open-note)
        (:prefix ("a" . "asdf")
         :desc "Update asdf plugins" "u" (cmd! (async-shell-command "asdf plugin update --all"))
         :desc "Update asdf itself" "U" (cmd! (async-shell-command "asdf update"))
