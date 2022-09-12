@@ -66,6 +66,12 @@ alias dct docker-container-stop
 # maven
 alias mci "mvn clean install"
 
+# terraform
+alias tf terraform
+alias tfi "terraform init"
+alias tfp "terraform plan"
+alias tfa "terraform apply"
+
 # ansible
 alias ap ansible-playbook
 alias av ansible-vault
