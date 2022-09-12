@@ -50,3 +50,5 @@ end
 if not set -q TMUX
   tmux new -A -s main
 end
+
+starship init fish | source

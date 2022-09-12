@@ -45,7 +45,7 @@
   (interactive)
   (affe-find obsidian-dir))
 
-(defun get-font-size (
+(defun get-font-size ()
   (pcase (system-name)
     ("Nikkos-MBP.localdomain" 17)
     (x 14)))
