@@ -31,7 +31,10 @@
  evil-vsplit-window-right t
  evil-split-window-below t
 
- rmh-elfeed-org-files (list "~/.config/elfeed/elfeed.org")
+ elfeed-feeds
+ '(("https://news.ycombinator.com/rss" tech)
+   ("https://feeds.a.dj.com/rss/RSSWorldNews.xml" news)
+   ("https://www.nrk.no/toppsaker.rss" news))
 
  )
 
@@ -151,7 +154,7 @@
 
 (map! :leader
       (:prefix-map ("j" . "jle")
-        :desc "Open IntelliJ" "i" (cmd! (async-shell-command (format "idea %s" (file-name-directory buffer-file-name))))
+       :desc "Open IntelliJ" "i" (cmd! (async-shell-command (format "idea %s" (file-name-directory buffer-file-name))))
        (:prefix ("e" . "eval")
         :desc "Eval current parens" "e" #'eval-surrounding-parens)
        (:prefix ("o" . "open")
@@ -164,7 +167,6 @@
         :desc "Mark as executable" "x" #'jle/mark-current-file-as-executable)
        (:prefix ("r" . "rss")
         :desc "Update feed list" "u" #'elfeed-update
-        :desc "Edit configuration file" "C" (cmd! (find-file "~/.config/elfeed/elfeed.org"))
         :desc "Open elfeed" "r" (cmd! (elfeed)))
        (:prefix ("a" . "asdf")
         :desc "Update asdf plugins" "u" (cmd! (async-shell-command "asdf plugin update --all"))
