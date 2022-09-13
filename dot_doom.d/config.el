@@ -33,8 +33,7 @@
 
  elfeed-feeds
  '(("https://news.ycombinator.com/rss" tech)
-   ("https://feeds.a.dj.com/rss/RSSWorldNews.xml" news)
-   ("https://www.nrk.no/toppsaker.rss" news))
+   ("https://feeds.a.dj.com/rss/RSSWorldNews.xml" news))
 
  )
 
