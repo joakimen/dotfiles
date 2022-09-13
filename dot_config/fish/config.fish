@@ -26,7 +26,7 @@ set aliasfile $XDG_CONFIG_HOME/shell/aliasrc.fish
 alias ac "e $aliasfile"
 
 
-fish_add_path ~/go/bin ~/bin /usr/local/sbin ~/.emacs.d/bin ~/.local/bin /opt/homebrew/bin /opt/homebrew/sbin
+fish_add_path ~/go/bin ~/bin /usr/local/sbin ~/.emacs.d/bin ~/.local/bin /opt/homebrew/bin
 
 function sudo --description '!!-support for sudo'
     if test "$argv" = !!

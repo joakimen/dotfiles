@@ -3,6 +3,7 @@
 (setq
  user-full-name "Joakim Lindeng Engeset"
  user-mail-address "joakim.engeset@gmail.com"
+ github-user-name "joakimen"
 
  evil-escape-key-sequence "fd"
  evil-escape-delay 0.3
