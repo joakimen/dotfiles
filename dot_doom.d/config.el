@@ -9,6 +9,7 @@
  evil-escape-delay 0.3
 
  dev-dir "~/dev"
+ proj-root (concat dev-dir "/github.com/" github-user-name)
  obsidian-dir "~/notes/main"
  homebrew-bin-dir "/opt/homebrew/bin"
 
@@ -135,6 +136,23 @@
     (special-mode)
     (with-current-buffer temp-buf-name
       (evil-insert-state))))
+
+(defun create-project (projname)
+  "initialize a new project w/README in project root"
+  (interactive "sProject: ")
+  (let ((projname-abs (expand-file-name projname proj-root))
+        (readme "README.md"))
+    (message (concat "Creating project " projname-abs))
+    (if (file-directory-p projname-abs)
+        (error (concat "Project " projname-abs " already exists, exiting"))
+      (dired-create-directory projname-abs)
+      (with-temp-file (expand-file-name readme projname-abs)
+        (insert (concat "# " projname hard-newline)))
+      (magit-init projname-abs)
+      (magit-stage-file readme)
+      (magit-call-git "commit" "-m" "Initial commit")
+      (magit-refresh)
+    )))
 
 ;; keybindings
 (define-key evil-normal-state-map (kbd "C-e") 'er/expand-region)
