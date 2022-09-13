@@ -10,6 +10,7 @@
 
  dev-dir "~/dev"
  obsidian-dir "~/notes/main"
+ homebrew-bin-dir "/opt/homebrew/bin"
 
  default-directory "~/"
  display-line-numbers-type t
@@ -20,8 +21,8 @@
  fill-column 120
  mac-option-modifier nil
  mac-command-modifier 'meta
- sh-shell-file "/usr/local/bin/bash"
- vterm-shell "/usr/local/bin/fish"
+ sh-shell-file (expand-file-name "bash" homebrew-bin-dir)
+ vterm-shell (expand-file-name "fish" homebrew-bin-dir)
  projectile-project-search-path `((,dev-dir . 3))
  projectile-switch-project-action #'magit-status
  magit-repository-directories `((,dev-dir . 3) (user-emacs-directory . 0))
