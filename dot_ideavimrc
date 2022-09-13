@@ -1,1 +1,3 @@
 imap fd <Esc>
+set ideajoin
+set clipboard+=unnamed
