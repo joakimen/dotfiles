@@ -30,6 +30,7 @@
  auth-sources '("~/.authinfo")
  +zen-text-scale 0
  company-idle-delay 0
+ auth-sources '("~/.authinfo")
 
  evil-vsplit-window-right t
  evil-split-window-below t
@@ -151,8 +152,7 @@
       (magit-init projname-abs)
       (magit-stage-file readme)
       (magit-call-git "commit" "-m" "Initial commit")
-      (magit-refresh)
-    )))
+      (magit-refresh))))
 
 ;; keybindings
 (define-key evil-normal-state-map (kbd "C-e") 'er/expand-region)
@@ -175,6 +175,8 @@
 (map! :leader
       (:prefix-map ("j" . "jle")
        :desc "Open IntelliJ" "i" (cmd! (async-shell-command (format "idea %s" (file-name-directory buffer-file-name))))
+       (:prefix ("p" . "project")
+        :desc "New project" "n" #'create-project)
        (:prefix ("e" . "eval")
         :desc "Eval current parens" "e" #'eval-surrounding-parens)
        (:prefix ("o" . "open")
