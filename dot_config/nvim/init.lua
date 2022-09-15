@@ -136,3 +136,6 @@ nvim_create_augroups({
     { 'BufRead', '*', [[call setpos(".", getpos("'\""))]] };
   };
 })
+
+-- replace with vim.api.nvim_create_autocmd
+-- https://neovim.io/doc/user/api.html
