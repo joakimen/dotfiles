@@ -154,7 +154,7 @@
       (magit-call-git "commit" "-m" "Initial commit")
       (magit-refresh))))
 
-(defun complete-stdoud-line(command)
+(defun complete-stdout-line(command)
   "wip"
   (let ((tmpbuf "*tmp-sh-out*"))
     (with-output-to-temp-buffer tmpbuf
