@@ -154,6 +154,13 @@
       (magit-call-git "commit" "-m" "Initial commit")
       (magit-refresh))))
 
+(defun complete-stdoud-line(command)
+  "wip"
+  (let ((tmpbuf "*tmp-sh-out*"))
+    (with-output-to-temp-buffer tmpbuf
+      (message "tempbuf " tmpbuf)
+      (shell-command command tmpbuf)
+      (completing-read "choose: " (with-temp-buffer (split-string (substring-no-properties (buffer-string))))))))
 ;; keybindings
 (define-key evil-normal-state-map (kbd "C-e") 'er/expand-region)
 (define-key evil-visual-state-map (kbd "C-e") 'er/expand-region)
