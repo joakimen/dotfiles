@@ -44,10 +44,6 @@
 (after! elfeed
   (setq elfeed-search-filter "@2-week-ago +unread"))
 
-(defun open-note ()
-  (interactive)
-  (affe-find obsidian-dir))
-
 (defun get-font-size ()
   (pcase (system-name)
     ("Nikkos-MBP.localdomain" 17)
@@ -154,12 +150,17 @@
       (magit-call-git "commit" "-m" "Initial commit")
       (magit-refresh))))
 
+
 (defun complete-stdout-line(command)
   "perform command, then select one entry from stdout"
   (let ((buf "*tmp-sh-out*"))
     (shell-command command buf)
     (with-current-buffer buf
-      (completing-read "> " (split-string (substring-no-properties (buffer-string)))))))
+      (completing-read "> " (split-string (substring-no-properties (buffer-string)) "\n")))))
+
+(defun open-note ()
+  "open file etc!"
+  (complete-stdout-line (format "fd --base-directory %s" obsidian-dir)))
 
 ;; keybindings
 (define-key evil-normal-state-map (kbd "C-e") 'er/expand-region)
