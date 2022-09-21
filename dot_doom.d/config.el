@@ -155,12 +155,12 @@
       (magit-refresh))))
 
 (defun complete-stdout-line(command)
-  "wip"
-  (let ((tmpbuf "*tmp-sh-out*"))
-    (with-output-to-temp-buffer tmpbuf
-      (message "tempbuf " tmpbuf)
-      (shell-command command tmpbuf)
-      (completing-read "choose: " (with-temp-buffer (split-string (substring-no-properties (buffer-string))))))))
+  "perform command, then select one entry from stdout"
+  (let ((buf "*tmp-sh-out*"))
+    (shell-command command buf)
+    (with-current-buffer buf
+      (completing-read "> " (split-string (substring-no-properties (buffer-string)))))))
+
 ;; keybindings
 (define-key evil-normal-state-map (kbd "C-e") 'er/expand-region)
 (define-key evil-visual-state-map (kbd "C-e") 'er/expand-region)
