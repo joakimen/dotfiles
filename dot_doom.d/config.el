@@ -198,6 +198,8 @@
        (:prefix ("r" . "rss")
         :desc "Update feed list" "u" #'elfeed-update
         :desc "Open elfeed" "r" (cmd! (elfeed)))
+       (:prefix ("g" . "git")
+        :desc "View repo on Github" "w" (cmd! (shell-command "gh repo view --web")))
        (:prefix ("n" . "notes")
         :desc "Open note" "n" #'open-note)
        (:prefix ("a" . "asdf")
