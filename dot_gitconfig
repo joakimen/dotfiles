@@ -62,10 +62,6 @@
 [pull]
 	default = current
 	rebase = false
-[github]
-	host = github.oslo.kommune.no
-[github "github.oslo.kommune.no/api/v3"]
-	user = joakim-lindeng-engeset
 [fetch]
 	prune = true
 [init]
@@ -74,3 +70,7 @@
 	gpgSign = true
 [commit]
 	gpgSign = true
+
+# host-specific
+[include]
+	path = ~/.gitconfig-local
