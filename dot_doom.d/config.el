@@ -150,17 +150,16 @@
       (magit-call-git "commit" "-m" "Initial commit")
       (magit-refresh))))
 
-
-(defun complete-stdout-line(command)
-  "perform command, then select one entry from stdout"
-  (let ((buf "*tmp-sh-out*"))
-    (shell-command command buf)
-    (with-current-buffer buf
-      (completing-read "> " (split-string (substring-no-properties (buffer-string)) "\n")))))
+(defun complete-command-stdout (command)
+  "run a shell command and fuzzy complete among result lines from stdout"
+  (completing-read "> "(split-string (shell-command-to-string command) hard-newline t)))
 
 (defun open-note ()
-  "open file etc!"
-  (complete-stdout-line (format "fd --base-directory %s" obsidian-dir)))
+  "open a note in main obsidian vault"
+  (interactive)
+  (find-file (expand-file-name (complete-command-stdout
+                                (format "fd --base-directory %s"
+                                        obsidian-dir)) obsidian-dir)))
 
 ;; keybindings
 (define-key evil-normal-state-map (kbd "C-e") 'er/expand-region)
