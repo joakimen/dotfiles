@@ -161,6 +161,15 @@
                                 (format "fd --base-directory %s"
                                         obsidian-dir)) obsidian-dir)))
 
+(defun clone-repo ()
+  "fuzzy clone a repo using gh"
+  (interactive)
+  (let* ((repo (complete-command-stdout "gh repo list | choose 0"))
+         (repo-abs (expand-file-name repo (expand-file-name "github.com" dev-dir))))
+    (if (file-directory-p repo-abs)
+        (error (concat "aborting, repo already exists: " repo-abs))
+      (message "TODO"))))
+
 ;; keybindings
 (define-key evil-normal-state-map (kbd "C-e") 'er/expand-region)
 (define-key evil-visual-state-map (kbd "C-e") 'er/expand-region)
@@ -200,7 +209,8 @@
        (:prefix ("g" . "git")
         :desc "View repo on Github" "w" (cmd! (shell-command "gh repo view --web")))
        (:prefix ("n" . "notes")
-        :desc "Open note" "n" #'open-note)
+        :desc "Open note" "n" #'open-note
+        :desc "Create note" "c" #'create-note)
        (:prefix ("a" . "asdf")
         :desc "Update asdf plugins" "u" (cmd! (async-shell-command "asdf plugin update --all"))
         :desc "Update asdf itself" "U" (cmd! (async-shell-command "asdf update"))
