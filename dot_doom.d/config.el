@@ -46,6 +46,11 @@
 (after! elfeed
   (setq elfeed-search-filter "@2-week-ago +unread"))
 
+(defun projectile-idea-action (dir)
+  "bind this one"
+  (interactive "f")
+  (async-shell-command (concat "idea " dir)))
+
 (defun get-font-size ()
   (pcase (system-name)
     ("Nikkos-MBP.localdomain" 17)
@@ -211,7 +216,8 @@
         :desc "Update feed list" "u" #'elfeed-update
         :desc "Open elfeed" "r" (cmd! (elfeed)))
        (:prefix ("g" . "git")
-        :desc "View repo on Github" "w" (cmd! (shell-command "gh repo view --web")))
+        :desc "View repo on Github" "w" (cmd! (shell-command "gh repo view --web"))
+        :desc "Clone my repos" "C" #'clone-repo)
        (:prefix ("n" . "notes")
         :desc "Open note" "n" #'open-note
         :desc "Create note" "c" #'create-note)
