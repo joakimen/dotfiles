@@ -25,7 +25,6 @@
  sh-shell-file (expand-file-name "bash" homebrew-bin-dir)
  vterm-shell (expand-file-name "fish" homebrew-bin-dir)
  projectile-project-search-path `((,dev-dir . 3))
- projectile-switch-project-action #'magit-status
  magit-repository-directories `((,dev-dir . 3) (user-emacs-directory . 0))
  auth-sources '("~/.authinfo")
  +zen-text-scale 0
@@ -40,6 +39,9 @@
    ("https://feeds.a.dj.com/rss/RSSWorldNews.xml" news))
 
  )
+
+(after! projectile
+  (setq projectile-switch-project-action #'magit-status))
 
 (after! elfeed
   (setq elfeed-search-filter "@2-week-ago +unread"))
@@ -168,7 +170,9 @@
          (repo-abs (expand-file-name repo (expand-file-name "github.com" dev-dir))))
     (if (file-directory-p repo-abs)
         (error (concat "aborting, repo already exists: " repo-abs))
-      (message "TODO"))))
+      (shell-command (format "gh repo clone %s %s" repo repo-abs))
+      (projectile-add-known-project repo-abs)
+      (magit-status repo-abs))))
 
 ;; keybindings
 (define-key evil-normal-state-map (kbd "C-e") 'er/expand-region)
