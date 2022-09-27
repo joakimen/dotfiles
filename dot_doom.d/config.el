@@ -40,6 +40,18 @@
 
  )
 
+(setq +format-on-save-enabled-modes
+      )
+
+
+(setq +format-on-save-enabled-modes
+  '(not emacs-lisp-mode    ; elisp's mechanisms are good enough
+        sql-mode           ; sqlformat is currently broken
+        tex-mode           ; latexindent is broken
+        latex-mode
+        org-msg-edit-mode ; doesn't need a formatter
+        nxml-mode))
+
 (after! projectile
   (setq projectile-switch-project-action #'magit-status))
 
@@ -59,7 +71,7 @@
       '(initial-frame-alist (quote ((fullscreen . maximized)))))))
   ("Nikkos-MBP.localdomain"
    (progn
-     (setq doom-font-size 17)))
+     (setq doom-font-size 16)))
   (x
    (setq doom-font-size 12)))
 
