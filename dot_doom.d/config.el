@@ -51,13 +51,20 @@
   (interactive "f")
   (async-shell-command (concat "idea " dir)))
 
-(defun get-font-size ()
-  (pcase (system-name)
-    ("Nikkos-MBP.localdomain" 17)
-    (x 14)))
+(pcase (system-name)
+  ("windurst.local"
+   (progn
+     (setq doom-font-size 14)
+     (custom-set-variables
+      '(initial-frame-alist (quote ((fullscreen . maximized)))))))
+  ("Nikkos-MBP.localdomain"
+   (progn
+     (setq doom-font-size 17)))
+  (x
+   (setq doom-font-size 12)))
 
 (setq
- doom-font (font-spec :family "Fira Code" :size (get-font-size))
+ doom-font (font-spec :family "Fira Code" :size doom-font-size)
  doom-theme 'doom-one)
 
 ;; by default uses wrong flags for macos-version of locate
@@ -70,9 +77,6 @@
 ;; hooks
 (add-hook 'dired-mode-hook 'auto-revert-mode)
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
-
-(custom-set-variables
- '(initial-frame-alist (quote ((fullscreen . maximized)))))
 
 (defun jle/indent-buffer ()
   "removes trailing whitespace, indents buffer and replaces tabs with spaces"
