@@ -41,10 +41,6 @@
  )
 
 (setq +format-on-save-enabled-modes
-      )
-
-
-(setq +format-on-save-enabled-modes
   '(not emacs-lisp-mode    ; elisp's mechanisms are good enough
         sql-mode           ; sqlformat is currently broken
         tex-mode           ; latexindent is broken
@@ -69,7 +65,7 @@
      (setq doom-font-size 14)
      (custom-set-variables
       '(initial-frame-alist (quote ((fullscreen . maximized)))))))
-  ("Nikkos-MBP.localdomain"
+  ("jeuno.local"
    (progn
      (setq doom-font-size 16)))
   (x
