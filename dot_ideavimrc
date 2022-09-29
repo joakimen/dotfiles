@@ -2,6 +2,7 @@ imap fd <Esc>
 set ideajoin
 set clipboard+=unnamed
 set incsearch
+set ignorecase smartcase
 
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
