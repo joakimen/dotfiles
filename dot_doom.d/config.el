@@ -41,12 +41,12 @@
  )
 
 (setq +format-on-save-enabled-modes
-  '(not emacs-lisp-mode    ; elisp's mechanisms are good enough
-        sql-mode           ; sqlformat is currently broken
-        tex-mode           ; latexindent is broken
-        latex-mode
-        org-msg-edit-mode ; doesn't need a formatter
-        nxml-mode))
+      '(not emacs-lisp-mode    ; elisp's mechanisms are good enough
+            sql-mode           ; sqlformat is currently broken
+            tex-mode           ; latexindent is broken
+            latex-mode
+            org-msg-edit-mode ; doesn't need a formatter
+            nxml-mode))
 
 (after! projectile
   (setq projectile-switch-project-action #'magit-status))
@@ -54,10 +54,16 @@
 (after! elfeed
   (setq elfeed-search-filter "@2-week-ago +unread"))
 
-(defun projectile-idea-action (dir)
-  "bind this one"
-  (interactive "f")
-  (async-shell-command (concat "idea " dir)))
+(defun open-idea ()
+  (interactive)
+  (let ((buf
+         (if (+magit-buffer-p (buffer-name))
+      (message (concat "Opening magit toplevel" (magit-toplevel)))
+    (message (concat "Opening buffer " (buffer-name))))
+;; set buf in here!
+         ))
+    (shell-command (concat "idea" buf))
+    ))
 
 (pcase (system-name)
   ("windurst.local"
@@ -211,7 +217,8 @@
 
 (map! :leader
       (:prefix-map ("j" . "jle")
-       :desc "Open IntelliJ" "i" (cmd! (async-shell-command (format "idea %s" (file-name-directory buffer-file-name))))
+       ;; :desc "Open IntelliJ" "i" (cmd! (async-shell-command (format "idea %s" (file-name-directory buffer-file-name))))
+       :desc "Open IntelliJ" "i" #'open-idea
        (:prefix ("p" . "project")
         :desc "New project" "n" #'create-project)
        (:prefix ("e" . "eval")
