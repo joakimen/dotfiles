@@ -60,7 +60,7 @@
          (if (+magit-buffer-p (buffer-name))
              (magit-toplevel)
            (file-name-directory (buffer-file-name)))))
-    (shell-command (concat "idea " dir))))
+    (shell-command (concat "idea " (shell-quote-argument dir)))))
 
 (pcase (system-name)
   ("windurst.local"
