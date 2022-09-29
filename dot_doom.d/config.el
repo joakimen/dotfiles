@@ -12,6 +12,7 @@
  proj-root (concat dev-dir "/github.com/" github-user-name)
  obsidian-dir "~/notes/main"
  homebrew-bin-dir "/opt/homebrew/bin"
+ asdf-config-dir "~/.config/asdf"
 
  default-directory "~/"
  display-line-numbers-type t
@@ -143,6 +144,11 @@
     (while (not (eobp))
       (jle/run-cmd-on-line command)
       (forward-line))))
+
+(defun asdf-install-plugins ()
+  (interactive)
+  (let ((plugins (sh-cmd-to-list (concat "cat " (expand-file-name "plugins" asdf-config-dir)))))
+    (mapcar (lambda (plug) (shell-command (concat "asdf plugin add " plug))) plugins))) ;; need to feed this into some output buffer instead
 
 (defun shell-cmd-tmpwindow (command)
   "Run COMMAND and pass output to a read-only buffer we can close with q"
