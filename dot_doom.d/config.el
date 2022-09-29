@@ -68,7 +68,7 @@
      (setq doom-font-size 14)
      (custom-set-variables
       '(initial-frame-alist (quote ((fullscreen . maximized)))))))
-  ("jeuno.local"
+  ("Nikkos-MBP.localdomain"
    (progn
      (setq doom-font-size 16)))
   (x
