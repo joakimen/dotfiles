@@ -172,9 +172,13 @@
       (magit-call-git "commit" "-m" "Initial commit")
       (magit-refresh))))
 
-(defun complete-command-stdout (command)
+(defun sh-cmd-to-list (cmd)
+  "run an arbitrary shell command, return stdout as list"
+  (split-string (shell-command-to-string cmd) hard-newline t))
+
+(defun complete-command-stdout (cmd)
   "run a shell command and fuzzy complete among result lines from stdout"
-  (completing-read "> "(split-string (shell-command-to-string command) hard-newline t)))
+  (completing-read "> " (sh-cmd-to-list cmd)))
 
 (defun open-note ()
   "open a note in main obsidian vault"
