@@ -56,14 +56,11 @@
 
 (defun open-idea ()
   (interactive)
-  (let ((buf
+  (let ((dir
          (if (+magit-buffer-p (buffer-name))
-      (message (concat "Opening magit toplevel" (magit-toplevel)))
-    (message (concat "Opening buffer " (buffer-name))))
-;; set buf in here!
-         ))
-    (shell-command (concat "idea" buf))
-    ))
+             (magit-toplevel)
+           (file-name-directory (buffer-file-name)))))
+    (shell-command (concat "idea " dir))))
 
 (pcase (system-name)
   ("windurst.local"
