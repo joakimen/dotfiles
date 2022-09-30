@@ -147,8 +147,10 @@
 
 (defun asdf-install-plugins ()
   (interactive)
-  (let ((plugins (sh-cmd-to-list (concat "cat " (expand-file-name "plugins" asdf-config-dir)))))
-    (mapcar (lambda (plug) (shell-command (concat "asdf plugin add " plug))) plugins))) ;; need to feed this into some output buffer instead
+  (let ((plugins (sh-cmd-to-list (concat "cat " (expand-file-name "plugins" asdf-config-dir))))
+        (buf "*asdf*"))
+    (pop-to-buffer buf)
+    (mapcar (lambda (plug) (shell-command (concat "asdf plugin add " plug) buf)) plugins)))
 
 (defun shell-cmd-tmpwindow (command)
   "Run COMMAND and pass output to a read-only buffer we can close with q"
