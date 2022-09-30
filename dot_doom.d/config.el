@@ -150,10 +150,9 @@
   (let ((plugins (sh-cmd-to-list (concat "cat " (expand-file-name "plugins" asdf-config-dir))))
         (buf "*asdf*"))
     (with-current-buffer buf
+      (erase-buffer)
       (pop-to-buffer buf)
-      (message "> Installing asdf plugins")
-      (mapcar (lambda (plug) (shell-command (concat "asdf plugin add " plug) buf)) plugins))
-    ))
+      (mapcar (lambda (plug) (shell-command (concat "asdf plugin add " plug) buf)) plugins))))
 
 (defun shell-cmd-tmpwindow (command)
   "Run COMMAND and pass output to a read-only buffer we can close with q"
