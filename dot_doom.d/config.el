@@ -149,8 +149,11 @@
   (interactive)
   (let ((plugins (sh-cmd-to-list (concat "cat " (expand-file-name "plugins" asdf-config-dir))))
         (buf "*asdf*"))
-    (pop-to-buffer buf)
-    (mapcar (lambda (plug) (shell-command (concat "asdf plugin add " plug) buf)) plugins)))
+    (with-current-buffer buf
+      (pop-to-buffer buf)
+      (message "> Installing asdf plugins")
+      (mapcar (lambda (plug) (shell-command (concat "asdf plugin add " plug) buf)) plugins))
+    ))
 
 (defun shell-cmd-tmpwindow (command)
   "Run COMMAND and pass output to a read-only buffer we can close with q"
@@ -250,6 +253,7 @@
         :desc "Open note" "n" #'open-note
         :desc "Create note" "c" #'create-note)
        (:prefix ("a" . "asdf")
+        :desc "Install asdf plugins" "i" #'asdf-install-plugins
         :desc "Update asdf plugins" "u" (cmd! (async-shell-command "asdf plugin update --all"))
         :desc "Update asdf itself" "U" (cmd! (async-shell-command "asdf update"))
         :desc "Install desired plugins" "P" (cmd! (async-shell-command "install-asdf-plugins"))
