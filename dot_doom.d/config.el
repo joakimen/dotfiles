@@ -136,10 +136,10 @@
     (with-current-buffer buf
       (erase-buffer)
       (pop-to-buffer buf)
-      "need to figure out how to tweak this output."
       (mapcar (lambda (elem) (shell-command (concat cmd " " elem) buf)) list))))
 
 (defun asdf-install-plugins ()
+  (interactive)
   (let ((plugins (sh-cmd-to-list (concat "cat " (expand-file-name "plugins" asdf-config-dir)))))
         (run-cmd-on-elements-in-list "asdf plugin add" plugins)))
 
@@ -230,10 +230,9 @@
         :desc "Open note" "n" #'open-note
         :desc "Create note" "c" #'create-note)
        (:prefix ("a" . "asdf")
-        :desc "Install asdf plugins" "i" #'asdf-install-plugins
         :desc "Update asdf plugins" "u" (cmd! (async-shell-command "asdf plugin update --all"))
         :desc "Update asdf itself" "U" (cmd! (async-shell-command "asdf update"))
-        :desc "Install desired plugins" "P" (cmd! (async-shell-command "install-asdf-plugins"))
+        :desc "Install desired plugins" "P" #'asdf-install-plugins
         :desc "List global tools" "T" (cmd! (async-shell-command "cat ~/.tool-versions"))
         :desc "Edit global tools" "E" (cmd! (find-file "~/.tool-versions")))
        (:prefix ("b" . "homebrew")
