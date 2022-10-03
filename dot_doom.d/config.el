@@ -131,16 +131,18 @@
    (line-end-position)))
 
 (defun run-cmd-on-elements-in-list (cmd list)
-  (mapcar (lambda (elem) (shell-command (concat cmd " " elem) buf)) list))
-
-(defun asdf-install-plugins ()
-  (interactive)
-  (let ((plugins (sh-cmd-to-list (concat "cat " (expand-file-name "plugins" asdf-config-dir))))
-        (buf "*asdf*"))
+  (let ((buf "*sh-stdout*"))
+    (generate-new-buffer buf)
     (with-current-buffer buf
       (erase-buffer)
       (pop-to-buffer buf)
-      (mapcar (lambda (plug) (shell-command (concat "asdf plugin add " plug) buf)) plugins))))
+      "need to figure out how to tweak this output."
+      (mapcar (lambda (elem) (shell-command (concat cmd " " elem) buf)) list))))
+
+(defun asdf-install-plugins ()
+  (let ((plugins (sh-cmd-to-list (concat "cat " (expand-file-name "plugins" asdf-config-dir)))))
+        (run-cmd-on-elements-in-list "asdf plugin add" plugins)))
+
 
 (defun create-project (projname)
   "initialize a new project w/README in project root"
