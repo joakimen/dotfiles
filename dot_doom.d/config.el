@@ -130,20 +130,8 @@
    (line-beginning-position)
    (line-end-position)))
 
-(defun jle/run-cmd-on-line (command)
-  "run COMMAND with current line as args"
-  (interactive "sCommand: ")
-  (async-shell-command (concat command " " (shell-quote-argument (jle/line)))))
-
-(defun jle/run-cmd-on-each-line-in-file (command file)
-  "run COMMAND on each line in FILE"
-  (interactive "sCommand: \nf")
-  (with-temp-buffer
-    (insert-file-contents file)
-    (goto-char (point-min))
-    (while (not (eobp))
-      (jle/run-cmd-on-line command)
-      (forward-line))))
+(defun run-cmd-on-elements-in-list (cmd list)
+  (mapcar (lambda (elem) (shell-command (concat cmd " " elem) buf)) list))
 
 (defun asdf-install-plugins ()
   (interactive)
