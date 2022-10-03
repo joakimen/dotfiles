@@ -154,18 +154,6 @@
       (pop-to-buffer buf)
       (mapcar (lambda (plug) (shell-command (concat "asdf plugin add " plug) buf)) plugins))))
 
-(defun shell-cmd-tmpwindow (command)
-  "Run COMMAND and pass output to a read-only buffer we can close with q"
-  (interactive "sCommand: ")
-  (let ((cmd command)
-        (temp-buf-name "*short-lived*"))
-    (get-buffer-create temp-buf-name)
-    (shell-command cmd temp-buf-name)
-    (switch-to-buffer-other-window temp-buf-name)
-    (special-mode)
-    (with-current-buffer temp-buf-name
-      (evil-insert-state))))
-
 (defun create-project (projname)
   "initialize a new project w/README in project root"
   (interactive "sProject: ")
