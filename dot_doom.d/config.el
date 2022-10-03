@@ -143,7 +143,6 @@
   (let ((plugins (sh-cmd-to-list (concat "cat " (expand-file-name "plugins" asdf-config-dir)))))
         (run-cmd-on-elements-in-list "asdf plugin add" plugins)))
 
-
 (defun create-project (projname)
   "initialize a new project w/README in project root"
   (interactive "sProject: ")
