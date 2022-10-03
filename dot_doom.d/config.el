@@ -56,6 +56,7 @@
   (setq elfeed-search-filter "@2-week-ago +unread"))
 
 (defun open-idea ()
+  "open Intellij IDEA in the current dir (works in magit)"
   (interactive)
   (let ((dir
          (if (+magit-buffer-p (buffer-name))
@@ -130,7 +131,8 @@
    (line-beginning-position)
    (line-end-position)))
 
-(defun run-cmd-on-elements-in-list (cmd list)
+(defun mapcar-sh (cmd list)
+  "for each element in LIST, run shell command CMD with the element as argument"
   (let ((buf "*sh-stdout*"))
     (generate-new-buffer buf)
     (with-current-buffer buf
@@ -139,9 +141,10 @@
       (mapcar (lambda (elem) (shell-command (concat cmd " " elem) buf)) list))))
 
 (defun asdf-install-plugins ()
+  "install asdf-plugins defined in config file"
   (interactive)
   (let ((plugins (sh-cmd-to-list (concat "cat " (expand-file-name "plugins" asdf-config-dir)))))
-        (run-cmd-on-elements-in-list "asdf plugin add" plugins)))
+    (run-cmd-on-elements-in-list "asdf plugin add" plugins)))
 
 (defun create-project (projname)
   "initialize a new project w/README in project root"
