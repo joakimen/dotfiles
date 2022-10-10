@@ -55,6 +55,11 @@
 (after! elfeed
   (setq elfeed-search-filter "@2-week-ago +unread"))
 
+(defun jle/dirname ()
+  (if (+magit-buffer-p (buffer-name))
+      (magit-toplevel)
+    (file-name-directory (buffer-file-name))))
+
 (defun open-idea ()
   "open Intellij IDEA in the current dir (works in magit)"
   (interactive)
@@ -78,7 +83,7 @@
 
 (setq
  doom-font (font-spec :family "Fira Code" :size doom-font-size)
- doom-theme 'doom-one)
+ doom-theme 'doom-dracula)
 
 ;; by default uses wrong flags for macos-version of locate
 (if IS-MAC
@@ -219,7 +224,7 @@
         :desc "Open ~/bin dir" "b" (cmd! (dired "~/bin"))
         :desc "Open dotfiles dir" "d" (cmd! (dired "~/.local/share/chezmoi")))
        (:prefix ("f" . "file")
-        :desc "New shell script" "n" #'jle/new-shellscript
+        :desc "New shell script" "n" #'jle/new-script
         :desc "Indent buffer" "i" #'jle/indent-buffer
         :desc "Mark as executable" "x" #'jle/mark-current-file-as-executable)
        (:prefix ("r" . "rss")

@@ -18,6 +18,8 @@ set -xg BUILDAH_FORMAT docker
 set -xg AWS_VAULT_PROMPT osascript
 set -g fish_greeting
 
+bind \co "project-cd; commandline -f repaint"
+
 [ -s ~/.tokens ] && . ~/.tokens
 [ -s ~/.z.fish ] && . ~/.z.fish
 
@@ -53,3 +55,14 @@ end
 
 complete --command aws --no-files --arguments '(begin; set --local --export COMP_SHELL fish; set --local --export COMP_LINE (commandline); aws_completer | sed \'s/ $//\'; end)'
 starship init fish | source
+
+function project-cd
+  set projects (project-list | string split0)
+  if not set -q projects
+    return
+  end
+  set dir (echo $projects | fzf)
+  if set -q dir
+    cd "$HOME/$dir"
+  end
+end
