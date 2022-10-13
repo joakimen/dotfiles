@@ -30,7 +30,6 @@
  auth-sources '("~/.authinfo")
  +zen-text-scale 0
  company-idle-delay 0
- auth-sources '("~/.authinfo")
 
  evil-vsplit-window-right t
  evil-split-window-below t
