@@ -209,6 +209,8 @@
 (global-set-key (kbd "C-j") 'evil-window-down)
 (global-set-key (kbd "M-w") '+workspace/close-window-or-workspace)
 (global-set-key (kbd "C-M-<backspace>") 'delete-other-windows)
+(global-set-key (kbd "M-j") 'flycheck-next-error)
+(global-set-key (kbd "M-k") 'flycheck-previous-error)
 
 (map! :leader
       (:prefix-map ("j" . "jle")
