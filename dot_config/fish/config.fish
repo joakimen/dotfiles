@@ -62,7 +62,7 @@ function project-cd
     return
   end
   set dir (echo $projects | fzf)
-  if set -q dir
+  if test -n "$dir"
     cd "$HOME/$dir"
   end
 end
