@@ -19,6 +19,7 @@ set -xg AWS_VAULT_PROMPT osascript
 set -g fish_greeting
 
 bind \co "project-cd; commandline -f repaint"
+bind \cb "switch-branch; commandline -f repaint"
 
 [ -s ~/.tokens ] && . ~/.tokens
 [ -s ~/.z.fish ] && . ~/.z.fish
@@ -66,3 +67,4 @@ function project-cd
     cd "$HOME/$dir"
   end
 end
+
