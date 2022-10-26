@@ -36,7 +36,7 @@ alias fd "fd --hidden"
 alias kl kill-process
 
 # tmux
-alias t "tmux new -A -s 0"
+alias t "tmux new -A -s main"
 alias tmux "tmux -2 -u"
 alias tks "tmux kill-server"
 alias tn tmux-new-session
