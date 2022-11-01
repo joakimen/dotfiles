@@ -17,6 +17,8 @@ set -xg XDG_CONFIG_HOME "$HOME/.config"
 set -xg BUILDAH_FORMAT docker
 set -xg AWS_VAULT_PROMPT osascript
 set -g fish_greeting
+set -xg DEFAULT_REGION "eu-west-1"
+set -xg AWS_DEFAULT_REGION "eu-west-1"
 
 bind \co "project-cd; commandline -f repaint"
 bind \cb "switch-branch; commandline -f repaint"
