@@ -52,7 +52,7 @@ function _fzf_compgen_dir
 end
 
 # auto-attach/create tmux-session "main"
-if not set -q TMUX
+if not set -q TMUX; and not set -q TERM_PROGRAM
   tmux new -A -s main
 end
 
