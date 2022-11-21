@@ -22,6 +22,7 @@ set -xg AWS_DEFAULT_REGION "eu-west-1"
 
 bind \co "project-cd; commandline -f repaint"
 bind \cb "switch-branch; commandline -f repaint"
+bind \cy "aws-login; commandline -f repaint"
 
 [ -s ~/.tokens ] && . ~/.tokens
 [ -s ~/.z.fish ] && . ~/.z.fish
