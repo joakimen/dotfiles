@@ -61,6 +61,13 @@ function aws_complete
   complete --command $argv --no-files --arguments '(begin; set --local --export COMP_SHELL fish; set --local --export COMP_LINE (commandline); aws_completer | sed \'s/ $//\'; end)'
 end
 
+function clone
+  set outdir (clone.sh)
+  if set -q outdir
+    cd "$outdir"
+  end
+end
+
 aws_complete "aws"
 aws_complete "awslocal"
 
