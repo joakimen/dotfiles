@@ -24,7 +24,7 @@ bind \co "project-cd; commandline -f repaint"
 bind \cb "switch-branch; commandline -f repaint"
 bind \cy "aws-login; commandline -f repaint"
 
-[ -s ~/.tokens ] && . ~/.tokens
+[ -s ~/.tokens.fish ] && . ~/.tokens.fish
 [ -s ~/.z.fish ] && . ~/.z.fish
 
 set aliasfile $XDG_CONFIG_HOME/shell/aliasrc.fish
