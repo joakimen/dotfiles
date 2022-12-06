@@ -8,7 +8,6 @@ set -xg FZF_DEFAULT_COMMAND 'fd --type f --hidden'
 set -xg FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
 set -xg FZF_DEFAULT_OPTS '--height 40% --border'
 set -xg MANPAGER 'nvim +Man!'
-set -xg RIPGREP_CONFIG_PATH ~/.config/rg/config
 set -xg LC_ALL "en_US.utf-8"
 set -xg LPASS_AGENT_TIMEOUT 0
 set -xg BAT_THEME base16
@@ -23,6 +22,7 @@ set -xg AWS_DEFAULT_REGION "eu-west-1"
 bind \co "project-cd; commandline -f repaint"
 bind \cb "switch-branch; commandline -f repaint"
 bind \cy "aws-login; commandline -f repaint"
+bind \e\cy "awschrome.sh capra-personal-admin; commandline -f repaint"
 
 [ -s ~/.tokens.fish ] && . ~/.tokens.fish
 [ -s ~/.z.fish ] && . ~/.z.fish
@@ -30,7 +30,6 @@ bind \cy "aws-login; commandline -f repaint"
 set aliasfile $XDG_CONFIG_HOME/shell/aliasrc.fish
 . $aliasfile
 alias ac "e $aliasfile"
-
 
 fish_add_path ~/go/bin ~/bin /usr/local/sbin ~/.emacs.d/bin ~/.local/bin /opt/homebrew/bin
 
