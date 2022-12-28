@@ -23,6 +23,7 @@ bind \co "project-cd; commandline -f repaint"
 bind \cb "switch-branch; commandline -f repaint"
 bind \cy "aws-login; commandline -f repaint"
 bind \e\cy "awschrome.sh capra-personal-admin; commandline -f repaint"
+bind \e\ce "code ."
 
 [ -s ~/.tokens.fish ] && . ~/.tokens.fish
 [ -s ~/.z.fish ] && . ~/.z.fish
