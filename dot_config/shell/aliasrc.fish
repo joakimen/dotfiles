@@ -76,6 +76,9 @@ alias tfa "terraform apply"
 alias ap ansible-playbook
 alias av ansible-vault
 
+# npm
+alias n npm
+
 # gpg
 alias keys show-gpg-pubkey
 
