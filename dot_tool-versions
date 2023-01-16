@@ -5,3 +5,4 @@ python 3.10.4
 lua 5.4.4
 golang 1.19
 deno 1.23.1
+bun 0.4.0
