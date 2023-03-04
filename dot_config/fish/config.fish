@@ -22,11 +22,17 @@ set -xg AWS_DEFAULT_REGION "eu-west-1"
 bind \co "project-cd; commandline -f repaint"
 bind \cb "switch-branch; commandline -f repaint"
 bind \cy "aws-login; commandline -f repaint"
+bind \cx "aws-exec; commandline -f repaint"
 bind \e\cy "awschrome.sh capra-personal-admin; commandline -f repaint"
 bind \e\ce "code ."
 
-[ -s ~/.tokens.fish ] && . ~/.tokens.fish
-[ -s ~/.z.fish ] && . ~/.z.fish
+function _source
+  [ -s $argv ] && . $argv
+end
+
+_source ~/.tokens.fish
+_source ~/.z.fish
+_source ~/.config/liflig/liflig.fish
 
 set aliasfile $XDG_CONFIG_HOME/shell/aliasrc.fish
 . $aliasfile
@@ -53,7 +59,7 @@ function _fzf_compgen_dir
 end
 
 # auto-attach/create tmux-session "main"
-if not set -q TMUX; and not set -q TERM_PROGRAM
+if not set -q TMUX; and not set -q TERM_PROGRAM; and not set -q __INTELLIJ_COMMAND_HISTFILE__
   tmux new -A -s main
 end
 
@@ -68,7 +74,15 @@ function clone
   end
 end
 
+function timestamp --description "Simple timestamp for filenames"
+  date +'%Y-%m-%d-%H-%m-%S'
+end
+
 aws_complete "aws"
 aws_complete "awslocal"
 
 starship init fish | source
+
+alias bbi "bbin install"
+alias bbu "bbin uninstall"
+alias bbl "bbin ls"

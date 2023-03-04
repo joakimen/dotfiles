@@ -74,3 +74,5 @@
 # host-specific
 [include]
 	path = ~/.gitconfig-local
+;[blame]
+	;ignoreRevsFile = .git-blame-ignore-revs

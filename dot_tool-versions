@@ -1,8 +1,9 @@
 clojure 1.11.1.1200
-java zulu-11.54.25
+java temurin-17.0.6+10
 nodejs 18.10.0
 python 3.10.4
 lua 5.4.4
 golang 1.19
 deno 1.23.1
 bun 0.4.0
+yarn 1.22.19
