@@ -26,7 +26,7 @@ return require('packer').startup(function()
   --use 'machakann/vim-sandwich'
   --use { 'lukas-reineke/indent-blankline.nvim', ft = {'yaml', 'json', 'toml'} }
   --use { 'andymass/vim-matchup', event = 'User ActuallyEditing' }
-  --use 'tommcdo/vim-lion'
+  use 'tommcdo/vim-lion'
   use 'scrooloose/nerdcommenter'
 
   -- git stuff
