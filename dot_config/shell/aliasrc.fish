@@ -13,6 +13,7 @@ alias zc "e ~/.zshrc"
 alias gc "e ~/.gitconfig"
 alias oc "e ~/.okrc"
 alias srcz "source ~/.zshrc"
+alias fe fuzzy-edit
 
 alias er "$EDITOR README.md"
 
@@ -81,6 +82,9 @@ alias n npm
 
 # gpg
 alias keys show-gpg-pubkey
+
+alias ztig ztig.sh
+alias zdiff zdiff.sh
 
 if which lsd &>/dev/null
     alias l 'lsd -l --date=relative'
