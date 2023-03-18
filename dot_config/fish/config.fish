@@ -6,7 +6,7 @@ set -xg RIPGREP_CONFIG_PATH ~/.config/rg/config
 set -xg GO111MODULE on
 set -xg FZF_DEFAULT_COMMAND 'fd --type f --hidden'
 set -xg FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
-set -xg FZF_DEFAULT_OPTS '--height 50% --border'
+set -xg FZF_DEFAULT_OPTS '--height 40% --border'
 set -xg MANPAGER 'nvim +Man!'
 set -xg LC_ALL "en_US.utf-8"
 set -xg LPASS_AGENT_TIMEOUT 0
@@ -66,6 +66,13 @@ end
 function aws_complete
   complete --command $argv --no-files --arguments '(begin; set --local --export COMP_SHELL fish; set --local --export COMP_LINE (commandline); aws_completer | sed \'s/ $//\'; end)'
 end
+
+#function clone
+  #set outdir (clone.sh)
+  #if set -q outdir
+    #cd "$outdir"
+  #end
+#end
 
 function timestamp --description "Simple timestamp for filenames"
   date +'%Y-%m-%d-%H-%m-%S'
