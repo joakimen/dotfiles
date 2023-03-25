@@ -1,11 +1,21 @@
 function project-cd
-  set projects (project-list | string split0)
-  if not set -q projects
+  set projects_bin "list-projects"
+  if not type -q "$projects_bin"
+    echo "missing bin: $projects_bin" >&2
     return
   end
-  set dir (echo $projects | fzf)
-  if test -n "$dir"
-    cd "$HOME/$dir"
+
+  set projects ($projects_bin | string split0)
+  if not test -n "$projects"
+    echo "couldn't list projects" >&2
+    return
   end
+
+  set project (echo "$projects" | fzf)
+  if test "$status" -ne 0
+    return
+  end
+
+  cd "$project"
 end
 
