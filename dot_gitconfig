@@ -59,6 +59,7 @@
 	textconv = sops -d
 [push]
 	default = current
+	autoSetupRemote = true
 [pull]
 	default = current
 	rebase = true
@@ -76,3 +77,5 @@
 	path = ~/.gitconfig-local
 ;[blame]
 	;ignoreRevsFile = .git-blame-ignore-revs
+[rebase]
+	autoStash = true
