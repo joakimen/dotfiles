@@ -13,6 +13,7 @@ alias zc "e ~/.zshrc"
 alias gc "e ~/.gitconfig"
 alias oc "e ~/.okrc"
 alias srcz "source ~/.zshrc"
+alias fe fuzzy-edit
 
 alias er "$EDITOR README.md"
 
