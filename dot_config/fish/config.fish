@@ -1,6 +1,7 @@
 # config.fish
 # Author: Joakim Engeset <joakim.engeset@gmail.com>
 
+set -xg BABASHKA_BBIN_FLAG_PRETTY_OUTPUT true
 set -xg EDITOR nvim
 set -xg RIPGREP_CONFIG_PATH ~/.config/rg/config
 set -xg GO111MODULE on

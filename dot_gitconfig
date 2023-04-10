@@ -7,6 +7,7 @@
 [core]
 	autocrlf = input
 	editor = nvim
+  hooksPath = ~/.git-hooks
 [diff]
 	tool = vimdiff
 	colorMoved = zebra
