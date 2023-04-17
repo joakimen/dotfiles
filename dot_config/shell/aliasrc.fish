@@ -13,7 +13,7 @@ alias zc "e ~/.zshrc"
 alias gc "e ~/.gitconfig"
 alias oc "e ~/.okrc"
 alias srcz "source ~/.zshrc"
-alias fe fuzzy-edit
+#alias fe fuzzy-edit
 
 alias er "$EDITOR README.md"
 
@@ -50,6 +50,7 @@ alias cm chezmoi
 alias gw "gh repo view -w"
 alias fb switch-branch
 alias co switch-remote-branch
+alias ztig ztig.sh
 
 # docker
 #alias docker podman
