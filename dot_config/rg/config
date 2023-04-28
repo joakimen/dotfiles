@@ -3,6 +3,8 @@
 --glob=!.calva/*
 --glob=!venv/*
 --glob=!.pytest_cache/*
+--glob=!.clj-kondo/*
+--glob=!.lsp/*
 --glob=!node_modules/*
 --no-heading
 --no-ignore
