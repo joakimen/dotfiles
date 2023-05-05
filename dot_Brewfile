@@ -6,7 +6,6 @@ tap "http4k/tap"
 tap "johanhaleby/kubetail"
 
 # brews
-brew "1password-cli"
 brew "aws-vault"
 brew "awscli"
 brew "aws-sam-cli"
