@@ -87,3 +87,4 @@ starship init fish | source
 alias bbi "bbin install"
 alias bbu "bbin uninstall"
 alias bbl "bbin ls"
+rtx activate fish | source

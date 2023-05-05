@@ -23,7 +23,7 @@ return require('packer').startup(function()
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
   use 'Mofiqul/dracula.nvim'
   use 'christoomey/vim-tmux-navigator'
-  --use 'machakann/vim-sandwich'
+  use 'machakann/vim-sandwich'
   --use { 'lukas-reineke/indent-blankline.nvim', ft = {'yaml', 'json', 'toml'} }
   --use { 'andymass/vim-matchup', event = 'User ActuallyEditing' }
   use 'tommcdo/vim-lion'
