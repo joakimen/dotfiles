@@ -45,7 +45,7 @@ alias tn tmux-new-session
 # git
 alias g git
 alias c "git add . && git commit"
-alias cdd "cd $HOME/dev"
+alias cdd "cd $HOME/dev/gitub.com"
 alias cm chezmoi
 alias gw "gh repo view -w"
 alias fb switch-branch
