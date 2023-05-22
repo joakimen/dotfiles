@@ -133,7 +133,4 @@ bindkey '^G' fzf-cd
 
 export o="-o yaml | nvim -c 'setf yaml'"
 
-# asdf version manager
-. $HOME/.asdf/asdf.sh
-
 #zprof # Uncomment to stop active profiling

@@ -77,7 +77,7 @@
 # host-specific
 [include]
 	path = ~/.gitconfig-local
-;[blame]
-	;ignoreRevsFile = .git-blame-ignore-revs
+[blame]
+	ignoreRevsFile = .git-blame-ignore-revs
 [rebase]
 	autoStash = true
