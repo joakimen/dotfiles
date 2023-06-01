@@ -21,7 +21,7 @@ set -xg DEFAULT_REGION "eu-west-1"
 set -xg AWS_DEFAULT_REGION "eu-west-1"
 
 bind \co "project-cd; commandline -f repaint"
-bind \cb "switch-branch; commandline -f repaint"
+bind \cb "bbgit switch-branch; commandline -f repaint"
 bind \cy "aws-login; commandline -f repaint"
 bind \cx "aws-exec; commandline -f repaint"
 bind \e\cy "awschrome.sh capra-personal-admin; commandline -f repaint"
