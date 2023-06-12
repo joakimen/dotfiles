@@ -51,6 +51,7 @@ alias gw "gh repo view -w"
 alias fb switch-branch
 alias co switch-remote-branch
 alias ztig ztig.sh
+alias lg lazygit
 
 # docker
 #alias docker podman
