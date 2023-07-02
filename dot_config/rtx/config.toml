@@ -2,7 +2,6 @@
 java = ['temurin-17', 'temurin-11']
 nodejs = '18'
 python = '3.11'
-lua = '5'
 golang = '1.20'
 deno = '1.33'
 bun = '0.5'

@@ -1,66 +1,61 @@
-local fn = vim.fn
-local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
-if fn.empty(fn.glob(install_path)) > 0 then
-  packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable",
+    lazypath,
+  })
 end
+vim.opt.rtp:prepend(lazypath)
 
-vim.cmd([[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerCompile
-    autocmd BufWritePost plugins.lua source <afile> | PackerClean
-    autocmd BufWritePost plugins.lua source <afile> | PackerInstall
-  augroup end
-]])
-
-return require('packer').startup(function()
-
-  -- Packer can manage itself
-  use 'wbthomason/packer.nvim'
-
-  --- general purpose
-  use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' }}
-  use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-  use 'Mofiqul/dracula.nvim'
-  use 'christoomey/vim-tmux-navigator'
-  use 'machakann/vim-sandwich'
-  --use { 'lukas-reineke/indent-blankline.nvim', ft = {'yaml', 'json', 'toml'} }
-  --use { 'andymass/vim-matchup', event = 'User ActuallyEditing' }
-  use 'tommcdo/vim-lion'
-  use 'scrooloose/nerdcommenter'
-
-  -- git stuff
-  use { 'lewis6991/gitsigns.nvim', config = function() require('gitsigns').setup() end }
-  use { 'tpope/vim-fugitive', cmd = {'Git'} }
-  use { 'TimUntersberger/neogit', requires = { 'nvim-lua/plenary.nvim' }, cmd = {'Neogit'} }
-
-  use 'udalov/kotlin-vim'
-  use 'nickeb96/fish.vim'
-
-  --use {
-    --'nvim-lualine/lualine.nvim',
-    --requires = {'kyazdani42/nvim-web-devicons', opt = true},
-  --}
+require("lazy").setup({
+  { 'nvim-telescope/telescope.nvim', dependencies = { 'nvim-lua/plenary.nvim' }, tag = '0.1.2', lazy = true },
+  { 'nvim-telescope/telescope-fzf-native.nvim', build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' },
+  'christoomey/vim-tmux-navigator',
+  'machakann/vim-sandwich',
+  'tommcdo/vim-lion',
+  'scrooloose/nerdcommenter',
+  'lewis6991/gitsigns.nvim',
+  { 'tpope/vim-fugitive', cmd = {'Git'} },
+  { 'TimUntersberger/neogit', dependencies = { 'nvim-lua/plenary.nvim' }, cmd = {'Neogit'} },
+  { 'nvim-lualine/lualine.nvim', dependencies = {'kyazdani42/nvim-web-devicons'} },
 
   -- lang & linting
-  --use { 'nvim-treesitter/nvim-treesitter', config = function() require 'config.treesitter' end, run = ':TSUpdate' }
-  --use { 'neovim/nvim-lspconfig', config = function() require 'config.lsp' end }
+  { 'nvim-treesitter/nvim-treesitter', config = function() require 'config.treesitter' end, build = ':TSUpdate' },
+  { 'neovim/nvim-lspconfig', config = function() require 'config.lsp' end },
+  { 'udalov/kotlin-vim', ft = "kotlin" },
+  { 'nickeb96/fish.vim', ft = "fish" },
+
+  -- clojure
+  { "Olical/conjure",
+    ft = { "clojure", "fennel" },
+    config = function()
+      vim.api.nvim_create_autocmd("BufNewFile", {
+        group = vim.api.nvim_create_augroup("conjure_log_disable_lsp", { clear = true }),
+        pattern = { "conjure-log-*" },
+        callback = function(event)
+          vim.diagnostic.disable(event.buf)
+        end,
+        desc = "Conjure Log disable LSP diagnostics",
+      })
+    end,
+  },
+  { "gpanders/nvim-parinfer",
+    ft = { "clojure", "fennel" },
+    config = function()
+      vim.g.parinfer_force_balance = true
+    end,
+  },
 
   -- colorschemes
-  --use {
-    --'w0ng/vim-hybrid',
-    --'freeo/vim-kalisi',
-    --'jnurmine/Zenburn',
-    --'morhetz/gruvbox',
-    --'sickill/vim-monokai',
-    --'tomasr/molokai',
-    --'junegunn/seoul256.vim',
-    --'joakimen/lena.vim',
-    --'joshdick/onedark.vim',
-  --}
+  'Mofiqul/dracula.nvim', -- active theme, no lazy
+  { 'jnurmine/Zenburn', lazy = true },
+  { 'joakimen/lena.vim', lazy = true },
+  { 'junegunn/seoul256.vim', lazy = true },
+  { 'junegunn/seoul256.vim', lazy = true }
 
-  if packer_bootstrap then
-    require('packer').sync()
-  end
-end)
 
+})

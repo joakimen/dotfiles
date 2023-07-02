@@ -50,6 +50,7 @@ function xmap(key_seq, cmd) map('x', key_seq, cmd) end
 -- leader
 map('', '<Space>', '<nop>')
 vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
 
 -- fatfingerfix
 nmap('q:', '<nop>')
