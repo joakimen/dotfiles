@@ -26,9 +26,6 @@ require("lazy").setup({
   -- lang & linting
   { 'nvim-treesitter/nvim-treesitter', config = function() require 'config.treesitter' end, build = ':TSUpdate' },
   { 'neovim/nvim-lspconfig', config = function() require 'config.lsp' end },
-  { 'udalov/kotlin-vim', ft = "kotlin" },
-  { 'nickeb96/fish.vim', ft = "fish" },
-
   -- clojure
   { "Olical/conjure",
     ft = { "clojure", "fennel" },
