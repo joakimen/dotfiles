@@ -22,3 +22,7 @@ disabled = true
 disabled = true
 [golang]
 disabled = true
+[line_break]
+disabled = true
+[time]
+disabled = false
