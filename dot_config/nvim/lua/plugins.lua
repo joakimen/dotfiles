@@ -13,7 +13,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   { 'nvim-telescope/telescope.nvim', dependencies = { 'nvim-lua/plenary.nvim' }, tag = '0.1.2', lazy = true },
-  { 'nvim-telescope/telescope-fzf-native.nvim', build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' },
+  { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
   'christoomey/vim-tmux-navigator',
   'machakann/vim-sandwich',
   'tommcdo/vim-lion',
