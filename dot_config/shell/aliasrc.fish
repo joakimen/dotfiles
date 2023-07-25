@@ -68,6 +68,7 @@ alias dct docker-container-stop
 
 # maven
 alias mci "mvn clean install"
+alias mcv "mvn clean verify"
 
 # terraform
 alias tf terraform

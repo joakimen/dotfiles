@@ -7,6 +7,7 @@ deno = '1.33'
 bun = '0.5'
 yarn = '1.22'
 rust = '1.69'
+flutter = "3.10.6-stable"
 
 [settings]
 legacy_version_file = true # enabled by default (different than asdf)

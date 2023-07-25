@@ -1,5 +1,6 @@
 require('plugins')
 require('telescope').load_extension('fzf')
+require('neogit').setup {}
 
 -- opts
 local o = vim.opt
