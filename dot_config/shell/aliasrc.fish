@@ -24,6 +24,10 @@ alias kx kubectx
 alias kn kubens
 alias kz kustomize
 
+# clojure 
+alias bbi "bbin install"
+alias bbl "bbin ls"
+
 ## system
 alias pid 'ps aux | rg'
 alias info 'info --vi-keys'

@@ -1,7 +1,6 @@
 # config.fish
 # Author: Joakim Engeset <joakim.engeset@gmail.com>
 
-set -xg BABASHKA_BBIN_FLAG_PRETTY_OUTPUT true
 set -xg EDITOR nvim
 set -xg RIPGREP_CONFIG_PATH ~/.config/rg/config
 set -xg GO111MODULE on
@@ -10,7 +9,6 @@ set -xg FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
 set -xg FZF_DEFAULT_OPTS '--height 40% --border'
 set -xg MANPAGER 'nvim +Man!'
 set -xg LC_ALL "en_US.utf-8"
-set -xg LPASS_AGENT_TIMEOUT 0
 set -xg BAT_THEME base16
 set -xg XDG_CONFIG_HOME "$HOME/.config"
 #set -x DOCKER_HOST 'unix:///Users/joakle/.local/share/containers/podman/machine/podman-machine-default/podman.sock'
@@ -30,6 +28,8 @@ bind \e\ce "code ."
 bind F9 "project-cd; commandline -f repaint"
 bind \e\cb nvim
 
+set aliasfile $XDG_CONFIG_HOME/shell/aliasrc.fish
+alias ac "e $aliasfile"
 
 function _source
   [ -s $argv ] && . $argv
@@ -38,10 +38,7 @@ end
 _source ~/.tokens.fish
 _source ~/.z.fish
 _source ~/.config/liflig/liflig.fish
-
-set aliasfile $XDG_CONFIG_HOME/shell/aliasrc.fish
-. $aliasfile
-alias ac "e $aliasfile"
+_source $aliasfile
 
 fish_add_path ~/go/bin ~/bin /usr/local/sbin ~/.emacs.d/bin ~/.local/bin /opt/homebrew/bin ~/.babashka/bbin/bin
 
@@ -63,10 +60,11 @@ function _fzf_compgen_dir
     fd --type d --hidden --follow --exclude ".git" . "$1"
 end
 
+# not needed while using wezterm
 # auto-attach/create tmux-session "main"
-if not set -q TMUX; and not set -q TERM_PROGRAM; and not set -q __INTELLIJ_COMMAND_HISTFILE__
-  tmux new -A -s main
-end
+# if not set -q TMUX; and not set -q TERM_PROGRAM; and not set -q __INTELLIJ_COMMAND_HISTFILE__
+#   tmux new -A -s main
+# end
 
 function aws_complete
   complete --command $argv --no-files --arguments '(begin; set --local --export COMP_SHELL fish; set --local --export COMP_LINE (commandline); aws_completer | sed \'s/ $//\'; end)'
@@ -80,7 +78,4 @@ aws_complete "aws"
 aws_complete "awslocal"
 
 starship init fish | source
-
-alias bbi "bbin install"
-alias bbl "bbin ls"
 rtx activate fish | source

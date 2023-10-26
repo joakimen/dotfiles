@@ -120,14 +120,14 @@ local keys = {
 }
 
 return {
-	default_prog         = { shell, '-l' },
-	font                 = wezterm.font(font_name, { weight = "Bold" }),
-	font_size            = font_size,
-	color_scheme         = get_color_scheme(),
-	tab_bar_at_bottom    = true,
-	use_fancy_tab_bar    = false,
-	keys                 = keys,
-	freetype_load_target = "HorizontalLcd",
+	default_prog             = { shell, '-l' },
+	font                     = wezterm.font(font_name, { weight = "Bold" }),
+	font_size                = font_size,
+	color_scheme             = get_color_scheme(),
+	tab_bar_at_bottom        = true,
+	use_fancy_tab_bar        = false,
+	keys                     = keys,
+	freetype_load_target     = "HorizontalLcd",
 	show_tabs_in_tab_bar     = true,
 
 	-- define local multiplexing server

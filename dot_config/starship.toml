@@ -1,6 +1,6 @@
 [kubernetes]
+disabled = true
 format = '\[[$context:$namespace](dimmed blue)\] '
-disabled = false
 [kubernetes.context_aliases]
 "admin@.*" = "🔥$0🔥"
 
@@ -28,3 +28,5 @@ disabled = true
 disabled = false
 [kotlin]
 disabled = true
+[aws]
+format = '[$symbol($profile )(\($region\) )(\[$duration\] )]($style)'
