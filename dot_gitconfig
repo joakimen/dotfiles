@@ -1,5 +1,5 @@
 [user]
-	name = Joakim Lindeng Engeset
+	name = Joakim L. Engeset
 	email = joakim.engeset@gmail.com
 	signingKey = joakim.engeset@gmail.com
 [github]
@@ -77,7 +77,7 @@
 # host-specific
 [include]
 	path = ~/.gitconfig-local
-[blame]
-	ignoreRevsFile = .git-blame-ignore-revs
+;[blame]
+	;ignoreRevsFile = .git-blame-ignore-revs
 [rebase]
 	autoStash = true

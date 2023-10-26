@@ -50,7 +50,7 @@ alias cm chezmoi
 alias gw "gh repo view -w"
 alias fb switch-branch
 alias co switch-remote-branch
-alias ztig ztig.sh
+alias ztig "bf git"
 alias lg lazygit
 
 # docker
@@ -69,6 +69,7 @@ alias dct docker-container-stop
 # maven
 alias mci "mvn clean install"
 alias mcv "mvn clean verify"
+alias mcsv "mvn clean spotless:apply verify"
 
 # terraform
 alias tf terraform
@@ -86,9 +87,12 @@ alias n npm
 # gpg
 alias keys show-gpg-pubkey
 
-if which lsd &>/dev/null
+if which exa &>/dev/null
+    alias l 'exa -al'
+    alias ls exa
+    alias tree 'exa --tree'
+else if which lsd &>/dev/null
     alias l 'lsd -l --date=relative'
-    alias l 'lsd -l'
     alias ls lsd
     alias tree 'lsd --tree'
 else

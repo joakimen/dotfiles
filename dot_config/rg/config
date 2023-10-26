@@ -6,6 +6,7 @@
 --glob=!.lsp/
 --glob=!venv/
 --glob=!node_modules/
+--glob=!target/
 --no-heading
 --no-ignore
 --hidden
