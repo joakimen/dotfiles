@@ -20,10 +20,8 @@ set -xg AWS_DEFAULT_REGION "eu-west-1"
 
 bind \co "project-cd; commandline -f repaint"
 bind \cb "bbgit switch-branch; commandline -f repaint"
-#bind \e\cy "aws-login; commandline -f repaint"
-#bind \e\cx "aws-exec; commandline -f repaint"
-bind -k f4 "aws-exec; commandline -f repaint"
-bind -k f5 "aws-login; commandline -f repaint"
+bind -k f4 "awsvault exec --pattern dtp; commandline -f repaint"
+bind -k f5 "awsvault login --pattern dtp; commandline -f repaint"
 bind \e\ce "code ."
 bind F9 "project-cd; commandline -f repaint"
 bind \e\cb nvim
