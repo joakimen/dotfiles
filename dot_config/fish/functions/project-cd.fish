@@ -1,5 +1,5 @@
 function project-cd
-  set projects_bin "projects"
+  set projects_bin "scriv"
   if not type -q "$projects_bin"
     echo "missing bin: $projects_bin" >&2
     return

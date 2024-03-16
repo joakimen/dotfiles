@@ -76,4 +76,4 @@ aws_complete "aws"
 aws_complete "awslocal"
 
 starship init fish | source
-rtx activate fish | source
+mise activate fish | source
