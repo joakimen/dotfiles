@@ -1,14 +1,3 @@
---[[
-
-  If you don't know anything about Lua, I recommend taking some time to read through
-  a guide. One possible example:
-  - https://learnxinyminutes.com/docs/lua/
-
-  And then you can explore or search through `:help lua-guide`
-  - https://neovim.io/doc/user/lua-guide.html
-
---]]
---
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
@@ -22,15 +11,24 @@ end
 
 local function vmap(key_seq, cmd) vim.keymap.set('v', key_seq, cmd) end
 local function xmap(key_seq, cmd) vim.keymap.set('x', key_seq, cmd) end
+local viml = vim.api.nvim_command
 
 -- center screen on search matches
 nmap("n", "nzz", "Center screen on next search-match")
 nmap("N", "Nzz", "Center screen on previous search-match")
 
+function CleanupWhitespace()
+  viml '%s/\\v\\s+$//e'
+  viml 'retab'
+end
+
+nmap('<leader>w', ':lua CleanupWhitespace()<CR>', 'Retab and remove trailing whitespace')
+
 imap("fd", "<Esc>", "Escape from insert mode")
 
--- reformat json
 nmap('<leader>j', ":setf json|%!jq<CR>", 'Format json')
+
+nmap('<C-q><C-q>', ":q!<CR>", 'Quit vim')
 
 
 -- Install package manager
@@ -72,7 +70,6 @@ require('lazy').setup({
       'folke/neodev.nvim',
     },
   },
-
   {
     -- Autocompletion
     'hrsh7th/nvim-cmp',
@@ -196,48 +193,48 @@ require('lazy').setup({
   },
 
   -- Clojure config
-  {
-    "Olical/conjure",
-    ft = { "clojure", "fennel", "python" }, -- etc
-    -- [Optional] cmp-conjure for cmp
-    dependencies = {
-      {
-        "PaterJason/cmp-conjure",
-        config = function()
-          local cmp = require("cmp")
-          local config = cmp.get_config()
-          table.insert(config.sources, {
-            name = "buffer",
-            option = {
-              sources = {
-                { name = "conjure" },
-              },
-            },
-          })
-          cmp.setup(config)
-        end,
-      },
-    },
-    config = function()
-      vim.api.nvim_create_autocmd("BufNewFile", {
-        group = vim.api.nvim_create_augroup("conjure_log_disable_lsp", { clear = true }),
-        pattern = { "conjure-log-*" },
-        callback = function(event)
-          vim.diagnostic.disable(event.buf)
-        end,
-        desc = "Conjure Log disable LSP diagnostics",
-      })
-    end,
-
-    -- config = function()
-    --   require("conjure.main").main()
-    --   require("conjure.mapping")["on-filetype"]()
-    -- end,
-    init = function()
-      -- Set configuration options here
-      vim.g["conjure#debug"] = true
-    end,
-  },
+  -- {
+  --   "Olical/conjure",
+  --   ft = { "clojure", "fennel", "python" }, -- etc
+  --   -- [Optional] cmp-conjure for cmp
+  --   dependencies = {
+  --     {
+  --       "PaterJason/cmp-conjure",
+  --       config = function()
+  --         local cmp = require("cmp")
+  --         local config = cmp.get_config()
+  --         table.insert(config.sources, {
+  --           name = "buffer",
+  --           option = {
+  --             sources = {
+  --               { name = "conjure" },
+  --             },
+  --           },
+  --         })
+  --         cmp.setup(config)
+  --       end,
+  --     },
+  --   },
+  --   config = function()
+  --     vim.api.nvim_create_autocmd("BufNewFile", {
+  --       group = vim.api.nvim_create_augroup("conjure_log_disable_lsp", { clear = true }),
+  --       pattern = { "conjure-log-*" },
+  --       callback = function(event)
+  --         vim.diagnostic.disable(event.buf)
+  --       end,
+  --       desc = "Conjure Log disable LSP diagnostics",
+  --     })
+  --   end,
+  --
+  --   -- config = function()
+  --   --   require("conjure.main").main()
+  --   --   require("conjure.mapping")["on-filetype"]()
+  --   -- end,
+  --   init = function()
+  --     -- Set configuration options here
+  --     vim.g["conjure#debug"] = true
+  --   end,
+  -- },
   "tpope/vim-sexp-mappings-for-regular-people",
   {
     "gpanders/nvim-parinfer",
@@ -245,7 +242,6 @@ require('lazy').setup({
       vim.g.parinfer_force_balance = true
     end,
   },
-  "alexghergh/nvim-tmux-navigation"
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
@@ -334,9 +330,10 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 require('telescope').setup {
   defaults = {
     mappings = {
+
       i = {
         ['<C-u>'] = false,
-        ['<C-d>'] = false,
+        ['<C-d>'] = require('telescope.actions').delete_buffer,
       },
     },
   },
@@ -347,7 +344,16 @@ pcall(require('telescope').load_extension, 'fzf')
 
 -- See `:help telescope.builtin`
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
+vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
 -- vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
+
+
+
+
+nmap('<C-b>', require('telescope.builtin').buffers, 'witch buffer')
+
+
+
 nmap('<leader><space>', require('telescope.builtin').commands, '[ ] Commands')
 
 -- buffer
@@ -355,10 +361,11 @@ nmap('<leader>bb', require('telescope.builtin').buffers, '[ ] switch buffer')
 
 vim.keymap.set('n', '<leader>/', function()
   -- You can pass additional configuration to telescope to change theme, layout, etc.
-  require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-    winblend = 10,
-    previewer = false,
-  })
+  -- require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+  --   winblend = 10,
+  --   previewer = false,
+  -- })
+  require('telescope.builtin').current_buffer_fuzzy_find()
 end, { desc = '[/] Fuzzily search in current buffer' })
 
 vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files, { desc = 'Search [G]it [F]iles' })
@@ -502,17 +509,6 @@ require('which-key').register {
   ['<leader>b'] = { name = 'Buffer', _ = 'which_key_ignore' },
   ['<leader>w'] = { name = 'Workspace', _ = 'which_key_ignore' },
 }
-
--- tmux navigation
-
-local nvim_tmux_nav = require('nvim-tmux-navigation')
-vim.keymap.set('n', '<C-h>', nvim_tmux_nav.NvimTmuxNavigateLeft, { desc = 'Tmux nav left' })
-vim.keymap.set('n', '<C-j>', nvim_tmux_nav.NvimTmuxNavigateDown, { desc = 'Tmux nav down' })
-vim.keymap.set('n', '<C-k>', nvim_tmux_nav.NvimTmuxNavigateUp, { desc = 'Tmux nav up' })
-vim.keymap.set('n', '<C-l>', nvim_tmux_nav.NvimTmuxNavigateRight, { desc = 'Tmux nav right' })
-
-
-
 
 -- mason-lspconfig requires that these setup functions are called in this order
 -- before setting up the servers.

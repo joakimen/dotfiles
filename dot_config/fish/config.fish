@@ -1,9 +1,10 @@
 # config.fish
 # Author: Joakim Engeset <joakim.engeset@gmail.com>
 
+# this voodoo makes awyeah async stuff work consistently in babashka
+set -xg BABASHKA_PRELOADS "(alter-var-root #'clojure.core.async/go (constantly @#'clojure.core.async/thread))"
 set -xg EDITOR nvim
 set -xg RIPGREP_CONFIG_PATH ~/.config/rg/config
-set -xg GO111MODULE on
 set -xg FZF_DEFAULT_COMMAND 'fd --type f --hidden'
 set -xg FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
 set -xg FZF_DEFAULT_OPTS '--height 40% --border'
@@ -17,17 +18,20 @@ set -xg AWS_VAULT_PROMPT osascript
 set -g fish_greeting
 set -xg DEFAULT_REGION "eu-west-1"
 set -xg AWS_DEFAULT_REGION "eu-west-1"
-
-bind \co "project-cd; commandline -f repaint"
-bind \cb "bbgit switch-branch; commandline -f repaint"
-bind -k f4 "awsvault exec --pattern dtp; commandline -f repaint"
-bind -k f5 "awsvault login --pattern dtp; commandline -f repaint"
+set -xg ANSIBLE_LOCALHOST_WARNING false
+set -xg ANSIBLE_INVENTORY_UNPARSED_WARNING false
+set -xg SPACESHIP_EXIT_CODE_SHOW true
+bind \co "project-cd; commandline -f execute"
+bind \cb "gi branch-switch; commandline -f execute"
+# add support for multiple pattterns/teams
+bind -k f4 "awsvault exec; commandline -f execute"
+bind -k f5 "awsvault login; and commandline -f execute"
 bind \e\ce "code ."
-bind F9 "project-cd; commandline -f repaint"
 bind \e\cb nvim
 
+
 set aliasfile $XDG_CONFIG_HOME/shell/aliasrc.fish
-alias ac "e $aliasfile"
+alias ac="e $aliasfile"
 
 function _source
   [ -s $argv ] && . $argv
@@ -76,4 +80,10 @@ aws_complete "aws"
 aws_complete "awslocal"
 
 starship init fish | source
-mise activate fish | source
+
+# used to activate shims for non-interactive shells, such as when running VS Code
+if status is-interactive
+  mise activate fish | source
+else
+  mise activate fish --shims | source
+end

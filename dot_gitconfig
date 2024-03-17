@@ -7,7 +7,6 @@
 [core]
 	autocrlf = input
 	editor = nvim
-  hooksPath = ~/.git-hooks
 [diff]
 	tool = vimdiff
 	colorMoved = zebra
@@ -68,7 +67,7 @@
 	prune = true
 [init]
 	defaultBranch = main
-	templateDir = ~/.git-templates
+	; templateDir = ~/.git-templates
 [tag]
 	gpgSign = true
 [commit]

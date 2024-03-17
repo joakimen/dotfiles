@@ -1,20 +1,12 @@
 # -*-sh-*-
 
+# aws
+alias totp "td get-aws-totp | pbcopy"
+
+alias lk "lefthook"
 # quick edit
 alias e $EDITOR
-alias em "open -a Emacs"
-alias vc "e ~/.config/nvim/init.lua"
-alias kc "e ~/.config/kitty/kitty.conf"
-alias ekc "e ~/.kube/config"
-alias fc "e ~/.config/fish/config.fish"
-alias tc "e ~/.tmux.conf"
-alias bc "e ~/.bashrc"
-alias zc "e ~/.zshrc"
-alias gc "e ~/.gitconfig"
-alias oc "e ~/.okrc"
-alias srcz "source ~/.zshrc"
 alias fe "bf edit"
-
 alias er "$EDITOR README.md"
 
 ## k8s
@@ -27,6 +19,7 @@ alias kz kustomize
 # clojure 
 alias bbi "bbin install"
 alias bbl "bbin ls"
+alias repl='clojure -J--enable-preview -Sdeps "{:deps {nrepl/nrepl {:mvn/version \"RELEASE\"} cider/cider-nrepl {:mvn/version \"RELEASE\"}}}" -M -m nrepl.cmdline --middleware "[\"cider.nrepl/cider-middleware\"]"'
 
 ## system
 alias pid 'ps aux | rg'
@@ -48,7 +41,8 @@ alias tn tmux-new-session
 
 # git
 alias g git
-alias c "git add . && git commit"
+#alias c "git add . && git commit"
+alias c "gi commit"
 alias cdd "cd $HOME/dev/github.com"
 alias cm chezmoi
 alias gw "gh repo view -w"
@@ -56,6 +50,7 @@ alias fb switch-branch
 alias co switch-remote-branch
 alias ztig "bf git"
 alias lg lazygit
+alias nb "gi branch-create"
 
 # docker
 #alias docker podman
@@ -84,9 +79,14 @@ alias tfa "terraform apply"
 # ansible
 alias ap ansible-playbook
 alias av ansible-vault
+alias update-macos "ansible-playbook $HOME/.config/ansible/mac.yml"
+
+
 
 # npm
 alias n npm
+alias nr node-run
+alias ep "$EDITOR package.json"
 
 # gpg
 alias keys show-gpg-pubkey

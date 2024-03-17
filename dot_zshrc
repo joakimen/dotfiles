@@ -63,6 +63,7 @@ export BAT_THEME=base16
 export XDG_CONFIG_HOME="$HOME/.config"
 export DOCKER_HOST='unix:///Users/joakle/.local/share/containers/podman/machine/podman-machine-default/podman.sock'
 export BUILDAH_FORMAT=docker
+export ANSIBLE_CONFIG="$XDG_CONFIG_HOME/ansible/config.cfg"
 path=(~/go/bin ~/bin /usr/local/sbin ~/.emacs.d/bin ~/.local/bin/ /opt/homebrew/bin $path)
 
 # scripts

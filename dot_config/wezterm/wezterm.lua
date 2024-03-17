@@ -11,7 +11,9 @@ local font_name = "Fira Code"
 -- local font_name = "Liga Menlo"
 
 -- colors
-local light_theme = 'Builtin Solarized Light'
+-- local light_theme = 'Builtin Solarized Light'
+-- local light_theme = 'Catppuccin Latte'
+local light_theme = 'Solarized (light) (terminal.sexy)'
 local dark_theme = 'Catppuccin Mocha'
 -- local dark_theme = 'Batman'
 -- local dark_theme = "DoomOne"
@@ -121,7 +123,7 @@ local keys = {
 
 return {
 	default_prog             = { shell, '-l' },
-	font                     = wezterm.font(font_name, { weight = "Bold" }),
+	font                     = wezterm.font(font_name),
 	font_size                = font_size,
 	color_scheme             = get_color_scheme(),
 	tab_bar_at_bottom        = true,
@@ -129,6 +131,7 @@ return {
 	keys                     = keys,
 	freetype_load_target     = "HorizontalLcd",
 	show_tabs_in_tab_bar     = true,
+	adjust_window_size_when_changing_font_size = true,
 
 	-- define local multiplexing server
 	unix_domains             = {

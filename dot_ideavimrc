@@ -13,6 +13,6 @@ nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 
 nnoremap <leader>dd :action Debug<CR>
-nnoremap <leader>cd :action ChooseDebugConfiguration<CR>
+nnoremap <leader>ed :action ChooseDebugConfiguration<CR>
 nnoremap <leader>rr :action Run<CR>
-nnoremap <leader>cr :action ChooseRunConfiguration<CR>
+nnoremap <leader>er :action ChooseRunConfiguration<CR>
