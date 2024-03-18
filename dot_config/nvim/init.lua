@@ -479,7 +479,7 @@ local on_attach = function(_, bufnr)
   lsp_nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
   lsp_nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
-  -- See `:help K` for why this keymap
+  -- -- See `:help K` for why this keymap
   lsp_nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
   lsp_nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
@@ -490,12 +490,12 @@ local on_attach = function(_, bufnr)
   lsp_nmap('<leader>wl', function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, '[W]orkspace [L]ist Folders')
+  lsp_nmap("<leader>f", vim.lsp.buf.format)
 
   -- Create a command `:Format` local to the LSP buffer
   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
     vim.lsp.buf.format()
   end, { desc = 'Format current buffer with LSP' })
-  lsp_nmap("<leader>bf", vim.lsp.buf.format(), "Format buffer")
 end
 
 -- document existing key chains

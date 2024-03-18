@@ -122,23 +122,23 @@ local keys = {
 }
 
 return {
-	default_prog             = { shell, '-l' },
-	font                     = wezterm.font(font_name),
-	font_size                = font_size,
-	color_scheme             = get_color_scheme(),
-	tab_bar_at_bottom        = true,
-	use_fancy_tab_bar        = false,
-	keys                     = keys,
-	freetype_load_target     = "HorizontalLcd",
-	show_tabs_in_tab_bar     = true,
-	adjust_window_size_when_changing_font_size = true,
+	default_prog                               = { shell, '-l' },
+	font                                       = wezterm.font(font_name),
+	font_size                                  = font_size,
+	color_scheme                               = get_color_scheme(),
+	tab_bar_at_bottom                          = true,
+	use_fancy_tab_bar                          = false,
+	keys                                       = keys,
+	freetype_load_target                       = "HorizontalLcd",
+	show_tabs_in_tab_bar                       = true,
+	adjust_window_size_when_changing_font_size = false,
 
 	-- define local multiplexing server
-	unix_domains             = {
+	unix_domains                               = {
 		{
 			name = 'unix',
 		},
 	},
 	-- autoconnect to local multiplexing server
-	default_gui_startup_args = { 'connect', 'unix' },
+	default_gui_startup_args                   = { 'connect', 'unix' },
 }
