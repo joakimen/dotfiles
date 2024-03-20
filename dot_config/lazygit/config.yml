@@ -1,0 +1,10 @@
+customCommands:
+  - key: '<F1>'
+    context: 'global'
+    command: 'gh repo view -w'
+  - key: '<F2>'
+    context: 'global'
+    command: 'gh pr view -w'
+  - key: '<F3>'
+    context: 'global'
+    command: 'code .'
