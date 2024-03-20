@@ -51,6 +51,7 @@ alias co switch-remote-branch
 alias ztig "bf git"
 alias lg lazygit
 alias nb "gi branch-create"
+alias cpr "gi checkout-pr"
 
 # docker
 #alias docker podman
