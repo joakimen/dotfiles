@@ -33,6 +33,7 @@
       - docker
       - dos2unix
       - entr
+      - eza
       - fd
       - fish
       - fzf
