@@ -92,10 +92,11 @@ alias ep "$EDITOR package.json"
 # gpg
 alias keys show-gpg-pubkey
 
-if which exa &>/dev/null
-    alias l 'exa -al'
-    alias ls exa
-    alias tree 'exa --tree'
+
+if which eza &>/dev/null
+    alias l 'eza -al'
+    alias ls eza
+    alias tree 'eza --tree'
 else if which lsd &>/dev/null
     alias l 'lsd -l --date=relative'
     alias ls lsd
