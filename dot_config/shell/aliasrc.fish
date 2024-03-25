@@ -32,6 +32,7 @@ alias ..... "cd ../../../.."
 alias ...... "cd ../../../../.."
 alias fd "fd --hidden"
 alias kl kill-process
+alias standup "fin -c 10:45"
 
 # tmux
 alias t "tmux new -A -s main"
