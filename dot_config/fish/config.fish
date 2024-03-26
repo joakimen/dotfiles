@@ -21,9 +21,11 @@ set -xg AWS_DEFAULT_REGION "eu-west-1"
 set -xg ANSIBLE_LOCALHOST_WARNING false
 set -xg ANSIBLE_INVENTORY_UNPARSED_WARNING false
 set -xg SPACESHIP_EXIT_CODE_SHOW true
+set -xg GIT_USER_PREFIX "jol"
 bind \co "project-cd; commandline -f execute"
 bind \cb "gi branch-switch; commandline -f execute"
 # add support for multiple pattterns/teams
+bind -k f3 "kf edit; commandline -f execute"
 bind -k f4 "awsvault exec; commandline -f execute"
 bind -k f5 "awsvault login; and commandline -f execute"
 bind \e\ce "code ."
