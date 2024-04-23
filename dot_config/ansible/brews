@@ -1,17 +1,16 @@
 aws-sam-cli
 aws/tap/copilot-cli
-aws-vault
 awscli
 awscli@1
 awslogs
 babashka
-babashka/brew/neil
 babashka/brew/bbin
+babashka/brew/neil
+bat
+bbin
 borkdude/brew/babashka
 borkdude/brew/clj-kondo
 borkdude/brew/jet
-bat
-bbin
 bottom
 chezmoi
 choose-rust
@@ -25,7 +24,6 @@ ctags
 curlie
 d12frosted/emacs-plus/emacs-plus@29
 direnv
-docker
 dos2unix
 entr
 eza
@@ -72,7 +70,6 @@ pwgen
 reattach-to-user-namespace
 ripgrep
 rlwrap
-rtx
 sd
 shellcheck
 shfmt
@@ -89,6 +86,6 @@ tree
 watchexec
 websocat
 weechat
-yq
 youtube-dl
+yq
 zsh
