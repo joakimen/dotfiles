@@ -32,3 +32,7 @@ disabled = true
 format = '[$symbol($profile )(\($region\) )(\[$duration\] )]($style)'
 [status]
 disabled = false
+[directory]
+truncation_length = 2
+truncate_to_repo = false
+# https://starship.rs/config/#directory

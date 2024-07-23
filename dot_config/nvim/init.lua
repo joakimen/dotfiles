@@ -51,9 +51,6 @@ require('lazy').setup({
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
 
-  -- Detect tabstop and shiftwidth automatically
-  'tpope/vim-sleuth',
-
   {
     -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
@@ -85,6 +82,9 @@ require('lazy').setup({
       'rafamadriz/friendly-snippets',
     },
   },
+
+  -- justfile support
+  { "NoahTheDuke/vim-just", ft = { "just" } },
 
   -- Useful plugin to show you pending keybinds.
   { 'folke/which-key.nvim',  opts = {} },
@@ -184,7 +184,7 @@ require('lazy').setup({
 
   {
     -- Highlight, edit, and navigate code
-    'nvim-treesitter/nvim-treesitter',
+    'nvim-nreesitter/nvim-treesitter',
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
     },
@@ -261,6 +261,10 @@ require('lazy').setup({
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
 
+
+-- The bundled editorconfig integration reads editorconfigs above the current folder, seemingly also for non-repos, which is crazy and gives side-effects I don't want.
+vim.g.editorconfig = false
+
 -- Set highlight on search
 vim.o.hlsearch = true
 
@@ -325,6 +329,17 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = highlight_group,
   pattern = '*',
 })
+
+-- Create an autocommand group for Makefile settings
+-- vim.api.nvim_create_autocmd("FileType", {
+--     pattern = "make",
+--     callback = function()
+--       vim.opt_local.expandtab = false
+--       vim.bo.expandtab = false
+--       -- print(vim.opt_local.expandtab:get())
+--     end,
+-- })
+--
 
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
@@ -615,4 +630,3 @@ cmp.setup {
 }
 
 -- The line beneath this is called `modeline`. See `:help modeline`
--- vim: ts=2 sts=2 sw=2 et

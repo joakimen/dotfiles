@@ -8,3 +8,6 @@ customCommands:
   - key: '<F3>'
     context: 'global'
     command: 'code .'
+notARepository: 'quit'
+git:
+  branchPrefix: "jol/"

@@ -1,9 +1,7 @@
 # -*-sh-*-
 
-# aws
-alias totp "td get-aws-totp | pbcopy"
-
 alias lk "lefthook"
+
 # quick edit
 alias e $EDITOR
 alias fe "bf edit"
@@ -87,8 +85,10 @@ alias update-macos "ansible-playbook $HOME/.config/ansible/mac.yml"
 
 # npm
 alias n npm
-alias nr node-run
 alias ep "$EDITOR package.json"
+alias nr node-run
+alias sn "npm run snapshots"
+alias al "npm run build && npm run lint:fix && npm run snapshots && npm test -- -u"
 
 # gpg
 alias keys show-gpg-pubkey
