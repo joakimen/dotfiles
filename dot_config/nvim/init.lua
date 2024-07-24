@@ -341,6 +341,13 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 -- })
 --
 
+vim.api.nvim_create_autocmd({'BufWinEnter'}, {
+  group = vim.api.nvim_create_augroup('userconfig', { clear = true }),
+  desc = 'return cursor to where it was last time closing the file',
+  pattern = '*',
+  command = 'silent! normal! g`"zv',
+})
+
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
 require('telescope').setup {
