@@ -22,7 +22,7 @@ set -xg ANSIBLE_LOCALHOST_WARNING false
 set -xg ANSIBLE_INVENTORY_UNPARSED_WARNING false
 set -xg SPACESHIP_EXIT_CODE_SHOW true
 # set -xg GIT_USER_PREFIX "jol"
-set -xg CLOUDSDK_PYTHON "$(mise where python@3.11.9)/bin/python3"
+set -xg CLOUDSDK_PYTHON "$(mise where python@3.12)/bin/python3"
 
 bind \co "project-cd; commandline -f execute"
 bind \cb "gi branch-switch; commandline -f execute"
