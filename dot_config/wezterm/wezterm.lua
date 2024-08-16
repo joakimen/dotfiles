@@ -6,7 +6,7 @@ local mods = "CTRL|SHIFT"
 local shell = '/opt/homebrew/bin/fish'
 
 -- fonts
-local font_size = 16.0
+local font_size = 15.0
 local font_name = "Fira Code"
 -- local font_name = "Liga Menlo"
 

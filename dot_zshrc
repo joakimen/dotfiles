@@ -135,3 +135,7 @@ bindkey '^G' fzf-cd
 export o="-o yaml | nvim -c 'setf yaml'"
 
 #zprof # Uncomment to stop active profiling
+
+. "$HOME/.atuin/bin/env"
+
+eval "$(atuin init zsh)"

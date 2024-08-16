@@ -27,6 +27,7 @@ set -xg CLOUDSDK_PYTHON "$(mise where python@3.11.9)/bin/python3"
 bind \co "project-cd; commandline -f execute"
 bind \cb "gi branch-switch; commandline -f execute"
 # add support for multiple pattterns/teams
+bind -k f2 "goland-open; commandline -f execute"
 bind -k f3 "kf edit; commandline -f execute"
 bind -k f4 "awsvault exec; commandline -f execute"
 bind -k f5 "awsvault login; and commandline -f execute"
@@ -79,16 +80,17 @@ function aws_complete
 end
 
 function timestamp --description "Simple timestamp for filenames"
-  date +'%Y-%m-%d-%H-%m-%S'
+  date +'%Y-%m-%d_%H-%M-%S'
 end
 
 aws_complete "aws"
 aws_complete "awslocal"
 
 # The next line updates PATH for the Google Cloud SDK.
-source "$(brew --prefix)/share/google-cloud-sdk/path.fish.inc"
+source "/opt/homebrew/share/google-cloud-sdk/path.fish.inc"
 
 starship init fish | source
+atuin init fish | source
 
 # used to activate shims for non-interactive shells, such as when running VS Code
 if status is-interactive
@@ -99,3 +101,4 @@ end
 
 alias assume="source (brew --prefix)/bin/assume.fish"
 
+source /Users/joakim/.config/op/plugins.sh

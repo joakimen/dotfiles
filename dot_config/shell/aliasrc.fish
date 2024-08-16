@@ -14,6 +14,9 @@ alias kx kubectx
 alias kn kubens
 alias kz kustomize
 
+# aws
+alias list-functions "aws lambda list-functions | jq ".Functions[].FunctionName" -r | sort"
+
 # clojure 
 alias bbi "bbin install"
 alias bbl "bbin ls"
