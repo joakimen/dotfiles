@@ -15,7 +15,7 @@ alias kn kubens
 alias kz kustomize
 
 # aws
-alias list-functions "aws lambda list-functions | jq ".Functions[].FunctionName" -r | sort"
+alias list-functions="aws lambda list-functions | jq ".Functions[].FunctionName" -r | sort"
 
 # clojure 
 alias bbi "bbin install"
@@ -96,7 +96,6 @@ alias al "npm run build && npm run lint:fix && npm run snapshots && npm test -- 
 # gpg
 alias keys show-gpg-pubkey
 
-
 if which eza &>/dev/null
     alias l 'eza -al'
     alias ls eza
@@ -106,7 +105,6 @@ else if which lsd &>/dev/null
     alias ls lsd
     alias tree 'lsd --tree'
 else
-    echo "lsd missing"
     alias l 'ls -hlGALF'
     alias ls 'ls -GAF'
 end

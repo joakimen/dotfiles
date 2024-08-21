@@ -22,7 +22,10 @@ set -xg ANSIBLE_LOCALHOST_WARNING false
 set -xg ANSIBLE_INVENTORY_UNPARSED_WARNING false
 set -xg SPACESHIP_EXIT_CODE_SHOW true
 # set -xg GIT_USER_PREFIX "jol"
-set -xg CLOUDSDK_PYTHON "$(mise where python@3.12)/bin/python3"
+
+
+# if updated, run $ mise where python@3.12 for the current path
+set -xg CLOUDSDK_PYTHON "~/.local/share/mise/installs/python/3.12.3/bin/python3"
 
 bind \co "project-cd; commandline -f execute"
 bind \cb "gi branch-switch; commandline -f execute"
@@ -46,6 +49,10 @@ _source ~/.tokens.fish
 _source ~/.z.fish
 _source ~/.config/liflig/liflig.fish
 _source $aliasfile
+
+# this file contains aliases to run cli tools (gh, etc)
+# with credentials from 1Password
+# _source ~/.config/op/plugins.sh
 
 fish_add_path ~/go/bin ~/bin /usr/local/sbin ~/.emacs.d/bin ~/.local/bin /opt/homebrew/bin ~/.babashka/bbin/bin 
 # ~/.local/bin/google-cloud-sdk/bin
@@ -101,4 +108,3 @@ end
 
 alias assume="source (brew --prefix)/bin/assume.fish"
 
-source /Users/joakim/.config/op/plugins.sh

@@ -37,7 +37,7 @@ setopt rmstarsilent
 # enable comments in inline shell commands
 setopt interactivecomments
 
-# skru på emacs-binds (ctrl-p osv)
+# enable emacs bindings
 bindkey -e
 
 # home/end/del support
@@ -45,7 +45,7 @@ bindkey -M emacs "${terminfo[khome]}" beginning-of-line # home-key
 bindkey -M emacs "${terminfo[kend]}"  end-of-line # end-key
 bindkey -M emacs "${terminfo[kdch1]}" delete-char # del-key
 
-# åpne gjeldende kommando i $EDITOR
+# open current command in $EDITOR
 autoload -U edit-command-line
 zle -N edit-command-line
 bindkey '\C-x\C-e' edit-command-line
@@ -64,7 +64,19 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export DOCKER_HOST='unix:///Users/joakle/.local/share/containers/podman/machine/podman-machine-default/podman.sock'
 export BUILDAH_FORMAT=docker
 export ANSIBLE_CONFIG="$XDG_CONFIG_HOME/ansible/config.cfg"
-path=(~/go/bin ~/bin /usr/local/sbin ~/.emacs.d/bin ~/.local/bin/ /opt/homebrew/bin $path)
+export AWS_DEFAULT_REGION="eu-west-1"
+
+path=(~/go/bin ~/bin /usr/local/sbin ~/.emacs.d/bin ~/.local/bin/ /opt/homebrew/bin ~/.babashka/bbin/bin $path)
+
+# f2, f3, f4, f5
+bindkey -s "\eOQ" "goland-open\n"
+bindkey -s "\eOR" "kf edit\n"
+bindkey -s "\eOS" "awsvault exec\n"
+bindkey -s "\e[15~" "awsvault login\n"
+
+# the python interpreter to use with gcloud cli
+# if updated, run $ mise where python@3.12 for the current path
+export CLOUDSDK_PYTHON="~/.local/share/mise/installs/python/3.12.3/bin/python3"
 
 # scripts
 #. ~/.fzf.zsh
@@ -73,7 +85,6 @@ path=(~/go/bin ~/bin /usr/local/sbin ~/.emacs.d/bin ~/.local/bin/ /opt/homebrew/
 # aliases
 aliasfile=$XDG_CONFIG_HOME/shell/aliasrc
 . "$aliasfile"
-alias ac="e $aliasfile"
 
 # lazy load slow kubectl completion
 function kubectl() {
@@ -107,18 +118,15 @@ fzf-switch-branch() {
 zle -N fzf-switch-branch
 bindkey '^B' fzf-switch-branch
 
-zsh-time-startup() entr time-startup <<< ~/.zshrc
-
-clone() {
-  dir=$(clone.sh)
-  [[ $dir ]] && cd "$dir"
+zsh-time-startup() {
+  entr time-startup <<< ~/.zshrc
 }
 
 project-cd() {
-  projects=$(project-list)
+  projects=$(scriv list)
   [[ -z $projects ]] && return
   dir=$(fzf <<< $projects)
-  [[ $dir ]] && cd "$HOME/$dir"
+  [[ $dir ]] && cd "$dir"
   zle reset-prompt
 }
 zle -N project-cd
@@ -132,10 +140,9 @@ fzf-cd() {
 zle -N fzf-cd
 bindkey '^G' fzf-cd
 
-export o="-o yaml | nvim -c 'setf yaml'"
-
 #zprof # Uncomment to stop active profiling
 
 . "$HOME/.atuin/bin/env"
 
+eval "$(mise activate zsh)"
 eval "$(atuin init zsh)"

@@ -36,3 +36,8 @@ disabled = false
 truncation_length = 2
 truncate_to_repo = false
 # https://starship.rs/config/#directory
+
+[shell]
+disabled = false
+# fish_indicator = "󰈺 "
+style = 'cyan bold'
