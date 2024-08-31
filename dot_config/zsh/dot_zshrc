@@ -1,0 +1,192 @@
+# .zshrc
+# Author: Joakim Engeset <joakim.engeset@gmail.com>
+
+# zmodload zsh/zprof
+autoload -U +X compinit && compinit
+
+# PLUGINS
+
+# ensure ZDOTDIR is set. this should be done in .zshenv
+if [[ -z ${ZDOTDIR:-} ]]; then
+  echo "ZDOTDIR is not set, please set it from your .zshenv" >&2
+  return 1
+fi
+
+plugin_dir="${ZDOTDIR}/plugins"
+completions_dir="${ZDOTDIR}/completions"
+
+# define
+github_plugins=(
+  zsh-users/zsh-autosuggestions
+  zsh-users/zsh-completions
+  zsh-users/zsh-history-substring-search
+
+  # must be last
+  zdharma/fast-syntax-highlighting
+)
+
+# install
+for plugin in $github_plugins; do
+  # clone the plugin from github if it doesn't exist
+  if [[ ! -d ${plugin_dir}/$plugin ]]; then
+    mkdir -p ${plugin_dir}/${plugin%/*}
+    git clone --depth 1 --recursive https://github.com/$plugin.git ${plugin_dir}/$plugin
+  fi
+  # load the plugin
+  for initscript in ${plugin#*/}.zsh ${plugin#*/}.plugin.zsh ${plugin#*/}.sh; do
+    if [[ -f ${plugin_dir}/$plugin/$initscript ]]; then
+      source ${plugin_dir}/$plugin/$initscript
+      break
+    fi
+  done
+done
+
+# COMPLETIONS
+
+# if zdotdir/completions/starfish.zsh doesn't exist, create it
+
+
+# clean up
+unset github_plugins
+unset plugin_dir
+unset plugin
+unset initscript
+#
+# history stuff
+typeset -g HISTSIZE=100000 SAVEHIST=100000
+
+# disable rm * confirmations
+setopt rmstarsilent
+
+# enable comments in inline shell commands
+setopt interactivecomments
+
+# enable emacs bindings
+bindkey -e
+
+# home/end/del support
+bindkey -M emacs "${terminfo[khome]}" beginning-of-line # home-key
+bindkey -M emacs "${terminfo[kend]}"  end-of-line # end-key
+bindkey -M emacs "${terminfo[kdch1]}" delete-char # del-key
+
+# open current command in $EDITOR
+autoload -U edit-command-line
+zle -N edit-command-line
+bindkey '\C-x\C-e' edit-command-line
+
+## env vars
+export EDITOR=nvim
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_DEFAULT_COMMAND='fd --type f --hidden'
+export FZF_DEFAULT_OPTS='--height 40% --border'
+export MANPAGER='nvim +Man!'
+#export RIPGREP_CONFIG_PATH=~/.config/rg/config
+export LC_ALL="en_US.utf-8"
+export LPASS_AGENT_TIMEOUT=0
+export BAT_THEME=base16
+export XDG_CONFIG_HOME="$HOME/.config"
+# export DOCKER_HOST='unix:///Users/joakle/.local/share/containers/podman/machine/podman-machine-default/podman.sock'
+export BUILDAH_FORMAT=docker
+export ANSIBLE_CONFIG="$XDG_CONFIG_HOME/ansible/config.cfg"
+export AWS_DEFAULT_REGION="eu-west-1"
+export CLONE_DIR=~/dev/github.com
+export GCP_ORG_ID=69736895940
+
+path=(~/go/bin ~/bin /usr/local/sbin ~/.emacs.d/bin ~/.local/bin/ /opt/homebrew/bin ~/.babashka/bbin/bin $path)
+
+# f2, f3, f4, f5
+bindkey -s "\eOQ" "goland-open\n"
+bindkey -s "\eOR" "kf edit\n"
+bindkey -s "\eOS" "awsvault exec\n"
+bindkey -s "\e[15~" "awsvault login\n"
+
+# the python interpreter to use with gcloud cli
+# if updated, run $ mise where python@3.12 for the current path
+# export CLOUDSDK_PYTHON="~/.local/share/mise/installs/python/3.12.3/bin/python3"
+
+# scripts
+#. ~/.fzf.zsh
+. ~/.tokens
+
+# aliases
+aliasfile=$XDG_CONFIG_HOME/shell/aliasrc
+. "$aliasfile"
+
+# lazy load slow kubectl completion
+function kubectl() {
+    if ! type __start_kubectl >/dev/null 2>&1; then
+        source <(command kubectl completion zsh)
+    fi
+    command kubectl "$@"
+}
+
+# Use fd instead of the default find for listing path candidates.
+_fzf_compgen_path() {
+  fd --hidden --follow --exclude ".git" . "$1"
+}
+
+# Use fd to generate the list for directory completion
+_fzf_compgen_dir() {
+  fd --type d --hidden --follow --exclude ".git" . "$1"
+}
+
+fzf-switch-branch() {
+  zle -I
+
+  git rev-parse --git-dir &> /dev/null || return
+
+  local_branches=$(git for-each-ref --format='%(refname:short)' refs/heads)
+  log_pattern="git log -b {} --pretty=format:'%h %d %s'"
+
+  chosen_branch=$(fzf --preview="$log_pattern" -0 <<< "$local_branches")
+  [[ $chosen_branch ]] && git switch "$chosen_branch"
+}
+zle -N fzf-switch-branch
+bindkey '^B' fzf-switch-branch
+
+zsh-time-startup() {
+  entr time-startup <<< ~/.zshrc
+}
+
+project-cd() {
+  projects=$(scriv list)
+  [[ -z $projects ]] && return
+  dir=$(fzf <<< $projects)
+  [[ $dir ]] && cd "$dir"
+  zle reset-prompt
+}
+zle -N project-cd
+bindkey '^O' project-cd
+
+fzf-cd() {
+  dir=$(fd -t d | fzf --preview="ls -1 {}/")
+  [[ $dir ]] && cd "$dir"
+  zle reset-prompt
+}
+zle -N fzf-cd
+bindkey '^G' fzf-cd
+
+
+# mise (runtime version manager)
+eval "$(mise activate zsh)"
+if [[ ! -f ${completions_dir}/mise.zsh ]]; then
+  mise completions zsh > ${completions_dir}/mise.zsh
+fi
+source ${completions_dir}/mise.zsh
+
+# atuin (shell history)
+. "$HOME/.atuin/bin/env"
+eval "$(atuin init zsh)"
+if [[ ! -f ${completions_dir}/atuin.zsh ]]; then
+  atuin gen-completions --shell zsh > ${completions_dir}/atuin.zsh
+fi
+source ${completions_dir}/atuin.zsh
+
+# starship (prompt)
+eval "$(starship init zsh)"
+if [[ ! -f ${completions_dir}/starship.zsh ]]; then
+  starship completions zsh > ${completions_dir}/starship.zsh
+fi
+source ${completions_dir}/starship.zsh
+
+# zprof # Uncomment to stop active profiling
