@@ -81,7 +81,7 @@ alias tfa="terraform apply"
 # ansible
 alias ap="ansible-playbook"
 alias av="ansible-vault"
-alias update-macos "ansible-playbook $HOME/.config/ansible/mac.yml"
+alias update-macos="ansible-playbook $HOME/.config/ansible/mac.yml"
 # npm
 alias n=npm
 alias ep="$EDITOR package.json"

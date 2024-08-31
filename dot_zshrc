@@ -4,16 +4,12 @@
 # Uncomment to start profiling
 #zmodload zsh/zprof
 
-### Added by Zinit's installer
-if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
-    print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
-    command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
-    command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" && \
-        print -P "%F{33} %F{34}Installation successful.%f%b" || \
-        print -P "%F{160} The clone has failed.%f%b"
-fi
+### https://github.com/zdharma-continuum/zinit
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+[ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
+[ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+source "${ZINIT_HOME}/zinit.zsh"
 
-source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
@@ -25,8 +21,14 @@ zinit wait lucid light-mode for \
   OMZ::lib/history.zsh
 
 ## theme
-zinit ice from"gh-r" as"program" atload'!eval $(starship init zsh)'
+zinit ice as"command" from"gh-r" \
+          atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
+          atpull"%atclone" src"init.zsh"
+
 zinit light starship/starship
+
+# zinit ice from"gh-r" as"program" atload'!eval $(starship init zsh)'
+# zinit light starship/starship
 
 # history stuff
 typeset -g HISTSIZE=100000 SAVEHIST=100000
@@ -61,10 +63,12 @@ export LC_ALL="en_US.utf-8"
 export LPASS_AGENT_TIMEOUT=0
 export BAT_THEME=base16
 export XDG_CONFIG_HOME="$HOME/.config"
-export DOCKER_HOST='unix:///Users/joakle/.local/share/containers/podman/machine/podman-machine-default/podman.sock'
+# export DOCKER_HOST='unix:///Users/joakle/.local/share/containers/podman/machine/podman-machine-default/podman.sock'
 export BUILDAH_FORMAT=docker
 export ANSIBLE_CONFIG="$XDG_CONFIG_HOME/ansible/config.cfg"
 export AWS_DEFAULT_REGION="eu-west-1"
+export CLONE_DIR=~/dev/github.com
+export GCP_ORG_ID=69736895940
 
 path=(~/go/bin ~/bin /usr/local/sbin ~/.emacs.d/bin ~/.local/bin/ /opt/homebrew/bin ~/.babashka/bbin/bin $path)
 
@@ -76,7 +80,7 @@ bindkey -s "\e[15~" "awsvault login\n"
 
 # the python interpreter to use with gcloud cli
 # if updated, run $ mise where python@3.12 for the current path
-export CLOUDSDK_PYTHON="~/.local/share/mise/installs/python/3.12.3/bin/python3"
+# export CLOUDSDK_PYTHON="~/.local/share/mise/installs/python/3.12.3/bin/python3"
 
 # scripts
 #. ~/.fzf.zsh

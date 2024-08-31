@@ -39,5 +39,4 @@ truncate_to_repo = false
 
 [shell]
 disabled = false
-# fish_indicator = "󰈺 "
 style = 'cyan bold'
