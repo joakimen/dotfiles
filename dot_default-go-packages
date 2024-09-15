@@ -1,3 +1,5 @@
 github.com/joakimen/scriv@latest
 github.com/joakimen/kf@latest
 github.com/joakimen/clone/cmd/clone@latest
+github.com/spf13/cobra-cli@latest
+github.com/joakimen/awsvault@latest
