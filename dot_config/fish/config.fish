@@ -31,7 +31,7 @@ bind \co "project-cd; commandline -f execute"
 bind \cb "gi branch-switch; commandline -f execute"
 # add support for multiple pattterns/teams
 bind -k f2 "goland-open; commandline -f execute"
-bind -k f3 "kf edit; commandline -f execute"
+bind -k f3 "kf-edit; commandline -f execute"
 bind -k f4 "awsvault exec; commandline -f execute"
 bind -k f5 "awsvault login; and commandline -f execute"
 bind \e\ce "code ."
@@ -49,6 +49,13 @@ _source ~/.tokens.fish
 _source ~/.z.fish
 _source ~/.config/liflig/liflig.fish
 _source $aliasfile
+
+function kf-edit
+    set file (kf list | fzf)
+    if test -n "$file"
+        $EDITOR (eval echo $file)
+    end
+end
 
 # this file contains aliases to run cli tools (gh, etc)
 # with credentials from 1Password
