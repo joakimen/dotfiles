@@ -14,6 +14,11 @@ fi
 
 plugin_dir="${ZDOTDIR}/plugins"
 completions_dir="${ZDOTDIR}/completions"
+functions_dir="${ZDOTDIR}/functions"
+
+mkdir -p $plugin_dir
+mkdir -p $completions_dir
+mkdir -p $functions_dir
 
 # define
 github_plugins=(
@@ -40,11 +45,6 @@ for plugin in $github_plugins; do
     fi
   done
 done
-
-# COMPLETIONS
-
-# if zdotdir/completions/starfish.zsh doesn't exist, create it
-
 
 # clean up
 unset github_plugins
@@ -94,9 +94,14 @@ export GCP_ORG_ID=69736895940
 
 path=(~/go/bin ~/bin /usr/local/sbin ~/.emacs.d/bin ~/.local/bin/ /opt/homebrew/bin ~/.babashka/bbin/bin $path)
 
+
+fpath=( ~/.zfunc "${fpath[@]}" )
+
+kf-edit() { file=$(kf list | fzf) && $EDITOR "$file" }
+
 # f2, f3, f4, f5
 bindkey -s "\eOQ" "goland-open\n"
-bindkey -s "\eOR" "kf edit\n"
+bindkey -s "\eOR" "kf-edit\n"
 bindkey -s "\eOS" "awsvault exec\n"
 bindkey -s "\e[15~" "awsvault login\n"
 
@@ -111,14 +116,6 @@ bindkey -s "\e[15~" "awsvault login\n"
 # aliases
 aliasfile=$XDG_CONFIG_HOME/shell/aliasrc
 . "$aliasfile"
-
-# lazy load slow kubectl completion
-function kubectl() {
-    if ! type __start_kubectl >/dev/null 2>&1; then
-        source <(command kubectl completion zsh)
-    fi
-    command kubectl "$@"
-}
 
 # Use fd instead of the default find for listing path candidates.
 _fzf_compgen_path() {
@@ -167,6 +164,8 @@ zle -N fzf-cd
 bindkey '^G' fzf-cd
 
 
+fe() { file=$(fzf) && $EDITOR "$file" }
+
 # mise (runtime version manager)
 eval "$(mise activate zsh)"
 if [[ ! -f ${completions_dir}/mise.zsh ]]; then
@@ -188,5 +187,14 @@ if [[ ! -f ${completions_dir}/starship.zsh ]]; then
   starship completions zsh > ${completions_dir}/starship.zsh
 fi
 source ${completions_dir}/starship.zsh
+
+# kubectl
+if [[ ! -f ${completions_dir}/kubectl.zsh ]]; then
+  kubectl completion zsh > ${completions_dir}/kubectl.zsh
+fi
+source ${completions_dir}/kubectl.zsh
+
+# track command invocations
+preexec() { trk "$1" }
 
 # zprof # Uncomment to stop active profiling

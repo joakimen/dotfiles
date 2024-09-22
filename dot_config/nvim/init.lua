@@ -50,7 +50,6 @@ require('lazy').setup({
   -- Git related plugins
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
-
   {
     -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
@@ -126,7 +125,6 @@ require('lazy').setup({
       end,
     },
   },
-
   {
     -- One of the themes that support light/dark mode
     'navarasu/onedark.nvim',

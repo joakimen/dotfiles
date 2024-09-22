@@ -4,7 +4,8 @@ alias lk "lefthook"
 
 # quick edit
 alias e $EDITOR
-alias fe "bf edit"
+# alias fe "bf edit"
+
 alias er "$EDITOR README.md"
 
 ## k8s
