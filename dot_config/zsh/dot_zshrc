@@ -90,14 +90,11 @@ export BUILDAH_FORMAT=docker
 export ANSIBLE_CONFIG="$XDG_CONFIG_HOME/ansible/config.cfg"
 export AWS_DEFAULT_REGION="eu-west-1"
 export CLONE_DIR=~/dev/github.com
-export GCP_ORG_ID=69736895940
 
 path=(~/go/bin ~/bin /usr/local/sbin ~/.emacs.d/bin ~/.local/bin/ /opt/homebrew/bin ~/.babashka/bbin/bin $path)
-
-
 fpath=( ~/.zfunc "${fpath[@]}" )
 
-kf-edit() { file=$(kf list | fzf) && $EDITOR "$file" }
+kf-edit() { file=$(kf list | fzf) && $EDITOR "$(eval echo $file)" }
 
 # f2, f3, f4, f5
 bindkey -s "\eOQ" "goland-open\n"
@@ -109,13 +106,21 @@ bindkey -s "\e[15~" "awsvault login\n"
 # if updated, run $ mise where python@3.12 for the current path
 # export CLOUDSDK_PYTHON="~/.local/share/mise/installs/python/3.12.3/bin/python3"
 
-# scripts
-#. ~/.fzf.zsh
-. ~/.tokens
+_source() {
+  [[ -r "$file" ]] && {
+    source "$file"
+  }
+}
 
-# aliases
-aliasfile=$XDG_CONFIG_HOME/shell/aliasrc
-. "$aliasfile"
+source_files=(
+  ~/.tokens
+  $XDG_CONFIG_HOME/liflig/liflig.zsh
+  $XDG_CONFIG_HOME/shell/aliasrc
+)
+
+for file in $source_files; do
+  _source
+done
 
 # Use fd instead of the default find for listing path candidates.
 _fzf_compgen_path() {
