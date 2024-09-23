@@ -97,7 +97,7 @@ fpath=( ~/.zfunc "${fpath[@]}" )
 kf-edit() { file=$(kf list | fzf) && $EDITOR "$(eval echo $file)" }
 
 # f2, f3, f4, f5
-bindkey -s "\eOQ" "goland-open\n"
+bindkey -s "\eOQ" "goland\n"
 bindkey -s "\eOR" "kf-edit\n"
 bindkey -s "\eOS" "awsvault exec\n"
 bindkey -s "\e[15~" "awsvault login\n"
@@ -198,6 +198,9 @@ if [[ ! -f ${completions_dir}/kubectl.zsh ]]; then
   kubectl completion zsh > ${completions_dir}/kubectl.zsh
 fi
 source ${completions_dir}/kubectl.zsh
+
+# direnv
+eval "$(direnv hook zsh)"
 
 # track command invocations
 preexec() { trk "$1" }
