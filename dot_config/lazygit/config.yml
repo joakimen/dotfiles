@@ -11,3 +11,4 @@ customCommands:
 notARepository: 'quit'
 git:
   branchPrefix: "jol/"
+autoFetch: false

@@ -86,7 +86,9 @@ require('lazy').setup({
   { "NoahTheDuke/vim-just", ft = { "just" } },
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim',  opts = {} },
+  { 'folke/which-key.nvim',  opts = {
+    notify = false,
+  } },
   {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -182,7 +184,7 @@ require('lazy').setup({
 
   {
     -- Highlight, edit, and navigate code
-    'nvim-nreesitter/nvim-treesitter',
+    'nvim-treesitter/nvim-treesitter',
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
     },
@@ -552,7 +554,7 @@ local servers = {
   -- html = { filetypes = { 'html', 'twig', 'hbs'} },
 
   clojure_lsp = {},
-  tsserver = {},
+  ts_ls = {},
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
