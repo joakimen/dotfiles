@@ -4,6 +4,10 @@
 # zmodload zsh/zprof
 autoload -U +X compinit && compinit
 
+# case insensitive completion
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+
+
 # PLUGINS
 
 # ensure ZDOTDIR is set. this should be done in .zshenv
