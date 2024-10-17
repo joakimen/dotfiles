@@ -134,11 +134,11 @@ return {
 	adjust_window_size_when_changing_font_size = false,
 
 	-- define local multiplexing server
-	unix_domains                               = {
-		{
-			name = 'unix',
-		},
-	},
+	-- unix_domains                               = {
+	-- 	{
+	-- 		name = 'unix',
+	-- 	},
+	-- },
 	-- autoconnect to local multiplexing server
-	default_gui_startup_args                   = { 'connect', 'unix' },
+	-- default_gui_startup_args                   = { 'connect', 'unix' },
 }
