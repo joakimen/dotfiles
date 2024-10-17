@@ -3,7 +3,7 @@ local act = wezterm.action
 local mods = "CTRL|SHIFT"
 
 -- shell
-local shell = '/opt/homebrew/bin/fish'
+local shell = '/opt/homebrew/bin/zsh'
 
 -- fonts
 local font_size = 15.0
@@ -123,6 +123,7 @@ local keys = {
 
 return {
 	default_prog                               = { shell, '-l' },
+  -- default_prog = {"/usr/bin/zellij", "attach", "--session", "default"},
 	font                                       = wezterm.font(font_name),
 	font_size                                  = font_size,
 	color_scheme                               = get_color_scheme(),

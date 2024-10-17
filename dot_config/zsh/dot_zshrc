@@ -94,6 +94,8 @@ export BUILDAH_FORMAT=docker
 export ANSIBLE_CONFIG="$XDG_CONFIG_HOME/ansible/config.cfg"
 export AWS_DEFAULT_REGION="eu-west-1"
 export CLONE_DIR=~/dev/github.com
+export ZELLIJ_DEFAULT_SESSION="default-session"
+
 
 path=(~/go/bin ~/bin /usr/local/sbin ~/.emacs.d/bin ~/.local/bin/ /opt/homebrew/bin ~/.babashka/bbin/bin $path)
 fpath=( ~/.zfunc "${fpath[@]}" )
@@ -208,5 +210,10 @@ eval "$(direnv hook zsh)"
 
 # track command invocations
 preexec() { trk "$1" }
+
+# only attach to zellij if shell spawned outside of zellij
+if [[ -z "$ZELLIJ" ]]; then
+  zellij attach --create "$ZELLIJ_DEFAULT_SESSION"
+fi
 
 # zprof # Uncomment to stop active profiling
