@@ -1,5 +1,6 @@
 local wezterm = require 'wezterm'
 local act = wezterm.action
+
 local mods = "CTRL|SHIFT"
 
 -- shell
@@ -121,9 +122,17 @@ local keys = {
 
 }
 
+-- wezterm.on('gui-startup', function(cmd)
+--   local _, _, window = mux.spawn_window(cmd or {})
+--   window:gui_window():maximize()
+-- end)
+-- wezterm.on("gui-startup", function()
+--   local _, _, window = mux.spawn_window({})
+--   window:gui_window():toggle_fullscreen()
+-- end)
+
 return {
 	default_prog                               = { shell, '-l' },
-  -- default_prog = {"/usr/bin/zellij", "attach", "--session", "default"},
 	font                                       = wezterm.font(font_name),
 	font_size                                  = font_size,
 	color_scheme                               = get_color_scheme(),
@@ -133,6 +142,7 @@ return {
 	freetype_load_target                       = "HorizontalLcd",
 	show_tabs_in_tab_bar                       = true,
 	adjust_window_size_when_changing_font_size = false,
+  -- native_macos_fullscreen_mode = false,
 
 	-- define local multiplexing server
 	-- unix_domains                               = {

@@ -103,7 +103,7 @@ fpath=( ~/.zfunc "${fpath[@]}" )
 kf-edit() { file=$(kf list | fzf) && $EDITOR "$(eval echo $file)" }
 
 # f2, f3, f4, f5
-bindkey -s "\eOQ" "goland\n"
+# bindkey -s "\eOQ" "goland\n"
 bindkey -s "\eOR" "kf-edit\n"
 bindkey -s "\eOS" "awsvault exec\n"
 bindkey -s "\e[15~" "awsvault login\n"
@@ -174,6 +174,9 @@ fzf-cd() {
 zle -N fzf-cd
 bindkey '^G' fzf-cd
 
+timestamp() {
+  date +'%Y-%m-%d_%H-%M-%S'
+}
 
 fe() { file=$(fzf) && $EDITOR "$file" }
 
@@ -212,8 +215,17 @@ eval "$(direnv hook zsh)"
 preexec() { trk "$1" }
 
 # only attach to zellij if shell spawned outside of zellij
-if [[ -z "$ZELLIJ" ]]; then
-  zellij attach --create "$ZELLIJ_DEFAULT_SESSION"
-fi
+activate-zellij() {
+  if [[ -z "$ZELLIJ" ]]; then
+      if [[ "$ZELLIJ_AUTO_EXIT" == "true" ]]; then
+          exit
+        else
+          zellij attach --create "$ZELLIJ_DEFAULT_SESSION"
+      fi
+  fi
+}
+
+
+# activate-zellij
 
 # zprof # Uncomment to stop active profiling
