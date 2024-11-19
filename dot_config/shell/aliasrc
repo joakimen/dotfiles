@@ -43,6 +43,7 @@ alias ztig="bf git"
 alias lg=lazygit
 alias nb="gi branch-create"
 alias cpr="gi pr-checkout"
+alias prw="gh pr view --web"
 
 # maven
 alias mci="mvn clean install"

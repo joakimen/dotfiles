@@ -4,4 +4,5 @@ github.com/joakimen/clone/cmd/clone@latest
 github.com/spf13/cobra-cli@latest
 github.com/joakimen/awsvault@latest
 github.com/joakimen/trk@latest
+github.com/joakimen/goji@latest
 mvdan.cc/gofumpt@latest
