@@ -60,6 +60,7 @@ alias tfa="terraform apply"
 alias n=npm
 alias ep="$EDITOR package.json"
 alias nr=node-run
+alias cdk="npx cdk"
 
 # gpg
 alias keys="show-gpg-pubkey"
