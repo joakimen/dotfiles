@@ -68,6 +68,10 @@ setopt interactivecomments
 # enable emacs bindings
 bindkey -e
 
+
+# make ctrl-w stop at slashes
+WORDCHARS=${WORDCHARS/\/}
+
 # home/end/del support
 bindkey -M emacs "${terminfo[khome]}" beginning-of-line # home-key
 bindkey -M emacs "${terminfo[kend]}"  end-of-line # end-key
@@ -96,6 +100,8 @@ export AWS_DEFAULT_REGION="eu-west-1"
 export CLONE_DIR=~/dev/github.com
 export ZELLIJ_DEFAULT_SESSION="default-session"
 
+# make mise output .tool-version files
+export MISE_ASDF_COMPAT=1
 
 path=(~/go/bin ~/bin /usr/local/sbin ~/.emacs.d/bin ~/.local/bin/ /opt/homebrew/bin ~/.babashka/bbin/bin $path)
 fpath=( ~/.zfunc "${fpath[@]}" )
@@ -178,7 +184,40 @@ timestamp() {
   date +'%Y-%m-%d_%H-%M-%S'
 }
 
-fe() { file=$(fzf) && $EDITOR "$file" }
+fe() { file=$(fzf --preview 'bat {}') && $EDITOR "$file" }
+zcat() { file=$(fzf) && cat "$file" }
+ztig() { file=$(git ls-files | fzf --preview "bat {} --line-range :30") && lazygit -f "$file" }
+erg() { matches=$(rg --vimgrep "$1") && nvim -c 'cb | copen' <<< "$matches" }
+
+# babashka
+bbu() { script=$(bbin ls | awk '{print $1}' | gum filter) && bbin uninstall "$script" }
+
+
+# bin scripts
+bindir="$HOME/bin"
+idea() { $bindir/shell/idea "$@" }
+esm() { $bindir/node/esm "$@" }
+nr() { scripts=$("$bindir/node/npmscripts.ts") && script=$(gum filter --height 8 <<< "$scripts") && npm run "$script" }
+
+bmise() {
+  if [[ $1 == "install" ]]; then
+    lang=$(mise plugin ls --core --user | fzf)
+    [[ -z $lang ]] && return
+    version=$(mise ls-remote "$lang" | fzf)
+    [[ -z $version ]] && return
+    echo "Installing $lang@$version"
+    mise install "$lang"@"$version"
+  elif [[ $1 == "use" ]]; then
+    lang=$(mise ls --json | jq 'keys[]' -r | fzf)
+    [[ -z $lang ]] && return
+    version=$(mise ls "$lang" --json | jq '.[].version' -r | fzf)
+    [[ -z $version ]] && return
+    echo "Using $lang@$version"
+    mise use "$lang"@"$version"
+  else
+    echo "Usage: bmise install|use <version>"
+  fi
+}
 
 # mise (runtime version manager)
 eval "$(mise activate zsh)"

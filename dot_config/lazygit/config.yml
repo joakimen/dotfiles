@@ -10,5 +10,5 @@ customCommands:
     command: 'code .'
 notARepository: 'quit'
 git:
-  branchPrefix: "jol/"
+  # branchPrefix: "jol/"
 autoFetch: false

@@ -39,7 +39,6 @@ alias c="git add . && git commit"
 alias cdd="cd $HOME/dev"
 alias cm=chezmoi
 alias gw="gh repo view -w"
-alias ztig="bf git"
 alias lg=lazygit
 alias nb="gi branch-create"
 alias cpr="gi pr-checkout"
@@ -59,7 +58,6 @@ alias tfa="terraform apply"
 # npm
 alias n=npm
 alias ep="$EDITOR package.json"
-alias nr=node-run
 alias cdk="npx cdk"
 
 # gpg
