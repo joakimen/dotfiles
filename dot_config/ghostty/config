@@ -1,0 +1,40 @@
+# vim: ft=config
+
+# ghostty updates
+auto-update = download
+auto-update-channel = stable
+
+# shell
+command = /opt/homebrew/bin/zsh
+
+# theme
+theme = "dark:catppuccin-mocha,light:Builtin Solarized Light"
+window-save-state = always
+# maximize = true
+# fullscreen = true
+
+# font
+font-family = Fira Code
+font-size = 15
+# font-feature = -liga
+# font-thicken = true
+
+# cursor
+cursor-color = #f5e0dc
+cursor-style-blink = false
+cursor-style = block
+shell-integration-features = no-cursor
+
+# behaviour
+copy-on-select = false
+
+# quake style dropdown terminal
+keybind = global:ctrl+shift+slash=toggle_quick_terminal
+quick-terminal-animation-duration = 0.05
+
+# panes
+keybind = ctrl+shift+h=goto_split:left
+keybind = ctrl+shift+j=goto_split:down
+keybind = ctrl+shift+k=goto_split:up
+keybind = ctrl+shift+l=goto_split:right
+unfocused-split-opacity = 1
