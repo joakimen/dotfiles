@@ -14,11 +14,11 @@ window-save-state = always
 # fullscreen = true
 
 # font
-font-family = Fira Code
+font-family = JetBrainsMono Nerd Font
 
 # work monitor: 14
 # laptop screen: 16
-font-size = 14
+font-size = 16
 # font-feature = -liga
 # font-thicken = true
 window-padding-x = 6

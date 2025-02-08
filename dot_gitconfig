@@ -68,8 +68,6 @@
 [init]
 	defaultBranch = main
 	; templateDir = ~/.git-templates
-[tag]
-	gpgSign = true
 [commit]
 	gpgSign = true
 

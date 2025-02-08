@@ -97,8 +97,9 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export BUILDAH_FORMAT=docker
 export ANSIBLE_CONFIG="$XDG_CONFIG_HOME/ansible/config.cfg"
 export AWS_DEFAULT_REGION="eu-west-1"
-export CLONE_DIR=~/dev/github.com
+export GG_CLONE_DIR=~/dev/github.com
 export ZELLIJ_DEFAULT_SESSION="default-session"
+export HOMEBREW_NO_ENV_HINTS=1
 
 # make mise output .tool-version files
 export MISE_ASDF_COMPAT=1

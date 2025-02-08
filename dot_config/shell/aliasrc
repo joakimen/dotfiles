@@ -31,7 +31,7 @@ alias .....="cd ../../../.."
 alias ......="cd ../../../../.."
 alias fd="fd --hidden"
 alias kl="kill-process"
-alias standup "fin -c 10:45 | nvim"
+alias standup="fin -c 10:45 | nvim"
 
 # git
 alias g=git
