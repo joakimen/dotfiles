@@ -1,0 +1,54 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  {
+    "context": "Editor",
+    "bindings": {
+      // pane nagvigation
+      "ctrl-shift-h": "workspace::ActivatePaneLeft",
+      "ctrl-shift-j": "workspace::ActivatePaneDown",
+      "ctrl-shift-k": "workspace::ActivatePaneUp",
+      "ctrl-shift-l": "workspace::ActivatePaneRight",
+
+      // pane splitting
+      "cmd-d": "pane::SplitRight",
+      "shift-cmd-d": "pane::SplitDown",
+      "cmd--": "zed::DecreaseBufferFontSize",
+      "cmd-=": "zed::IncreaseBufferFontSize"
+    }
+  },
+  {
+    "bindings": {
+      "ctrl-g": ["task::Spawn", { "task_name": "start lazygit" }],
+      // Here we also allow `alt-enter` to accept the prediction
+      "alt-enter": "editor::AcceptEditPrediction",
+      "shift-enter": "editor::AcceptEditPrediction"
+    }
+  },
+  {
+    "context": "Editor && vim_mode == insert",
+    "bindings": {
+      "f d": "vim::NormalBefore"
+    }
+  },
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      "shift-k": "editor::Hover"
+    }
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-shift-r": "projects::OpenRecent",
+      "f4": "zed::OpenLog",
+      "f5": "debug::OpenLanguageServerLogs",
+      "f10": "workspace::ToggleCenteredLayout"
+    }
+  }
+]
