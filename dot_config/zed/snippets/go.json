@@ -1,0 +1,31 @@
+{
+  "fmt.Println": {
+    "prefix": "fp",
+    "body": ["fmt.Println($1);", "$0"]
+  },
+  "interface": {
+    "prefix": "if",
+    "body": ["type $1 interface {", " $0", "}"]
+  },
+  "iferr": {
+    "prefix": "ife",
+    "body": ["if err != nil {", "return $0", "}"]
+  },
+  "ctx parameter": {
+    "prefix": "pctx",
+    "body": ["ctx context.Context"]
+  },
+  "main function": {
+    "prefix": "pkgmain",
+    "body": [
+      "package main",
+      "",
+      "import \"fmt\"",
+      "",
+      "func main() {",
+      "\tfmt.Println(\"Hello World!\")",
+      "\t$0",
+      "}"
+    ]
+  }
+}
