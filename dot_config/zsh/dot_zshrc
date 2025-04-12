@@ -98,6 +98,8 @@ export BUILDAH_FORMAT=docker
 export ANSIBLE_CONFIG="$XDG_CONFIG_HOME/ansible/config.cfg"
 export AWS_DEFAULT_REGION="eu-west-1"
 export GG_CLONE_DIR=~/dev/github.com
+export GG_GITHUB_USER=joakimen
+export SPACESHIP_EXIT_CODE_SHOW=true
 export ZELLIJ_DEFAULT_SESSION="default-session"
 export HOMEBREW_NO_ENV_HINTS=1
 
@@ -174,7 +176,7 @@ zle -N project-cd
 bindkey '^O' project-cd
 
 fzf-cd() {
-  dir=$(fd -t d | fzf --preview="ls -1 {}/")
+  dir=$(fd -t d | fzf --preview="ls -aF1 {}/")
   [[ $dir ]] && cd "$dir"
   zle reset-prompt
 }
@@ -189,6 +191,7 @@ fe() { file=$(fzf --preview 'bat {}') && $EDITOR "$file" }
 zcat() { file=$(fzf) && cat "$file" }
 ztig() { file=$(git ls-files | fzf --preview "bat {} --line-range :30") && lazygit -f "$file" }
 erg() { matches=$(rg --vimgrep "$1") && nvim -c 'cb | copen' <<< "$matches" }
+zd() fzf-cd
 
 # babashka
 bbu() { script=$(bbin ls | awk '{print $1}' | gum filter) && bbin uninstall "$script" }

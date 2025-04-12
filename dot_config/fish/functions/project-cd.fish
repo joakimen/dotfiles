@@ -16,6 +16,6 @@ function project-cd
     return
   end
 
-  cd "$project"
+  eval cd $project
 end
 

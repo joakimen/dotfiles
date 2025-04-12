@@ -1,8 +1,12 @@
+github.com/dineshba/tf-summarize@latest
 github.com/joakimen/awsvault@latest
 github.com/joakimen/goji@latest
 github.com/joakimen/kf@latest
 github.com/joakimen/scriv@latest
 github.com/joakimen/trk@latest
 github.com/spf13/cobra-cli@latest
+golang.org/x/tools/cmd/goimports@latest
 golang.org/x/tools/cmd/gonew@latest
+golang.org/x/tools/gopls@latest
+honnef.co/go/tools/cmd/staticcheck@latest
 mvdan.cc/gofumpt@latest

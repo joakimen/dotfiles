@@ -5,7 +5,7 @@ auto-update = download
 auto-update-channel = stable
 
 # shell
-command = /opt/homebrew/bin/zsh
+command = /opt/homebrew/bin/fish
 
 # theme
 theme = "dark:catppuccin-mocha,light:Builtin Solarized Light"
@@ -16,9 +16,9 @@ window-save-state = always
 # font
 font-family = JetBrainsMono Nerd Font
 
-# work monitor: 14
 # laptop screen: 16
-font-size = 16
+font-size = 18
+
 # font-feature = -liga
 # font-thicken = true
 window-padding-x = 6
@@ -42,4 +42,11 @@ keybind = ctrl+shift+h=goto_split:left
 keybind = ctrl+shift+j=goto_split:down
 keybind = ctrl+shift+k=goto_split:up
 keybind = ctrl+shift+l=goto_split:right
+
+# for glove80
+keybind = command+option+h=goto_split:left
+keybind = command+option+j=goto_split:down
+keybind = command+option+k=goto_split:up
+keybind = command+option+l=goto_split:right
+
 unfocused-split-opacity = 1

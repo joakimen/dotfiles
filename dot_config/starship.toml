@@ -21,7 +21,7 @@ disabled = true
 [lua]
 disabled = true
 [golang]
-disabled = true
+disabled = false
 # [line_break]
 # disabled = true
 [time]
