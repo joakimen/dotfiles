@@ -1,0 +1,12 @@
+[
+  {
+    "label": "start lazygit",
+    "command": "lazygit -p $ZED_WORKTREE_ROOT",
+    "reveal_target": "center",
+    "hide": "always"
+  },
+  {
+    "label": "make",
+    "command": "make"
+  }
+]
