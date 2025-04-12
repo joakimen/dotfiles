@@ -1,0 +1,6 @@
+{
+  "new target": {
+    "prefix": "nt",
+    "body": [".PHONY: $1", "$1:$0"]
+  }
+}
