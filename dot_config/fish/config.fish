@@ -18,6 +18,7 @@ set -xg AWS_DEFAULT_REGION "eu-west-1"
 # set -xg ANSIBLE_LOCALHOST_WARNING false
 # set -xg ANSIBLE_INVENTORY_UNPARSED_WARNING false
 set -xg GG_CLONE_DIR ~/dev/github.com
+set -xg CLONE_DIR ~/dev/github.com
 set -xg GG_GITHUB_USER joakimen
 set -xg SPACESHIP_EXIT_CODE_SHOW true
 set -xg ZELLIJ_DEFAULT_SESSION "default-session"
