@@ -147,6 +147,24 @@ _fzf_compgen_dir() {
   fd --type d --hidden --follow --exclude ".git" . "$1"
 }
 
+kill-process() {
+  selected_process="$(ps axo user=,pid=,time=,args= | fzf)"
+  [[ -z $selected_process ]] && return
+  user=$(echo "$selected_process" | awk '{print $1}')
+  pid=$(echo "$selected_process" | awk '{print $2}')
+  name=$(echo "$selected_process" | awk '{print $3}')
+  if [[ -z $pid ]]; then
+    echo "No process selected"
+    return
+  fi
+
+  echo "Killing process:"
+  echo "- user: $user"
+  echo "- pid:  $pid"
+  echo "- name: $name"
+   
+  kill -9 "$pid"
+}
 fzf-switch-branch() {
   zle -I
 

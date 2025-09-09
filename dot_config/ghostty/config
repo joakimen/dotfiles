@@ -8,7 +8,8 @@ auto-update-channel = stable
 command = /opt/homebrew/bin/fish
 
 # theme
-theme = "dark:catppuccin-mocha,light:Builtin Solarized Light"
+theme = "dark:catppuccin-mocha,light:catppuccin-latte"
+# theme = "dark:catppuccin-mocha,light:Builtin Solarized Light"
 window-save-state = always
 # maximize = true
 # fullscreen = true
@@ -23,6 +24,7 @@ font-size = 18
 # font-thicken = true
 window-padding-x = 6
 window-padding-y = 6
+unfocused-split-opacity = 1
 
 # cursor
 cursor-color = #f5e0dc
@@ -35,13 +37,14 @@ copy-on-select = false
 
 # quake style dropdown terminal
 keybind = global:ctrl+shift+slash=toggle_quick_terminal
-quick-terminal-animation-duration = 0.05
+quick-terminal-animation-duration = 0
 
 # panes
 keybind = ctrl+shift+h=goto_split:left
 keybind = ctrl+shift+j=goto_split:down
 keybind = ctrl+shift+k=goto_split:up
 keybind = ctrl+shift+l=goto_split:right
+keybind = ctrl+shift+equal=equalize_splits
 
 # for glove80
 keybind = command+option+h=goto_split:left
@@ -49,4 +52,9 @@ keybind = command+option+j=goto_split:down
 keybind = command+option+k=goto_split:up
 keybind = command+option+l=goto_split:right
 
-unfocused-split-opacity = 1
+# resizing splits
+keybind = super+ctrl+down=resize_split:down,70
+keybind = super+ctrl+left=resize_split:left,70
+keybind = super+ctrl+up=resize_split:up,70
+keybind = super+ctrl+right=resize_split:right,70
+

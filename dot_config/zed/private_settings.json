@@ -1,30 +1,25 @@
-// Zed settings
-//
-//
-// For information on how to configure Zed, see the Zed
-// documentation: https://zed.dev/docs/configuring-zed
-//
-// To see all of Zed's default settings without changing your
-// custom settings, run `zed: open default settings` from the
-// command palette (cmd-shift-p / ctrl-shift-p)
 {
   "icon_theme": "Catppuccin Mocha",
   "show_edit_predictions": true,
-  "buffer_line_height": "standard",
+  "buffer_line_height": "comfortable",
   "show_whitespaces": "boundary",
   "edit_predictions": {
     "mode": "eager"
   },
   "features": {
-    // "edit_prediction_provider": "zed"
     "edit_prediction_provider": "zed"
   },
   "buffer_font_family": "JetBrainsMono Nerd Font",
   "ui_font_size": 20.0,
   "show_signature_help_after_edits": true,
-  "buffer_font_size": 16.0,
+  "buffer_font_size": 17.0,
+  "agent_font_size": 17.0,
   "buffer_font_features": {
     "calt": false
+  },
+  "active_pane_modifiers": {
+    "border_size": 0.8,
+    "inactive_opacity": 0.8
   },
   "auto_indent_on_paste": false,
   "theme": {
@@ -37,12 +32,15 @@
   "scrollbar": {
     "show": "never"
   },
-  "assistant": {
+  "agent": {
+    "inline_assistant_model": {
+      "provider": "zed.dev",
+      "model": "claude-3-7-sonnet"
+    },
     "default_model": {
       "provider": "zed.dev",
-      "model": "claude-3-7-sonnet-latest"
-    },
-    "version": "2"
+      "model": "claude-sonnet-4-thinking"
+    }
   },
   "show_completions_on_input": true,
   "show_completion_documentation": true,
@@ -83,18 +81,33 @@
       //   "--issues-exit-code=1"
       // ]
       // }
+    },
+    "biome": {
+      "settings": {
+        "require_config_file": true
+      }
     }
   },
   "languages": {
-    "JSON": {
-      "prettier": {
-        "allowed": true,
-        "parser": "json"
+    "JavaScript": {
+      "formatter": { "language_server": { "name": "biome" } },
+      "code_actions_on_format": {
+        "source.fixAll.biome": true,
+        "source.organizeImports.biome": true
       }
     },
-    "JavaScript": {
+    "TypeScript": {
+      "formatter": { "language_server": { "name": "biome" } },
       "code_actions_on_format": {
-        "source.fixAll.eslint": true
+        "source.fixAll.biome": true,
+        "source.organizeImports.biome": true
+      }
+    },
+    "TSX": {
+      "formatter": { "language_server": { "name": "biome" } },
+      "code_actions_on_format": {
+        "source.fixAll.biome": true,
+        "source.organizeImports.biome": true
       }
     },
     "Markdown": {

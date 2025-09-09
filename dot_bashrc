@@ -37,7 +37,7 @@ command -v blsd >/dev/null && export FZF_ALT_C_COMMAND='blsd'
 command -v tree >/dev/null && export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
 
 # prompt
-eval "$(starship init bash)"
+# eval "$(starship init bash)"
 
 . "$HOME/.atuin/bin/env"
 

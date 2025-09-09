@@ -4,6 +4,7 @@
 --glob=!.pytest_cache/
 --glob=!.clj-kondo/
 --glob=!.lsp/
+--glob=!.terraform/
 --glob=!venv/
 --glob=!node_modules/
 --glob=!target/

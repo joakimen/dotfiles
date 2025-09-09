@@ -10,11 +10,14 @@ set -xg MANPAGER 'nvim +Man!'
 set -xg LC_ALL "en_US.utf-8"
 set -xg BAT_THEME base16
 set -xg XDG_CONFIG_HOME "$HOME/.config"
+
+
+
 #set -x DOCKER_HOST 'unix:///Users/joakle/.local/share/containers/podman/machine/podman-machine-default/podman.sock'
 set -xg BUILDAH_FORMAT docker
 set -xg AWS_VAULT_PROMPT osascript
-set -xg DEFAULT_REGION "eu-west-1"
-set -xg AWS_DEFAULT_REGION "eu-west-1"
+# set -xg DEFAULT_REGION "eu-west-1"
+# set -xg AWS_DEFAULT_REGION "eu-west-1"
 # set -xg ANSIBLE_LOCALHOST_WARNING false
 # set -xg ANSIBLE_INVENTORY_UNPARSED_WARNING false
 set -xg GG_CLONE_DIR ~/dev/github.com
@@ -162,6 +165,14 @@ function bmise
             mise use "$lang@$lang_version"
         case '*'
             echo "Usage: bmise install|use <version>"
+    end
+end
+
+function kill-process
+    set pid (ps axo user=,pid=,time=,args= | fzf | awk '{print $2}')
+    if test -n "$pid"
+        echo "killing process: $pid"
+        kill -9 $pid
     end
 end
 

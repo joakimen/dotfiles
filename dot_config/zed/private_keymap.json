@@ -47,7 +47,7 @@
     "bindings": {
       "ctrl-shift-r": "projects::OpenRecent",
       "f4": "zed::OpenLog",
-      "f5": "debug::OpenLanguageServerLogs",
+      "f5": "dev::OpenLanguageServerLogs",
       "f10": "workspace::ToggleCenteredLayout"
     }
   }

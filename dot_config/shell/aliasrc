@@ -5,6 +5,7 @@ alias lk="lefthook"
 # quick edit
 alias e=$EDITOR
 alias er="$EDITOR README.md"
+alias em="$EDITOR Makefile"
 
 ## k8s
 alias k=kubectl
@@ -64,7 +65,7 @@ alias cdk="npx cdk"
 alias keys="show-gpg-pubkey"
 
 if which eza &>/dev/null; then
-    alias l='eza -al'
+    alias l='eza --all --long --header --group-directories-first --icons --git'
     alias ls=eza
     alias tree='eza --tree'
 else

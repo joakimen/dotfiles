@@ -3,12 +3,30 @@ customCommands:
     context: 'global'
     command: 'gh repo view -w'
   - key: '<F2>'
-    context: 'global'
+    context: "localBranches"
+    command: 'gh pr view -w {{.SelectedLocalBranch.Name}}'
+  - key: '<F2>'
+    context: "commits"
     command: 'gh pr view -w'
   - key: '<F3>'
     context: 'global'
     command: 'code .'
+  - key: "<c-v>"
+    context: "global"
+    description: "Create new conventional commit"
+    prompts:
+      - type: "input"
+        key: "Type"
+        title: "Type of change"
+        suggestions:
+          command: 'echo "hey\nho"'
 notARepository: 'quit'
 git:
-  # branchPrefix: "jol/"
-autoFetch: false
+  paging:
+    colorArg: always
+    pager: delta --dark --paging=never
+  autoFetch: false
+  fetchAll: true
+  overrideGpg: true
+# branchPrefix: "jol/"
+

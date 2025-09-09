@@ -67,7 +67,7 @@ alias nr node-run
 alias keys show-gpg-pubkey
 
 if which eza &>/dev/null
-    alias l 'eza -al'
+    alias l 'eza --all --long --header --group-directories-first --icons --git'
     alias ls eza
     alias tree 'eza --tree'
 else

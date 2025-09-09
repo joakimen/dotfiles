@@ -10,6 +10,10 @@ disabled = true
 disabled = true
 [git_status]
 disabled = true
+
+[git_branch]
+format = '[$symbol$branch(:$remote_branch)]($style) '
+
 [python]
 disabled = true
 [docker_context]
@@ -29,13 +33,21 @@ disabled = false
 [kotlin]
 disabled = true
 [aws]
-format = '[$symbol($profile )(\($region\) )(\[$duration\] )]($style)'
+format = '[($profile) (\($region\)) (\[$duration\])]($style)'
 [status]
 disabled = false
+
 [directory]
 # truncation_length = 2
 truncate_to_repo = true
-# https://starship.rs/config/#directory
+
+[gcloud]
+disabled = true
+# detect_env_vars	= [] # activate when these are set
+
+[terraform]
+disabled = true
+format = '[tf $version]($style) '
 
 [shell]
 disabled = false
