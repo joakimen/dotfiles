@@ -9,17 +9,8 @@ customCommands:
     context: "commits"
     command: 'gh pr view -w'
   - key: '<F3>'
-    context: 'global'
-    command: 'code .'
-  - key: "<c-v>"
-    context: "global"
-    description: "Create new conventional commit"
-    prompts:
-      - type: "input"
-        key: "Type"
-        title: "Type of change"
-        suggestions:
-          command: 'echo "hey\nho"'
+    context: 'localBranches'
+    command: 'gh pr create --fill-verbose --head {{.SelectedLocalBranch.Name}} --base master && gh pr view -w {{.SelectedLocalBranch.Name}}'
 notARepository: 'quit'
 git:
   paging:

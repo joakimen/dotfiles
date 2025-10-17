@@ -3,9 +3,9 @@
 
 set -xg EDITOR nvim
 set -xg RIPGREP_CONFIG_PATH ~/.config/rg/config
-set -xg FZF_DEFAULT_COMMAND 'fd --type f --hidden'
-set -xg FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
-set -xg FZF_DEFAULT_OPTS '--height 40% --border'
+# set -xg FZF_DEFAULT_COMMAND 'fd --type f --hidden'
+# set -xg FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
+set -xg FZF_DEFAULT_OPTS '--style full --height 50% --border'
 set -xg MANPAGER 'nvim +Man!'
 set -xg LC_ALL "en_US.utf-8"
 set -xg BAT_THEME base16

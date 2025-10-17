@@ -8,7 +8,7 @@ auto-update-channel = stable
 command = /opt/homebrew/bin/fish
 
 # theme
-theme = "dark:catppuccin-mocha,light:catppuccin-latte"
+theme = "dark:Catppuccin Mocha,light:Catppuccin Latte"
 # theme = "dark:catppuccin-mocha,light:Builtin Solarized Light"
 window-save-state = always
 # maximize = true
@@ -37,7 +37,10 @@ copy-on-select = false
 
 # quake style dropdown terminal
 keybind = global:ctrl+shift+slash=toggle_quick_terminal
-quick-terminal-animation-duration = 0
+quick-terminal-animation-duration = 0.1
+
+# height/width
+quick-terminal-size = 30%,80%
 
 # panes
 keybind = ctrl+shift+h=goto_split:left

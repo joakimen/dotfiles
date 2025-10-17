@@ -3,6 +3,7 @@
   "show_edit_predictions": true,
   "buffer_line_height": "comfortable",
   "show_whitespaces": "boundary",
+  "tab_size": 4,
   "edit_predictions": {
     "mode": "eager"
   },
@@ -12,8 +13,9 @@
   "buffer_font_family": "JetBrainsMono Nerd Font",
   "ui_font_size": 20.0,
   "show_signature_help_after_edits": true,
-  "buffer_font_size": 17.0,
+  "buffer_font_size": 13.0,
   "agent_font_size": 17.0,
+
   "buffer_font_features": {
     "calt": false
   },
@@ -30,7 +32,7 @@
   "autosave": "on_focus_change",
   // "confirm_quit": true,
   "scrollbar": {
-    "show": "never"
+    // "show": "never"
   },
   "agent": {
     "inline_assistant_model": {
