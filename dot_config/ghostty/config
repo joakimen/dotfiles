@@ -18,7 +18,7 @@ window-save-state = always
 font-family = JetBrainsMono Nerd Font
 
 # laptop screen: 16
-font-size = 18
+font-size = 16
 
 # font-feature = -liga
 # font-thicken = true

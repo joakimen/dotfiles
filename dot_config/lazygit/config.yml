@@ -13,11 +13,10 @@ customCommands:
     command: 'gh pr create --fill-verbose --head {{.SelectedLocalBranch.Name}} --base master && gh pr view -w {{.SelectedLocalBranch.Name}}'
 notARepository: 'quit'
 git:
-  paging:
-    colorArg: always
-    pager: delta --dark --paging=never
+  pagers:
+    - colorArg: always
+      pager: delta --dark --paging=never
   autoFetch: false
   fetchAll: true
   overrideGpg: true
 # branchPrefix: "jol/"
-

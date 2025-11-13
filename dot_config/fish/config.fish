@@ -5,7 +5,7 @@ set -xg EDITOR nvim
 set -xg RIPGREP_CONFIG_PATH ~/.config/rg/config
 # set -xg FZF_DEFAULT_COMMAND 'fd --type f --hidden'
 # set -xg FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
-set -xg FZF_DEFAULT_OPTS '--style full --height 50% --border --walker-skip .git,node_modules,.clj_kondo,.venv'
+set -xg FZF_DEFAULT_OPTS '--style full --height 50% --border --walker-skip .git,node_modules,.clj_kondo,.venv,lib'
 set -xg MANPAGER 'nvim +Man!'
 set -xg LC_ALL "en_US.utf-8"
 set -xg BAT_THEME base16
@@ -37,7 +37,7 @@ bind \co "project-cd; commandline -f execute"
 # glove80
 bind alt-o "project-cd; commandline -f execute"
 
-bind \cb "gi branch-switch; commandline -f execute"
+# bind \cb "gi branch-switch; commandline -f execute"
 
 # add support for multiple pattterns/teams
 bind f3 "kf-edit; commandline -f execute"
