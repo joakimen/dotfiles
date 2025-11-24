@@ -1,17 +1,18 @@
 # config.fish
 # Author: Joakim Engeset <joakim.engeset@gmail.com>
 
+alias ei "nvim ~/.config/nvim/init.lua"
+
+# set -xg EDITOR hx
 set -xg EDITOR nvim
 set -xg RIPGREP_CONFIG_PATH ~/.config/rg/config
 # set -xg FZF_DEFAULT_COMMAND 'fd --type f --hidden'
 # set -xg FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
-set -xg FZF_DEFAULT_OPTS '--style full --height 50% --border --walker-skip .git,node_modules,.clj_kondo,.venv,lib'
+set -xg FZF_DEFAULT_OPTS '--style full --height 50% --border --walker-skip .git,node_modules,.clj-kondo,.cpcache,.venv,lib'
 set -xg MANPAGER 'nvim +Man!'
 set -xg LC_ALL "en_US.utf-8"
 set -xg BAT_THEME base16
 set -xg XDG_CONFIG_HOME "$HOME/.config"
-
-
 
 #set -x DOCKER_HOST 'unix:///Users/joakle/.local/share/containers/podman/machine/podman-machine-default/podman.sock'
 set -xg BUILDAH_FORMAT docker
@@ -24,9 +25,10 @@ set -xg GG_CLONE_DIR ~/dev/github.com
 set -xg CLONE_DIR ~/dev/github.com
 set -xg GG_GITHUB_USER joakimen
 set -xg SPACESHIP_EXIT_CODE_SHOW true
-set -xg ZELLIJ_DEFAULT_SESSION "default-session"
+set -xg ZELLIJ_DEFAULT_SESSION default-session
 set -xg HOMEBREW_NO_ENV_HINTS 1
 set -xg MR_CONFIG "$HOME/.mrconfig"
+set -xg MISE_NODE_DEFAULT_PACKAGES_FILE "$HOME/.config/mise/node-packages"
 # if updated, run $ mise where python@3.12 for the current path
 # set -xg CLOUDSDK_PYTHON "~/.local/share/mise/installs/python/3.12.3/bin/python3"
 
@@ -52,7 +54,7 @@ alias acc="$LIFLIG_DEV/resources-definition/scripts/acc.ts"
 alias ac="e $aliasfile"
 
 function _source
-  [ -s $argv ] && . $argv
+    [ -s $argv ] && . $argv
 end
 
 _source ~/.tokens.fish
@@ -61,10 +63,10 @@ _source ~/.config/liflig/liflig.fish
 _source $aliasfile
 
 function fe
-  set file (fzf)
-  if test -n "$file"
-    $EDITOR $file
-  end
+    set file (fzf)
+    if test -n "$file"
+        $EDITOR $file
+    end
 end
 
 function kf-edit
@@ -78,7 +80,7 @@ end
 # with credentials from 1Password
 # _source ~/.config/op/plugins.sh
 
-fish_add_path ~/go/bin ~/bin /usr/local/sbin ~/.emacs.d/bin ~/.local/bin /opt/homebrew/bin ~/.babashka/bbin/bin 
+fish_add_path ~/go/bin ~/bin /usr/local/sbin ~/.emacs.d/bin ~/.local/bin /opt/homebrew/bin ~/.babashka/bbin/bin
 # ~/.local/bin/google-cloud-sdk/bin
 
 set bindir "$HOME/bin"
@@ -103,18 +105,18 @@ function _fzf_compgen_dir
 end
 
 function aws_complete
-  complete --command $argv --no-files --arguments '(begin; set --local --export COMP_SHELL fish; set --local --export COMP_LINE (commandline); aws_completer | sed \'s/ $//\'; end)'
+    complete --command $argv --no-files --arguments '(begin; set --local --export COMP_SHELL fish; set --local --export COMP_LINE (commandline); aws_completer | sed \'s/ $//\'; end)'
 end
 
 function timestamp --description "Simple timestamp for filenames"
-  date +'%Y-%m-%d_%H-%M-%S'
+    date +'%Y-%m-%d_%H-%M-%S'
 end
 
 function ztig
-  set file (git ls-files | fzf --preview 'bat {} --line-range :30')
-  if test -n "$file"
-    lazygit -f "$file"
-  end
+    set file (git ls-files | fzf --preview 'bat {} --line-range :30')
+    if test -n "$file"
+        lazygit -f "$file"
+    end
 end
 
 function erg
@@ -136,8 +138,8 @@ function nr
     npm run "$script"
 end
 
-aws_complete "aws"
-aws_complete "awslocal"
+aws_complete aws
+aws_complete awslocal
 
 function bmise
     switch $argv[1]
@@ -184,9 +186,9 @@ atuin init fish | source
 
 # used to activate shims for non-interactive shells, such as when running VS Code
 if status is-interactive
-  mise activate fish | source
+    mise activate fish | source
 else
-  mise activate fish --shims | source
+    mise activate fish --shims | source
 end
 
 alias assume="source (brew --prefix)/bin/assume.fish"

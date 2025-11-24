@@ -3,6 +3,9 @@ theme = "catppuccin_mocha"
 [editor]
 cursorline = true
 color-modes = true
+popup-border = "all"
+rulers = [80]
+bufferline = "multiple"
 
 [editor.cursor-shape]
 insert = "bar"
@@ -10,3 +13,25 @@ select = "underline"
 
 [editor.indent-guides]
 render = true
+
+[keys.select]
+y = "yank_to_clipboard"
+p = "replace_selections_with_clipboard"
+P = "replace_selections_with_clipboard"
+
+[keys.insert]
+f = { d = "normal_mode" } # Maps `jk` to exit insert mode
+
+
+[keys.normal]
+y = "yank_to_clipboard"
+p = "paste_clipboard_after"
+P = "paste_clipboard_before"
+0 = "goto_line_start"
+c = ["yank_to_clipboard", "change_selection_noyank"]
+d = ["yank_to_clipboard", "delete_selection_noyank"]
+x = ["select_mode", "extend_line_below"]
+C-s = ":w"
+Cmd-s = ":w"
+
+
