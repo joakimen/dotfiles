@@ -34,9 +34,7 @@ if not vim.uv.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- Plugin specifications
 require('lazy').setup({
-  -- Language servers and completion
   {
     'neovim/nvim-lspconfig',
     dependencies = {
@@ -46,8 +44,13 @@ require('lazy').setup({
   },
   'williamboman/mason.nvim',
   'williamboman/mason-lspconfig.nvim',
-
-  -- Completion
+  {
+    "gpanders/nvim-parinfer",
+    ft = 'clojure',
+    config = function()
+      parinfer_force_balance = true
+    end
+  },
   {
     'hrsh7th/nvim-cmp',
     dependencies = {
@@ -57,14 +60,12 @@ require('lazy').setup({
     },
   },
 
-  -- Treesitter
   {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     lazy = false,
   },
 
-  -- Color scheme
   {
     'catppuccin/nvim',
     name = 'catppuccin',
@@ -74,10 +75,8 @@ require('lazy').setup({
     end,
   },
 
-  -- Copilot
   'github/copilot.vim',
 
-  -- Fuzzy finder
   {
     'nvim-telescope/telescope.nvim',
     tag = 'v0.1.9',
@@ -107,17 +106,12 @@ local function keymap(mode, lhs, rhs, opts)
   vim.keymap.set(mode, lhs, rhs, opts)
 end
 
--- Navigation
 keymap('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 keymap('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 keymap('n', 'n', 'nzz', { desc = 'Center on next match' })
 keymap('n', 'N', 'Nzz', { desc = 'Center on prev match' })
-
--- Utilities
 keymap('n', '<leader>j', ':setf json|%!jq<CR>', { desc = 'Format JSON' })
 keymap('i', 'fd', '<Esc>', { desc = 'Escape' })
-
--- Telescope (Helix-style keybindings)
 keymap('n', '<leader>f', require('telescope.builtin').find_files, { desc = 'Open file' })
 keymap('n', '<leader>b', require('telescope.builtin').buffers, { desc = 'Open buffer' })
 keymap('n', '<leader>/', function()
@@ -125,7 +119,6 @@ keymap('n', '<leader>/', function()
 end, { desc = 'Search in buffer' })
 keymap('n', '<leader>k', require('telescope.builtin').live_grep, { desc = 'Grep workspace' })
 
--- LSP setup
 local servers = {
   clojure_lsp = {},
   ts_ls = {},
@@ -267,7 +260,7 @@ end, { desc = 'Next diagnostic' })
 -- which-key setup with keybind mappings
 local wk = require('which-key')
 wk.setup {
-  preset = 'modern',
+  preset = 'helix',
   delay = 0,
 }
 
