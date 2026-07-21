@@ -1,33 +1,57 @@
 {
+    "agent_servers": {
+        "claude-acp": {
+            "type": "registry"
+        }
+    },
+    "project_panel": {
+        "dock": "right"
+    },
+    "outline_panel": {
+        "dock": "right"
+    },
+    "collaboration_panel": {
+        "dock": "right"
+    },
+    "git_panel": {
+        "dock": "right"
+    },
+    "which_key": {
+        "enabled": true
+    },
+    "indent_guides": {
+        "enabled": true
+    },
+    "current_line_highlight": "all",
+    "text_rendering_mode": "platform_default",
     "icon_theme": "Catppuccin Mocha",
     "show_edit_predictions": true,
     "buffer_line_height": "comfortable",
-    "show_whitespaces": "boundary",
-    "tab_size": 4,
+    "show_whitespaces": "trailing",
+    "tab_size": 2,
     "edit_predictions": {
-        "mode": "eager"
-    },
-    "features": {
-        "edit_prediction_provider": "zed"
+        "allow_data_collection": "no",
+        "provider": "zed",
+        "mode": "eager",
     },
     "buffer_font_family": "JetBrainsMono Nerd Font",
     "ui_font_size": 20.0,
     "show_signature_help_after_edits": true,
     "buffer_font_size": 17.0,
-    "agent_font_size": 17.0,
+    "agent_ui_font_size": 17.0,
 
     "buffer_font_features": {
-        "calt": false
+        "calt": false,
     },
     "active_pane_modifiers": {
         "border_size": 0.8,
-        "inactive_opacity": 0.8
+        "inactive_opacity": 0.8,
     },
     "auto_indent_on_paste": false,
     "theme": {
         "mode": "system",
         "light": "One Light",
-        "dark": "Catppuccin Mocha"
+        "dark": "Catppuccin Mocha",
     },
     "autosave": "on_focus_change",
     // "confirm_quit": true,
@@ -35,25 +59,28 @@
         // "show": "never"
     },
     "agent": {
+        "dock": "left",
         "inline_assistant_model": {
             "provider": "zed.dev",
-            "model": "claude-3-7-sonnet"
+            "model": "claude-3-7-sonnet",
         },
         "default_model": {
-            "provider": "zed.dev",
-            "model": "claude-sonnet-4-thinking"
-        }
+            "effort": "high",
+            "enable_thinking": true,
+            "provider": "copilot_chat",
+            "model": "claude-sonnet-4.6",
+        },
     },
     "show_completions_on_input": true,
     "show_completion_documentation": true,
     "base_keymap": "JetBrains",
     "telemetry": {
         "diagnostics": false,
-        "metrics": false
+        "metrics": false,
     },
     "centered_layout": {
         "left_padding": 0.2,
-        "right_padding": 0.2
+        "right_padding": 0.2,
     },
     "load_direnv": "direct",
     "vim_mode": true,
@@ -69,12 +96,12 @@
                     "staticcheck": true,
                     "unreachable": true,
                     "unusedparams": true,
-                    "unusedvariable": true
-                }
-            }
+                    "unusedvariable": true,
+                },
+            },
         },
         "golangci-lint": {
-            "initialization_options": {}
+            "initialization_options": {},
             // "command": [
             //   "golangci-lint",
             //   "run",
@@ -86,49 +113,49 @@
         },
         "biome": {
             "settings": {
-                "require_config_file": true
-            }
-        }
+                "require_config_file": true,
+            },
+        },
     },
     "languages": {
         "JavaScript": {
             "formatter": { "language_server": { "name": "biome" } },
             "code_actions_on_format": {
                 "source.fixAll.biome": true,
-                "source.organizeImports.biome": true
-            }
+                "source.organizeImports.biome": true,
+            },
         },
         "TypeScript": {
             "formatter": { "language_server": { "name": "biome" } },
             "code_actions_on_format": {
                 "source.fixAll.biome": true,
-                "source.organizeImports.biome": true
-            }
+                "source.organizeImports.biome": true,
+            },
         },
         "TSX": {
             "formatter": { "language_server": { "name": "biome" } },
             "code_actions_on_format": {
                 "source.fixAll.biome": true,
-                "source.organizeImports.biome": true
-            }
+                "source.organizeImports.biome": true,
+            },
         },
         "Markdown": {
             "preferred_line_length": 80,
             "format_on_save": "off",
-            "language_servers": [""]
+            "language_servers": [""],
         },
         "Go": {
             "language_servers": ["gopls", "golangci-lint"],
             "format_on_save": "on",
-            "hard_tabs": true
+            "hard_tabs": true,
         },
         "Make": {
-            "hard_tabs": true
-        }
+            "hard_tabs": true,
+        },
         // "Shell": {
         //   "language_servers": ["bash-language-server"],
         //   "format_on_save": "on",
         //   "hard_tabs": true
         // }
-    }
+    },
 }

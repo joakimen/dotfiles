@@ -15,13 +15,18 @@ window-save-state = always
 # fullscreen = true
 
 # font
-font-family = JetBrainsMono Nerd Font
+font-family = "JetBrainsMono Nerd Font Mono"
 
 # laptop screen: 16
-font-size = 16
+font-size = 17
 
 # font-feature = -liga
 # font-thicken = true
+keybind = all:super+equal=increase_font_size:1
+keybind = all:super++=increase_font_size:1
+keybind = all:super+-=decrease_font_size:1
+keybind = all:super+0=reset_font_size
+
 window-padding-x = 6
 window-padding-y = 6
 unfocused-split-opacity = 1
@@ -37,10 +42,10 @@ copy-on-select = false
 
 # quake style dropdown terminal
 keybind = global:ctrl+shift+slash=toggle_quick_terminal
-quick-terminal-animation-duration = 0.1
+quick-terminal-animation-duration = 0.05
 
 # height/width
-quick-terminal-size = 30%,80%
+quick-terminal-size = 40%,80%
 
 # panes
 keybind = ctrl+shift+h=goto_split:left

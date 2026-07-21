@@ -290,3 +290,4 @@ activate-zellij() {
 # activate-zellij
 
 # zprof # Uncomment to stop active profiling
+source ~/.safe-chain/scripts/init-posix.sh # Safe-chain Zsh initialization script

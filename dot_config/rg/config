@@ -5,6 +5,7 @@
 --glob=!.clj-kondo/
 --glob=!.lsp/
 --glob=!.terraform/
+--glob=!.idea/
 --glob=!venv/
 --glob=!node_modules/
 --glob=!target/

@@ -25,7 +25,7 @@ disabled = true
 [lua]
 disabled = true
 [golang]
-disabled = false
+disabled = true
 # [line_break]
 # disabled = true
 [time]
@@ -52,3 +52,8 @@ format = '[tf $version]($style) '
 [shell]
 disabled = false
 style = 'cyan bold'
+
+[env_var.SD_TASK]
+format = '[$env_value]($style) '
+style = 'bold blue'
+default = ''

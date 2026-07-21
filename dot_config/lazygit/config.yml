@@ -1,17 +1,14 @@
 customCommands:
-  - key: '<F1>'
-    context: 'global'
-    command: 'gh repo view -w'
-  - key: '<F2>'
-    context: "localBranches"
-    command: 'gh pr view -w {{.SelectedLocalBranch.Name}}'
-  - key: '<F2>'
-    context: "commits"
-    command: 'gh pr view -w'
-  - key: '<F3>'
-    context: 'localBranches'
-    command: 'gh pr create --fill-verbose --head {{.SelectedLocalBranch.Name}} --base master && gh pr view -w {{.SelectedLocalBranch.Name}}'
-notARepository: 'quit'
+  - key: "<f1>"
+    context: "global"
+    command: "gh repo view -w"
+  - key: "<f2>"
+    context: "global"
+    command: "gh pr view -w {{.SelectedLocalBranch.Name}}"
+  - key: "<f3>"
+    context: "global"
+    command: "gh pr create --fill-verbose --head {{.SelectedLocalBranch.Name}} --base master && gh pr view -w {{.SelectedLocalBranch.Name}}"
+notARepository: "quit"
 git:
   pagers:
     - colorArg: always
