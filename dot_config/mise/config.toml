@@ -1,0 +1,29 @@
+[tools]
+
+# languages
+java = ["temurin-21","temurin-19", "temurin-17"]
+golang = ['1.23', '1.22', '1.21', '1.20']
+bun = '1'
+python = ["3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
+terraform = "1.8.1"
+go = "1.26.0"
+node = "24"
+deno = "2.5.4"
+
+# tools
+trivy = "latest"
+tflint = "0.58.1"
+task = "3.45.4"
+snyk = "1.1300.1"
+zig = "latest"
+terraform-docs = "0.21.0"
+ruff = "latest"
+fnox = "latest"
+age = "latest"
+"github:joakimen/fnox-add" = "0.2.0"
+"cargo:cargo-release" = "latest"
+supabase = "latest"
+
+[settings]
+idiomatic_version_file_enable_tools = ["bun", "node", "python"]
+minimum_release_age_excludes = ["github:joakimen/rw"]
