@@ -21,8 +21,8 @@ ruff = "latest"
 fnox = "latest"
 age = "latest"
 "github:joakimen/fnox-add" = "0.2.0"
-"cargo:cargo-release" = "latest"
 supabase = "latest"
+rust = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["bun", "node", "python"]
