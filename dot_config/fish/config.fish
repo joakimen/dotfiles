@@ -34,15 +34,12 @@ end
 
 
 # --- Key bindings ---
-function project-cd
-    set -l project (scriv ls --absolute-paths | fzf)
-    and builtin cd $project
-end
+# scriv provides scriv-repo-cd, scriv-file-edit, and scriv_key_bindings
+# (ctrl-o / alt-o -> repo cd, f3 -> file edit). Regenerated when the binary changes.
+_cached_source scriv init fish
 
 function fish_user_key_bindings
-    bind \co "project-cd; commandline -f execute"
-    bind alt-o "project-cd; commandline -f execute"
-    bind f3 "kf-edit; commandline -f execute"
+    scriv_key_bindings
     bind f4 "awsvault exec; commandline -f execute"
     bind f5 "awsvault login; and commandline -f execute"
 end
