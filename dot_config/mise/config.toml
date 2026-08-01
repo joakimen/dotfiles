@@ -23,6 +23,8 @@ age = "latest"
 "github:joakimen/fnox-add" = "0.2.0"
 supabase = "latest"
 rust = "latest"
+"github:joakimen/scriv" = "v0.1.0"
+delta = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["bun", "node", "python"]

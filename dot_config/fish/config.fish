@@ -10,13 +10,11 @@ set -xg LC_ALL "en_US.utf-8"
 set -xg BAT_THEME base16
 set -xg XDG_CONFIG_HOME "$HOME/.config"
 set -xg AWS_VAULT_PROMPT osascript
-set -xg GG_CLONE_DIR ~/dev/github.com
-set -xg CLONE_DIR ~/dev/github.com
-set -xg GG_GITHUB_USER joakimen
 set -xg ZELLIJ_DEFAULT_SESSION default-session
 set -xg HOMEBREW_NO_ENV_HINTS 1
 set -xg MR_CONFIG "$HOME/.mrconfig"
 set -xg MISE_NODE_DEFAULT_PACKAGES_FILE "$HOME/.config/mise/node-packages"
+set -xg MISE_FISH_AUTO_ACTIVATE 1
 set -xg LIFLIG_DEV "$HOME/dev/github.com/capralifecycle"
 set -xg ENABLE_LSP_TOOL 1
 
@@ -34,8 +32,8 @@ end
 
 
 # --- Key bindings ---
-# scriv provides scriv-repo-cd, scriv-file-edit, and scriv_key_bindings
-# (ctrl-o / alt-o -> repo cd, f3 -> file edit). Regenerated when the binary changes.
+# scriv provides scriv-repo-cd, scriv-file-edit, fe, kl and scriv_key_bindings
+# (ctrl-o -> repo cd, f3 -> file edit). Regenerated when the binary changes.
 _cached_source scriv init fish
 
 function fish_user_key_bindings
@@ -83,7 +81,6 @@ alias .... "cd ../../.."
 alias ..... "cd ../../../.."
 alias ...... "cd ../../../../.."
 alias fd "fd --hidden"
-alias kl kill-process
 alias standup "fin -c 10:45 | nvim"
 alias uuid "uuidgen | tr '[:upper:]' '[:lower:]'"
 
@@ -106,7 +103,6 @@ alias sds "sd task set"
 
 alias ev "nvim ~/.config/nvim/init.lua"
 alias acc "$LIFLIG_DEV/resources-definition/scripts/acc.ts"
-alias idea "$HOME/bin/idea"
 
 if command -q eza
     alias l 'eza --all --long --header --group-directories-first --icons --git'
@@ -119,19 +115,11 @@ end
 
 # --- Source external configs ---
 _source ~/.tokens.fish
-_source ~/.z.fish
 _source ~/.config/liflig/liflig.fish
 
 # --- Tool initialization ---
 _cached_source starship init fish --print-full-init
-_cached_source atuin init fish
 _cached_source fnox activate fish
-
-if status is-interactive
-    _cached_source mise activate fish
-else
-    mise activate fish --shims | source
-end
 
 set -l safe_chain "$HOME/.safe-chain/scripts/init-fish.fish"
 test -f $safe_chain && source $safe_chain
@@ -160,3 +148,4 @@ function acc-loop
         acc get $id
     end
 end
+

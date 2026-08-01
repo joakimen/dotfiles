@@ -39,9 +39,7 @@ command -v tree >/dev/null && export FZF_ALT_C_OPTS="--preview 'tree -C {} | hea
 # prompt
 # eval "$(starship init bash)"
 
-. "$HOME/.atuin/bin/env"
 
 [[ -f ~/.bash-preexec.sh ]] && source ~/.bash-preexec.sh
-eval "$(atuin init bash)"
 . "$HOME/.cargo/env"
 source ~/.safe-chain/scripts/init-posix.sh # Safe-chain bash initialization script

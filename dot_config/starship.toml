@@ -26,8 +26,8 @@ disabled = true
 disabled = true
 [golang]
 disabled = true
-# [line_break]
-# disabled = true
+[line_break]
+disabled = false
 [time]
 disabled = false
 [kotlin]
@@ -36,6 +36,9 @@ disabled = true
 format = '[($profile) (\($region\)) (\[$duration\])]($style)'
 [status]
 disabled = false
+
+[rust]
+disabled = true
 
 [directory]
 # truncation_length = 2
