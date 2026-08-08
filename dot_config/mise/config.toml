@@ -25,6 +25,9 @@ supabase = "latest"
 rust = "latest"
 "github:joakimen/scriv" = "v0.1.0"
 delta = "latest"
+zellij = "latest"
+tmux = "latest"
+prek = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["bun", "node", "python"]
