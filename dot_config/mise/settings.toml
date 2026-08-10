@@ -5,9 +5,11 @@ plugin_autoupdate_last_check_duration = '1 week' # set to 0 to disable updates
 
 # config files with these prefixes will be trusted by default
 trusted_config_paths = [
+    '~/dev/github.com/joakimen',
+    '~/dev/github.com/joakimen-test-org',
     '~/dev/github.com/capralifecycle',
     '~/dev/github.com/capraconsulting',
-    '~/dev/github.com/joakimen',
+    '~/dev/github.com/grotsetgilfil',
 ]
 
 verbose = false     # set to true to see full installation output, see `RTX_VERBOSE`
@@ -19,4 +21,3 @@ disable_default_shorthands = false # disable the default shorthands, see `RTX_DI
 
 experimental = false # enable experimental features
 # log_level = 'debug' # log verbosity, see `RTX_LOG_LEVEL`
-

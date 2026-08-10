@@ -10,9 +10,9 @@ customCommands:
     command: "gh pr create --fill-verbose --head {{.SelectedLocalBranch.Name}} --base master && gh pr view -w {{.SelectedLocalBranch.Name}}"
 notARepository: "quit"
 git:
-  pagers:
+  diffRenderers:
     - colorArg: always
-      pager: delta --dark --paging=never
+      command: delta --dark --paging=never
   autoFetch: false
   fetchAll: true
   overrideGpg: true

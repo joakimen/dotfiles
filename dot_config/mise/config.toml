@@ -23,12 +23,13 @@ age = "latest"
 "github:joakimen/fnox-add" = "0.2.0"
 supabase = "latest"
 rust = "latest"
-"github:joakimen/scriv" = "v0.1.0"
+"github:joakimen/scriv" = "latest"
 delta = "latest"
 zellij = "latest"
 tmux = "latest"
 prek = "latest"
+herdr = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["bun", "node", "python"]
-minimum_release_age_excludes = ["github:joakimen/rw"]
+minimum_release_age_excludes = ["github:joakimen/scriv","github:joakimen/rw"]

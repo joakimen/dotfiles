@@ -16,13 +16,13 @@ set -xg MR_CONFIG "$HOME/.mrconfig"
 set -xg MISE_NODE_DEFAULT_PACKAGES_FILE "$HOME/.config/mise/node-packages"
 set -xg MISE_FISH_AUTO_ACTIVATE 1
 set -xg LIFLIG_DEV "$HOME/dev/github.com/capralifecycle"
-set -xg ENABLE_LSP_TOOL 1
+set -xg ENABLE_LSP_TOOL 1  # used by claude
 
 # --- Settings ---
 set -g fish_greeting
 
 # --- PATH ---
-fish_add_path ~/go/bin ~/bin /usr/local/sbin ~/.emacs.d/bin ~/.local/bin /opt/homebrew/bin ~/.babashka/bbin/bin ~/.bun/bin
+fish_add_path ~/go/bin /usr/local/sbin ~/.emacs.d/bin ~/.local/bin /opt/homebrew/bin ~/.babashka/bbin/bin ~/.bun/bin ~/.cargo/bin 
 
 # Set gcloud PATH directly (avoids cd which triggers mise hooks)
 set -l gcloud_bin "/opt/homebrew/share/google-cloud-sdk/bin"
@@ -52,17 +52,15 @@ abbr cl claude
 abbr cm chezmoi
 abbr lg lazygit
 abbr tf terraform
+abbr kt kubetail
+abbr kx kubectx
+abbr kn kubens
+abbr kz kustomize
 
 # --- Aliases ---
 alias lk "lefthook"
 alias e $EDITOR
 alias er "$EDITOR README.md"
-
-## k8s
-alias kt kubetail
-alias kx kubectx
-alias kn kubens
-alias kz kustomize
 
 # aws
 alias list-functions "aws lambda list-functions | jq '.Functions[].FunctionName' -r | sort"
