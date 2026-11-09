@@ -7,9 +7,7 @@
 [core]
 	autocrlf = input
 	editor = nvim
-  excludesFile = ~/.gitignore
-
-  # experimental
+  excludesFile = ~/.config/git/ignore
   pager = delta
 
 [interactive]

@@ -141,8 +141,8 @@
             },
         },
         "Markdown": {
-            "preferred_line_length": 80,
-            "format_on_save": "off",
+            "preferred_line_length": 120,
+            "format_on_save": "on",
             "language_servers": [""],
         },
         "Go": {

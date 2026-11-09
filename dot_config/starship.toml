@@ -1,62 +1,160 @@
-[kubernetes]
-disabled = true
-format = '\[[$context:$namespace](dimmed blue)\] '
-[kubernetes.context_aliases]
-"admin@.*" = "🔥$0🔥"
+add_newline = true
 
-[package]
-disabled = true
-[java]
-disabled = true
-[git_status]
-disabled = true
+format = """
+$username\
+$hostname\
+$shell\
+$container\
+$directory\
+$git_branch\
+$git_state\
+$git_status\
+$jobs\
+${env_var.SD_TASK}\
+$line_break\
+$character"""
 
-[git_branch]
-format = '[$symbol$branch(:$remote_branch)]($style) '
+right_format = """
+$status\
+$cmd_duration\
+$nodejs\
+$bun\
+$deno\
+$golang\
+$rust\
+$kotlin\
+$java\
+$python\
+$lua\
+$package\
+$terraform\
+$docker_context\
+$kubernetes\
+$gcloud\
+$aws\
+$time"""
 
-[python]
-disabled = true
-[docker_context]
-disabled = true
-[nodejs]
-disabled = true
-[vagrant]
-disabled = true
-[lua]
-disabled = true
-[golang]
-disabled = true
-[line_break]
-disabled = false
-[time]
-disabled = false
-[kotlin]
-disabled = true
-[aws]
-format = '[($profile) (\($region\)) (\[$duration\])]($style)'
-[status]
-disabled = false
+# --- left ---
 
-[rust]
-disabled = true
+[username]
+format = '[$user]($style) '
+
+[hostname]
+format = '[$ssh_symbol$hostname]($style) '
+ssh_symbol = " "
 
 [directory]
-# truncation_length = 2
+read_only = " 󰌾"
 truncate_to_repo = true
+truncation_length = 3
+truncation_symbol = ''
 
-[gcloud]
-disabled = true
-# detect_env_vars	= [] # activate when these are set
+[git_branch]
+symbol = " "
+format = '[$symbol$branch(:$remote_branch)]($style) '
 
-[terraform]
-disabled = true
-format = '[tf $version]($style) '
+[git_status]
+disabled = false
+stashed = ''
+format = '([$all_status$ahead_behind]($style) )'
 
 [shell]
 disabled = false
+format = '([$indicator]($style) )'
 style = 'cyan bold'
+fish_indicator = ''
 
 [env_var.SD_TASK]
 format = '[$env_value]($style) '
 style = 'bold blue'
-default = ''
+
+# --- right ---
+
+[status]
+disabled = false
+format = '[$symbol$status]($style) '
+symbol = '✘'
+map_symbol = true
+pipestatus = true
+pipestatus_format = '[\[$pipestatus\]]($style) '
+style = 'red bold'
+
+[cmd_duration]
+min_time = 500
+format = '[$duration]($style) '
+style = 'yellow'
+
+[time]
+disabled = false
+format = '[$time]($style)'
+time_format = '%H:%M:%S'
+style = 'bold purple'
+
+[nodejs]
+symbol = " "
+disabled = false
+format = '[$symbol($version)]($style) '
+
+[bun]
+format = '[$symbol($version)]($style) '
+symbol = " "
+
+[deno]
+format = '[$symbol($version)]($style) '
+symbol = " "
+
+[golang]
+symbol = " "
+disabled = false
+format = '[$symbol($version)]($style) '
+
+[rust]
+symbol = "󱘗 "
+disabled = false
+format = '[$symbol($version)]($style) '
+
+[kotlin]
+symbol = " "
+disabled = false
+format = '[$symbol($version)]($style) '
+
+[terraform]
+symbol = " "
+disabled = false
+format = '[$symbol$workspace]($style) '
+
+[aws]
+symbol = " "
+format = '[$symbol($profile )(\($region\) )(\[$duration\])]($style) '
+
+[kubernetes]
+symbol = "󱃾 "
+disabled = true
+format = '\[[$symbol$context:$namespace](dimmed blue)\] '
+[kubernetes.context_aliases]
+"admin@.*" = "🔥$0🔥"
+
+# --- off ---
+
+[package]
+symbol = "󰏗 "
+disabled = true
+[java]
+symbol = " "
+disabled = true
+[python]
+symbol = " "
+disabled = true
+[docker_context]
+symbol = " "
+disabled = true
+[vagrant]
+disabled = true
+[lua]
+symbol = " "
+disabled = true
+[gcloud]
+symbol = "󱇶 "
+disabled = true
+[line_break]
+disabled = false

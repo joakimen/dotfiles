@@ -176,6 +176,22 @@ require('lazy').setup({
     end,
   },
   {
+    'MeanderingProgrammer/render-markdown.nvim',
+    ft = { 'markdown' },
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter',
+      'nvim-tree/nvim-web-devicons',
+    },
+    ---@module 'render-markdown'
+    ---@type render.md.UserConfig
+    opts = {
+      render_modes = true,
+      anti_conceal = { above = 0, below = 0 },
+      completions = { blink = { enabled = true } },
+      latex = { enabled = false },
+    },
+  },
+  {
     'gpanders/nvim-parinfer',
     ft = 'clojure',
     config = function()
@@ -203,6 +219,9 @@ require('lazy').setup({
       completion = {
         accept = { auto_brackets = { enabled = true } },
         documentation = { auto_show = true },
+        menu = {
+          auto_show = function(ctx) return vim.bo[ctx.bufnr].filetype ~= 'markdown' end,
+        },
       },
       signature = { enabled = true },
       sources = {

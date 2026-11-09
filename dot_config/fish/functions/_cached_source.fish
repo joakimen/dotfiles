@@ -1,8 +1,14 @@
 function _cached_source --description "Cache and source the output of 'cmd init fish'"
-    # Usage: _cached_source <command> [args...]
-    # Example: _cached_source starship init fish
+    # Usage: _cached_source [--watch FILE]... <command> [args...]
+    # Example: _cached_source --watch ~/.config/scriv/config.toml scriv init fish
     # Caches output to ~/.cache/fish/<command>.fish, regenerates when the binary
-    # changes or the cache is older than $_cached_source_ttl seconds (30 days).
+    # changes, when a watched file changes, or when the cache is older than
+    # $_cached_source_ttl seconds (30 days).
+
+    # `-s` stops at the command name, so the command's own flags — starship's
+    # `--print-full-init` — are arguments to pass on rather than options here.
+    argparse -s 'w/watch=+' -- $argv
+    or return 1
 
     set -l cmd $argv[1]
     set -l bin_path (command -s $cmd)
@@ -22,6 +28,14 @@ function _cached_source --description "Cache and source the output of 'cmd init 
         set stale 1
     else if test (math $_cached_source_now - (path mtime $cache_file)) -gt $_cached_source_ttl
         set stale 1
+    end
+
+    # A config file the command reads is as much an input as the binary is.
+    # Without this, editing it changes nothing until the binary happens to move.
+    for watched in $_flag_watch
+        if test -e $watched; and test $watched -nt $cache_file
+            set stale 1
+        end
     end
 
     if set -q stale[1]

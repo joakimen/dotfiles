@@ -48,10 +48,10 @@ quick-terminal-animation-duration = 0.05
 quick-terminal-size = 40%,80%
 
 # panes
-keybind = ctrl+shift+h=goto_split:left
-keybind = ctrl+shift+j=goto_split:down
-keybind = ctrl+shift+k=goto_split:up
-keybind = ctrl+shift+l=goto_split:right
+# keybind = ctrl+shift+h=goto_split:left
+# keybind = ctrl+shift+j=goto_split:down
+# keybind = ctrl+shift+k=goto_split:up
+# keybind = ctrl+shift+l=goto_split:right
 keybind = ctrl+shift+equal=equalize_splits
 
 # for glove80
@@ -66,3 +66,16 @@ keybind = super+ctrl+left=resize_split:left,70
 keybind = super+ctrl+up=resize_split:up,70
 keybind = super+ctrl+right=resize_split:right,70
 
+
+## managing in herdr
+
+# new tab 
+keybind = super+t=unbind
+
+# unbind splitting
+keybind = super+d=unbind
+keybind = super+shift+d=unbind
+
+# unbind tab next/prev (keycodes from https://github.com/ghostty-org/ghostty/discussions/9381)
+keybind = ctrl+tab=esc:[27;5;9~
+keybind = ctrl+shift+tab=esc:[27;6;9~

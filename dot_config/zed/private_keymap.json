@@ -10,14 +10,12 @@
     "context": "Editor",
     "bindings": {
       // pane nagvigation
-      "ctrl-shift-h": "workspace::ActivatePaneLeft",
-      "ctrl-shift-j": "workspace::ActivatePaneDown",
-      "ctrl-shift-k": "workspace::ActivatePaneUp",
-      "ctrl-shift-l": "workspace::ActivatePaneRight",
+      "ctrl-cmd-j": "workspace::ActivatePaneDown",
+      "ctrl-cmd-k": "workspace::ActivatePaneUp",
 
       // pane splitting
       "cmd-d": "pane::SplitRight",
-      "shift-cmd-d": "pane::SplitDown",
+      "ctrl-cmd-d": "pane::SplitDown",
       "cmd--": "zed::DecreaseBufferFontSize",
       "cmd-=": "zed::IncreaseBufferFontSize"
     }
@@ -49,6 +47,46 @@
       "f4": "zed::OpenLog",
       "f5": "dev::OpenLanguageServerLogs",
       "f10": "workspace::ToggleCenteredLayout"
+    }
+  },
+  {
+    "context": "Editor",
+    "unbind": {
+      "ctrl-cmd-d": [
+        "editor::SelectPrevious",
+        {
+          "replace_newest": false
+        }
+      ]
+    }
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-cmd-l": "workspace::ActivatePaneRight"
+    }
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-cmd-h": "workspace::ActivatePaneLeft"
+    }
+  },
+  {
+    "unbind": {
+      "ctrl-cmd-l": "lsp_tool::ToggleMenu"
+    }
+  },
+  {
+    "context": "Editor && mode == full",
+    "bindings": {
+      "ctrl-cmd-p": "editor::ShowSignatureHelp"
+    }
+  },
+  {
+    "context": "Editor && mode == full",
+    "unbind": {
+      "cmd-p": "editor::ShowSignatureHelp"
     }
   }
 ]

@@ -1,35 +1,74 @@
 [tools]
 
 # languages
-java = ["temurin-21","temurin-19", "temurin-17"]
-golang = ['1.23', '1.22', '1.21', '1.20']
-bun = '1'
-python = ["3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
-terraform = "1.8.1"
-go = "1.26.0"
-node = "24"
-deno = "2.5.4"
+java = "temurin-25"
+go = "1.27"
+bun = "1"
+python = "3.15"
+node = "lts"
+rust = "stable"
+zig = "0.17"
+terraform = "1"
+
+# node packages, installed via mise's embedded npm installer
+"npm:typescript" = "latest"
+"npm:typescript-language-server" = "latest"
+"npm:@biomejs/biome" = "latest"
+"npm:markdownlint-cli" = "latest"
+
+# go packages, built with `go install` against the active go
+"go:golang.org/x/tools/gopls" = "latest"
+"go:golang.org/x/tools/cmd/goimports" = "latest"
+"go:golang.org/x/tools/cmd/gonew" = "latest"
+"go:honnef.co/go/tools/cmd/staticcheck" = "latest"
+"go:mvdan.cc/gofumpt" = "latest"
+"go:github.com/spf13/cobra-cli" = "latest"
+"go:github.com/dineshba/tf-summarize" = "latest"
+"go:github.com/joakimen/awsvault" = "latest"
+
 
 # tools
 trivy = "latest"
-tflint = "0.58.1"
-task = "3.45.4"
-snyk = "1.1300.1"
-zig = "latest"
-terraform-docs = "0.21.0"
+tflint = "latest"
+task = "latest"
+terraform-docs = "latest"
 ruff = "latest"
 fnox = "latest"
 age = "latest"
-"github:joakimen/fnox-add" = "0.2.0"
 supabase = "latest"
-rust = "latest"
-"github:joakimen/scriv" = "latest"
-delta = "latest"
-zellij = "latest"
-tmux = "latest"
 prek = "latest"
 herdr = "latest"
+"github:bahdotsh/mdterm" = "latest"
+acli = "latest"
+checkmake = "latest"
+maven = "latest"
+shellcheck = "latest"
+shfmt = "latest"
 
 [settings]
+status.show_tools = true             # prints which tools changed when you cd into a project
+use_versions_host_track = false      # opt out of install telemetry sent to mise-versions
+disable_backends = ["asdf"]
+# lockfile = true
+lockfile_platforms = ["linux-x64", "macos-arm64"] ##  currently only used by global cfg
+tool_update.global_auto = true
 idiomatic_version_file_enable_tools = ["bun", "node", "python"]
-minimum_release_age_excludes = ["github:joakimen/scriv","github:joakimen/rw"]
+minimum_release_age = "3d"
+minimum_release_age_excludes = ["github:joakimen/cid","github:joakimen/rw", "github:joakimen/awsvault"]
+
+# trust personal and work project toolchains
+trusted_config_paths = [
+    '~/dev/github.com/joakimen',
+    '~/dev/github.com/joakimen-test-org',
+    '~/dev/github.com/capralifecycle',
+    '~/dev/github.com/capraconsulting',
+    '~/dev/github.com/grotsetgilfil',
+]
+
+python.uv_venv_auto = "source"       # activates an existing .venv in uv projects
+
+[settings.github]
+credential_command="gh auth token"
+
+# verbose = false     # Show extra output for debugging
+# experimental = false    # enable experimental features

@@ -1,5 +1,6 @@
 --smart-case
 --glob=!.git/
+--glob=!.jj/
 --glob=!.calva/
 --glob=!.pytest_cache/
 --glob=!.clj-kondo/

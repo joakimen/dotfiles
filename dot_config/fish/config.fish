@@ -1,3 +1,7 @@
+# The following lines were added by Docker Desktop to add commands to your PATH.
+export PATH="$PATH:/Users/joakim/.docker/bin"
+# End of Docker Desktop section.
+
 # config.fish
 # Author: Joakim Engeset <joakim.engeset@gmail.com>
 
@@ -13,7 +17,6 @@ set -xg AWS_VAULT_PROMPT osascript
 set -xg ZELLIJ_DEFAULT_SESSION default-session
 set -xg HOMEBREW_NO_ENV_HINTS 1
 set -xg MR_CONFIG "$HOME/.mrconfig"
-set -xg MISE_NODE_DEFAULT_PACKAGES_FILE "$HOME/.config/mise/node-packages"
 set -xg MISE_FISH_AUTO_ACTIVATE 1
 set -xg LIFLIG_DEV "$HOME/dev/github.com/capralifecycle"
 set -xg ENABLE_LSP_TOOL 1  # used by claude
@@ -32,12 +35,13 @@ end
 
 
 # --- Key bindings ---
-# scriv provides scriv-repo-cd, scriv-file-edit, fe, kl and scriv_key_bindings
-# (ctrl-o -> repo cd, f3 -> file edit). Regenerated when the binary changes.
-_cached_source scriv init fish
+# cid emits its functions, its aliases (fe, kl, i, b) and cid
+# from [shell.bindings] and [shell.aliases] in ~/.config/cid/config.toml, so
+# that file is watched alongside the binary.
+_cached_source --watch ~/.config/cid/config.toml cid init fish
 
 function fish_user_key_bindings
-    scriv_key_bindings
+    cid_key_bindings
     bind f4 "awsvault exec; commandline -f execute"
     bind f5 "awsvault login; and commandline -f execute"
 end
@@ -118,9 +122,10 @@ _source ~/.config/liflig/liflig.fish
 # --- Tool initialization ---
 _cached_source starship init fish --print-full-init
 _cached_source fnox activate fish
+# _cached_source zoxide init fish
 
-set -l safe_chain "$HOME/.safe-chain/scripts/init-fish.fish"
-test -f $safe_chain && source $safe_chain
+# set -l safe_chain "$HOME/.safe-chain/scripts/init-fish.fish"
+# test -f $safe_chain && source $safe_chain
 
 # ~/.config/fish/conf.d/sd.fish
 # functions -c fish_prompt _starship_prompt
@@ -146,4 +151,11 @@ function acc-loop
         acc get $id
     end
 end
+
+function fix-title
+  herdr tab rename $HERDR_TAB_ID (basename $PWD) 1>/dev/null
+end
+
+# excluded: gcloud
+set -U _tide_right_items status cmd_duration context jobs direnv bun node python rustc java pulumi ruby go terraform aws zig time
 
