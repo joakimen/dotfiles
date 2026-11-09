@@ -23,6 +23,15 @@ vim.opt.inccommand = 'split'
 vim.opt.smoothscroll = true
 vim.opt.scrolloff = 4
 vim.opt.winborder = 'rounded'
+vim.opt.list = true
+vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+vim.opt.statusline = "%!v:lua.require'statusline'.render()"
+
+-- No remote plugins are used; skips the provider probes at startup.
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_node_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_ruby_provider = 0
 
 -- Everything unfolded until asked otherwise. foldmethod/foldexpr are set per
 -- buffer alongside treesitter, so buffers without a parser keep manual folds
@@ -30,33 +39,96 @@ vim.opt.winborder = 'rounded'
 vim.opt.foldlevel = 99
 vim.opt.foldlevelstart = 99
 
--- Keyed by lspconfig name so mason-lspconfig can both install and enable them.
--- The value is the server's `settings` block, empty where defaults suffice.
+local ts_inlay_hints = {
+  inlayHints = {
+    parameterNames = { enabled = 'literals' },
+    parameterTypes = { enabled = true },
+    propertyDeclarationTypes = { enabled = true },
+    functionLikeReturnTypes = { enabled = true },
+    enumMemberValues = { enabled = true },
+  },
+}
+
+-- Keyed by lspconfig name. mason-lspconfig installs and enables exactly these,
+-- so other servers mason happens to have installed never attach. Each value is
+-- merged over lspconfig's defaults with vim.lsp.config().
+---@type table<string, vim.lsp.Config>
 local servers = {
   bashls = {},
   clojure_lsp = {},
   gopls = {
-    gopls = {
-      gofumpt = true,
-      staticcheck = true,
-      analyses = {
-        unusedparams = true,
-        shadow = true,
+    settings = {
+      gopls = {
+        gofumpt = true,
+        staticcheck = true,
+        analyses = {
+          unusedparams = true,
+          shadow = true,
+        },
+        -- Only sent while inlay hints are toggled on with <leader>ch.
+        hints = {
+          assignVariableTypes = true,
+          compositeLiteralFields = true,
+          compositeLiteralTypes = true,
+          constantValues = true,
+          functionTypeParameters = true,
+          parameterNames = true,
+          rangeVariableTypes = true,
+        },
       },
     },
   },
   jsonls = {},
-  kotlin_language_server = {},
-  lua_ls = {},
-  terraformls = {},
-  vtsls = {},
+  kotlin_lsp = {},
+  lua_ls = {
+    -- Neovim runtime and plugin types, for this config only; other Lua projects keep their own .luarc.json.
+    on_init = function(client)
+      local root = client.workspace_folders and client.workspace_folders[1].name
+      if root ~= vim.fn.stdpath('config') then
+        return
+      end
+      client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua --[[@as table]], {
+        runtime = { version = 'LuaJIT', path = { 'lua/?.lua', 'lua/?/init.lua' } },
+        workspace = {
+          checkThirdParty = false,
+          library = { vim.env.VIMRUNTIME, vim.fn.stdpath('data') .. '/lazy' },
+        },
+      })
+    end,
+    settings = { Lua = {} },
+  },
+  terraformls = {
+    -- terraform-ls writes debug logs to stderr, which nvim records in lsp.log at ERROR level.
+    cmd = { 'terraform-ls', 'serve', '-log-file=/dev/null' },
+  },
+  tflint = {},
+  vtsls = {
+    settings = {
+      typescript = ts_inlay_hints,
+      javascript = ts_inlay_hints,
+    },
+  },
   yamlls = {},
   zls = {},
 }
 
--- Everything else mason should keep installed: conform's formatters, plus the
--- tree-sitter CLI that nvim-treesitter's main branch shells out to for builds.
-local tools = { 'gofumpt', 'goimports', 'prettierd', 'stylua', 'tree-sitter-cli' }
+-- Servers that ship with a language toolchain and are enabled directly, so
+-- their version always matches the compiler (`rustup component add rust-analyzer`).
+---@type table<string, vim.lsp.Config>
+local toolchain_servers = {
+  rust_analyzer = {
+    settings = {
+      ['rust-analyzer'] = {
+        check = { command = 'clippy' },
+      },
+    },
+  },
+}
+
+-- Everything else mason should keep installed: conform's formatters, the
+-- shellcheck binary bashls lints with, and the tree-sitter CLI that
+-- nvim-treesitter's main branch shells out to for builds.
+local tools = { 'prettierd', 'shellcheck', 'stylua', 'tree-sitter-cli' }
 
 -- conform and nvim-treesitter resolve their binaries off PATH, so mason's bin
 -- dir has to be there before either runs. Doing it here rather than relying on
@@ -66,7 +138,7 @@ vim.env.PATH = vim.fn.stdpath 'data' .. '/mason/bin' .. ':' .. vim.env.PATH
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.uv.fs_stat(lazypath) then
-  vim.fn.system {
+  local out = vim.fn.system {
     'git',
     'clone',
     '--filter=blob:none',
@@ -74,6 +146,9 @@ if not vim.uv.fs_stat(lazypath) then
     '--branch=stable',
     lazypath,
   }
+  if vim.v.shell_error ~= 0 then
+    error('Failed to clone lazy.nvim:\n' .. out)
+  end
 end
 vim.opt.rtp:prepend(lazypath)
 
@@ -113,19 +188,21 @@ require('lazy').setup({
     dependencies = {
       'mason-org/mason.nvim',
       'mason-org/mason-lspconfig.nvim',
+      -- blink registers its completion capabilities via vim.lsp.config('*'),
+      -- so it has to load before the first server starts.
+      'saghen/blink.cmp',
     },
     config = function()
-      for name, settings in pairs(servers) do
-        vim.lsp.config(name, {
-          settings = next(settings) and settings or nil,
-        })
+      for name, config in pairs(vim.tbl_extend('error', servers, toolchain_servers)) do
+        vim.lsp.config(name, config)
       end
+      vim.lsp.enable(vim.tbl_keys(toolchain_servers))
 
-      -- automatic_enable only enables servers that are actually installed, so
-      -- a missing binary no longer errors on every matching buffer.
+      -- Enabling through mason-lspconfig skips servers that aren't installed
+      -- yet, so a missing binary doesn't error on every matching buffer.
       require('mason-lspconfig').setup {
         ensure_installed = vim.tbl_keys(servers),
-        automatic_enable = true,
+        automatic_enable = vim.tbl_keys(servers),
       }
     end,
   },
@@ -138,12 +215,16 @@ require('lazy').setup({
     config = function()
       local ts = require('nvim-treesitter')
       local want = {
-        'bash', 'clojure', 'diff', 'dockerfile', 'git_config', 'gitcommit',
-        'go', 'gomod', 'gosum', 'gowork', 'hcl', 'javascript', 'json',
-        'kotlin', 'lua', 'luadoc', 'make', 'markdown', 'markdown_inline',
-        'query', 'terraform', 'toml', 'tsx', 'typescript', 'vim', 'vimdoc',
-        'yaml', 'zig',
+        'bash', 'clojure', 'css', 'diff', 'dockerfile', 'editorconfig', 'fish',
+        'git_config', 'gitattributes', 'gitcommit', 'gitignore', 'go', 'gomod',
+        'gosum', 'gowork', 'hcl', 'html', 'http', 'java', 'javascript', 'json',
+        'json5', 'kotlin', 'lua', 'luadoc', 'make', 'markdown', 'markdown_inline',
+        'properties', 'python', 'query', 'rego', 'rust', 'sql', 'terraform',
+        'toml', 'tsx', 'typescript', 'vim', 'vimdoc', 'xml', 'yaml', 'zig',
       }
+
+      -- No jsonc grammar exists; the json one parses comments and only marks trailing commas as errors.
+      vim.treesitter.language.register('json', 'jsonc')
 
       local installed = {}
       for _, lang in ipairs(ts.get_installed()) do
@@ -176,11 +257,48 @@ require('lazy').setup({
     end,
   },
   {
+    'nvim-treesitter/nvim-treesitter-textobjects',
+    branch = 'main',
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    opts = {
+      select = { lookahead = true },
+      move = { set_jumps = true },
+    },
+    keys = function()
+      local function select(capture)
+        return function()
+          require('nvim-treesitter-textobjects.select').select_textobject(capture, 'textobjects')
+        end
+      end
+      local function move(direction, capture)
+        return function()
+          require('nvim-treesitter-textobjects.move')[direction](capture, 'textobjects')
+        end
+      end
+      local xo, nxo = { 'x', 'o' }, { 'n', 'x', 'o' }
+      return {
+        { 'af', select('@function.outer'), mode = xo, desc = 'Around function' },
+        { 'if', select('@function.inner'), mode = xo, desc = 'Inside function' },
+        { 'ac', select('@class.outer'), mode = xo, desc = 'Around class' },
+        { 'ic', select('@class.inner'), mode = xo, desc = 'Inside class' },
+        { 'aa', select('@parameter.outer'), mode = xo, desc = 'Around argument' },
+        { 'ia', select('@parameter.inner'), mode = xo, desc = 'Inside argument' },
+        { ']f', move('goto_next_start', '@function.outer'), mode = nxo, desc = 'Next function' },
+        { '[f', move('goto_previous_start', '@function.outer'), mode = nxo, desc = 'Prev function' },
+      }
+    end,
+  },
+  {
+    'nvim-treesitter/nvim-treesitter-context',
+    event = { 'BufReadPost', 'BufNewFile' },
+    opts = { max_lines = 3 },
+  },
+  {
     'MeanderingProgrammer/render-markdown.nvim',
     ft = { 'markdown' },
     dependencies = {
       'nvim-treesitter/nvim-treesitter',
-      'nvim-tree/nvim-web-devicons',
+      'nvim-mini/mini.icons',
     },
     ---@module 'render-markdown'
     ---@type render.md.UserConfig
@@ -192,6 +310,19 @@ require('lazy').setup({
     },
   },
   {
+    'nvim-mini/mini.icons',
+    lazy = true,
+    opts = {},
+    init = function()
+      -- fzf-lua only picks mini.icons when it is already set up or mocking devicons.
+      ---@diagnostic disable-next-line: duplicate-set-field
+      package.preload['nvim-web-devicons'] = function()
+        require('mini.icons').mock_nvim_web_devicons()
+        return package.loaded['nvim-web-devicons']
+      end
+    end,
+  },
+  {
     'gpanders/nvim-parinfer',
     ft = 'clojure',
     config = function()
@@ -201,12 +332,11 @@ require('lazy').setup({
   {
     'saghen/blink.cmp',
     version = '1.*',
+    event = { 'InsertEnter', 'CmdlineEnter' },
     dependencies = {
       'rafamadriz/friendly-snippets',
       'fang2hou/blink-copilot',
     },
-    -- blink's plugin file already registers its capabilities via
-    -- vim.lsp.config('*'), so servers need no capabilities wiring here.
     opts = {
       keymap = {
         preset = 'default',
@@ -256,16 +386,17 @@ require('lazy').setup({
     name = 'catppuccin',
     priority = 1000,
     opts = {
-      -- Auto-detection rescans the plugin list on every startup (~3.6ms).
-      -- These are exactly what it detected; treesitter and native_lsp are on
-      -- by default and stay that way.
+      -- Auto-detection rescans the plugin list on every startup (~3.6ms), so
+      -- integrations are listed explicitly; treesitter and native_lsp are on
+      -- by default.
       auto_integrations = false,
       integrations = {
         blink_cmp = true,
         fzf = true,
         gitsigns = true,
-        lsp_trouble = true,
         mason = true,
+        mini = { enabled = true },
+        treesitter_context = true,
         which_key = true,
       },
     },
@@ -278,6 +409,14 @@ require('lazy').setup({
   {
     'ibhagwan/fzf-lua',
     cmd = 'FzfLua',
+    init = function()
+      -- Code actions and other vim.ui.select prompts go through fzf-lua, loaded on first use.
+      ---@diagnostic disable-next-line: duplicate-set-field
+      vim.ui.select = function(...)
+        require('fzf-lua').register_ui_select()
+        return vim.ui.select(...)
+      end
+    end,
     opts = {
       'default',
       winopts = { preview = { default = 'bat' } },
@@ -322,7 +461,6 @@ require('lazy').setup({
         yaml = { 'prettierd', 'prettier', stop_after_first = true },
         lua = { 'stylua' },
         terraform = { 'terraform_fmt' },
-        tf = { 'terraform_fmt' },
         ['terraform-vars'] = { 'terraform_fmt' },
       },
     },
@@ -349,41 +487,23 @@ require('lazy').setup({
       end,
     },
   },
-  { 'folke/which-key.nvim', event = 'VeryLazy' },
   {
-    'nvim-lualine/lualine.nvim',
+    'folke/which-key.nvim',
     event = 'VeryLazy',
     opts = {
-      options = {
-        icons_enabled = false,
-        theme = 'catppuccin-mocha',
-        component_separators = '|',
-        section_separators = '',
-      },
-      sections = {
-        -- vim.lsp.status() is built into 0.12, so server progress (gopls
-        -- indexing, say) is visible without a notification plugin.
-        lualine_c = { 'filename', { vim.lsp.status, separator = '' } },
+      preset = 'helix',
+      delay = 0,
+      spec = {
+        { '<leader>c', group = 'LSP' },
+        { '<leader>g', group = 'Git' },
+        { '<leader>h', group = 'Git hunks' },
+        { '<leader>s', group = 'Search' },
+        { '<leader>t', group = 'Text' },
       },
     },
   },
-  {
-    'folke/trouble.nvim',
-    opts = {},
-    cmd = 'Trouble',
-    keys = {
-      {
-        '<leader>xx',
-        '<cmd>Trouble diagnostics toggle<cr>',
-        desc = 'Diagnostics (Trouble)',
-      },
-      {
-        '<leader>xX',
-        '<cmd>Trouble diagnostics toggle filter.buf=0<cr>',
-        desc = 'Buffer Diagnostics (Trouble)',
-      },
-    },
-  },
+}, {
+  rocks = { enabled = false },
 })
 
 -- Keymaps
@@ -395,17 +515,27 @@ vim.keymap.set('n', 'N', 'Nzzzv', { desc = 'Center on prev match' })
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>', { desc = 'Clear search highlight' })
 vim.keymap.set('i', 'fd', '<Esc>', { desc = 'Escape' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic' })
+vim.keymap.set('n', '<leader>u', function()
+  vim.cmd.packadd 'nvim.undotree'
+  require('undotree').open()
+end, { desc = 'Toggle undo tree' })
 
 --- Apply every `source.organizeImports` action the attached servers offer.
 --- Synchronous so it always lands before formatting rewrites the same ranges.
 local function organize_imports(bufnr, timeout_ms)
   local clients = vim.lsp.get_clients { bufnr = bufnr, method = 'textDocument/codeAction' }
   for _, client in ipairs(clients) do
-    local params = vim.lsp.util.make_range_params(0, client.offset_encoding)
-    params.context = { only = { 'source.organizeImports' }, diagnostics = {} }
+    local params = vim.tbl_extend('force', vim.lsp.util.make_range_params(0, client.offset_encoding), {
+      context = { only = { 'source.organizeImports' }, diagnostics = {} },
+    })
 
-    local responses = client:request_sync('textDocument/codeAction', params, timeout_ms, bufnr)
-    for _, action in pairs(responses and responses.result or {}) do
+    local response = client:request_sync('textDocument/codeAction', params, timeout_ms, bufnr)
+    for _, action in ipairs(response and response.result or {}) do
+      -- Some servers (vtsls) return the action without its edit until it is resolved.
+      if not action.edit and client:supports_method('codeAction/resolve') then
+        local resolved = client:request_sync('codeAction/resolve', action, timeout_ms, bufnr)
+        action = resolved and resolved.result or action
+      end
       if action.edit then
         vim.lsp.util.apply_workspace_edit(action.edit, client.offset_encoding)
       end
@@ -430,7 +560,9 @@ local function format_json()
     return
   end
 
-  local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+  local bufnr = vim.api.nvim_get_current_buf()
+  local win = vim.api.nvim_get_current_win()
+  local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
   local view = vim.fn.winsaveview()
   vim.system({ 'jq', '.' }, { stdin = lines, text = true }, function(result)
     vim.schedule(function()
@@ -438,8 +570,13 @@ local function format_json()
         vim.notify(vim.trim(result.stderr or 'jq failed'), vim.log.levels.ERROR)
         return
       end
-      vim.api.nvim_buf_set_lines(0, 0, -1, false, vim.split(vim.trim(result.stdout), '\n'))
-      vim.fn.winrestview(view)
+      if not vim.api.nvim_buf_is_valid(bufnr) then
+        return
+      end
+      vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, vim.split(vim.trim(result.stdout), '\n'))
+      if vim.api.nvim_win_is_valid(win) and vim.api.nvim_win_get_buf(win) == bufnr then
+        vim.api.nvim_win_call(win, function() vim.fn.winrestview(view) end)
+      end
     end)
   end)
 end
@@ -504,6 +641,10 @@ vim.api.nvim_create_autocmd('BufReadPost', {
   end,
 })
 
+-- The statusline reads LSP progress and gitsigns buffer variables, neither of which triggers a redraw.
+vim.api.nvim_create_autocmd('LspProgress', { group = augroup, command = 'redrawstatus' })
+vim.api.nvim_create_autocmd('User', { group = augroup, pattern = 'GitSignsUpdate', command = 'redrawstatus' })
+
 vim.api.nvim_create_autocmd('TextYankPost', {
   group = augroup,
   callback = function()
@@ -511,24 +652,3 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
--- which-key setup
-vim.api.nvim_create_autocmd('User', {
-  group = augroup,
-  pattern = 'VeryLazy',
-  callback = function()
-    local wk = require('which-key')
-    wk.setup {
-      preset = 'helix',
-      delay = 0,
-    }
-
-    wk.add {
-      { '<leader>c', group = 'LSP' },
-      { '<leader>g', group = 'Git' },
-      { '<leader>h', group = 'Git hunks' },
-      { '<leader>s', group = 'Search' },
-      { '<leader>t', group = 'Text' },
-      { '<leader>x', group = 'Diagnostics' },
-    }
-  end,
-})
